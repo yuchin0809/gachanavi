@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+<defs>
+<radialGradient id="bg" cx="30%" cy="25%" r="90%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#E4E7EE"/></radialGradient>
+<linearGradient id="top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A6378" stop-opacity="0.95"/><stop offset="1" stop-color="#5A6378"/></linearGradient>
+<clipPath id="cap"><circle cx="200" cy="205" r="130"/></clipPath>
+</defs>
+<rect width="400" height="400" fill="url(#bg)"/>
+<circle cx="340" cy="70" r="26" fill="#5A6378" opacity="0.12"/>
+<circle cx="60" cy="330" r="40" fill="#5A6378" opacity="0.10"/>
+<ellipse cx="200" cy="350" rx="110" ry="14" fill="#000" opacity="0.08"/>
+<g clip-path="url(#cap)">
+<rect x="60" y="60" width="280" height="145" fill="url(#top)"/>
+<rect x="60" y="205" width="280" height="140" fill="#ffffff" opacity="0.85"/>
+</g>
+<circle cx="200" cy="205" r="130" fill="none" stroke="#5A6378" stroke-opacity="0.35" stroke-width="4"/>
+<rect x="68" y="198" width="264" height="14" rx="7" fill="#5A6378" opacity="0.25"/>
+<ellipse cx="148" cy="120" rx="38" ry="18" fill="#fff" opacity="0.35" transform="rotate(-25 148 120)"/>
+<text x="200" y="262" font-size="110" text-anchor="middle" dominant-baseline="middle" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif">🤖</text>
+</svg>

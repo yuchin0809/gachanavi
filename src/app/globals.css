@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+ * GachaNavi デザイントークン
+ * - brand: カプセルトイ筐体を思わせる赤
+ * - accent: カプセルの黄色
+ * - stock-*: 在庫状態（在庫あり / 残りわずか / 売り切れ / 未確認）
+ */
+@theme {
+  --color-canvas: #fbf8f3;
+  --color-surface: #ffffff;
+  --color-ink: #1d1a2b;
+  --color-muted: #6b6778;
+  --color-line: #ece6dc;
+
+  --color-brand: #ef4550;
+  --color-brand-ink: #c42b36;
+  --color-brand-soft: #ffe9e7;
+  --color-accent: #ffc83d;
+  --color-accent-soft: #fff4d4;
+
+  --color-stock-in: #16a34a;
+  --color-stock-in-soft: #e6f6eb;
+  --color-stock-in-ink: #11672f;
+  --color-stock-low: #f59e0b;
+  --color-stock-low-soft: #fff3d9;
+  --color-stock-low-ink: #8a520a;
+  --color-stock-out: #e11d48;
+  --color-stock-out-soft: #fde8ed;
+  --color-stock-out-ink: #9f1239;
+  --color-stock-unknown: #a8a29e;
+  --color-stock-unknown-soft: #f1efec;
+  --color-stock-unknown-ink: #57534e;
+
+  --font-sans:
+    "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", Meiryo,
+    system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(29 26 43 / 0.04), 0 4px 16px rgb(29 26 43 / 0.06);
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 横スクロールリストのスクロールバーを隠す */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
