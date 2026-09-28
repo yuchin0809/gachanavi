@@ -1,11 +1,11 @@
 import { GachaCard } from "@/components/gacha/GachaCard";
 import { HorizontalScroller } from "@/components/gacha/HorizontalScroller";
-import { NearbyFindCard } from "@/components/gacha/NearbyFindCard";
 import { SectionHeader } from "@/components/gacha/SectionHeader";
+import { NearbyFindsSection } from "@/components/geo/NearbyFindsSection";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { KeywordChips } from "@/components/search/KeywordChips";
 import { SearchBar } from "@/components/search/SearchBar";
-import { getCurrentPosition, getNearbyFinds, getNewProducts, getTrendingProducts } from "@/lib/data";
+import { getAvailableFinds, getNewProducts, getTrendingProducts } from "@/lib/data";
 import { formatReleaseMonth } from "@/lib/format";
 
 // 在庫・報告時刻は常に最新を表示したいため、リクエストごとに描画する
@@ -14,11 +14,10 @@ export const dynamic = "force-dynamic";
 const POPULAR_KEYWORDS = ["ねこ", "ミニチュア", "恐竜", "ペンギン", "ぬいぐるみ", "深海"];
 
 export default async function HomePage() {
-  const position = getCurrentPosition();
-  const [trending, newest, nearby] = await Promise.all([
+  const [trending, newest, nearbyCandidates] = await Promise.all([
     getTrendingProducts(),
     getNewProducts(),
-    getNearbyFinds(position),
+    getAvailableFinds(),
   ]);
 
   return (
@@ -57,26 +56,7 @@ export default async function HomePage() {
           </HorizontalScroller>
         </section>
 
-        <section>
-          <SectionHeader
-            icon="📍"
-            title="近くで見つかったガチャ"
-            description={`${position.label}（開発用の仮の現在地）で在庫ありと報告されたガチャ`}
-          />
-          {nearby.length > 0 ? (
-            <ul className="space-y-2">
-              {nearby.map((find) => (
-                <li key={`${find.product.id}-${find.location.id}`}>
-                  <NearbyFindCard find={find} />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="rounded-2xl bg-surface p-6 text-center text-sm text-muted ring-1 ring-line">
-              近くで在庫ありの報告はまだありません。
-            </p>
-          )}
-        </section>
+        <NearbyFindsSection candidates={nearbyCandidates} />
       </PageContainer>
     </>
   );
