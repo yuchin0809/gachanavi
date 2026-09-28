@@ -1,19 +1,22 @@
 "use server";
 
 import { updateTag } from "next/cache";
-import { getReporterId } from "@/lib/auth/reporter";
+import { ReporterAuthError, getReporterId } from "@/lib/auth/reporter";
 import { getDataSource } from "@/lib/data";
 import { cacheTags } from "@/lib/data/cacheTags";
-import { PlacementNotFoundError } from "@/lib/data/source";
+import { PlacementNotFoundError, ReportRateLimitedError } from "@/lib/data/source";
 import { REPORTABLE_STATUSES } from "@/lib/stock";
 import type { ReportableStockStatus, StockReport } from "@/types";
 
 export type ReportStockResult =
   | { ok: true; report: StockReport; persisted: boolean }
-  | { ok: false; error: "invalid_input" | "placement_not_found" | "server_error" };
+  | { ok: false; error: "invalid_input" | "placement_not_found" | "unauthenticated" | "server_error" }
+  | { ok: false; error: "rate_limited"; retryAfterSeconds: number };
 
 // Firestore のドキュメントIDとして安全な形式のみ受け付ける
 const ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
+// Firebase の ID トークン（JWT）は通常 1〜2KB 程度
+const MAX_ID_TOKEN_LENGTH = 8192;
 
 function isStatus(value: unknown): value is ReportableStockStatus {
   return typeof value === "string" && (REPORTABLE_STATUSES as string[]).includes(value);
@@ -24,14 +27,18 @@ function isStatus(value: unknown): value is ReportableStockStatus {
  *
  * Server Action は外部から直接 POST で呼び出せるため、入力は必ずサーバー側で検証する。
  * 報告日時はクライアントから受け取らず、サーバーの現在時刻を使う。
+ * 報告者は、クライアントが送った ID トークンをサーバーで検証して得た uid で決める（src/lib/auth/reporter.ts）。
  */
 export async function reportStockAction(input: {
   productId: unknown;
   locationId: unknown;
   status: unknown;
+  idToken?: unknown;
 }): Promise<ReportStockResult> {
-  const { productId, locationId, status } = input ?? {};
+  const { productId, locationId, status, idToken } = input ?? {};
   if (
+    (idToken !== undefined && idToken !== null && typeof idToken !== "string") ||
+    (typeof idToken === "string" && idToken.length > MAX_ID_TOKEN_LENGTH) ||
     typeof productId !== "string" ||
     typeof locationId !== "string" ||
     !ID_PATTERN.test(productId) ||
@@ -42,7 +49,10 @@ export async function reportStockAction(input: {
   }
 
   try {
-    const [dataSource, userId] = await Promise.all([getDataSource(), getReporterId()]);
+    const [dataSource, userId] = await Promise.all([
+      getDataSource(),
+      getReporterId(typeof idToken === "string" && idToken ? idToken : null),
+    ]);
     const report = await dataSource.addStockReport({ productId, locationId, userId, status });
 
     if (dataSource.persistent) {
@@ -56,6 +66,12 @@ export async function reportStockAction(input: {
   } catch (error) {
     if (error instanceof PlacementNotFoundError) {
       return { ok: false, error: "placement_not_found" };
+    }
+    if (error instanceof ReportRateLimitedError) {
+      return { ok: false, error: "rate_limited", retryAfterSeconds: Math.ceil(error.retryAfterMs / 1000) };
+    }
+    if (error instanceof ReporterAuthError) {
+      return { ok: false, error: "unauthenticated" };
     }
     console.error("[reportStockAction]", error);
     return { ok: false, error: "server_error" };

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckIcon } from "@/components/ui/Icons";
+import { StockReportError } from "@/lib/data/reports";
 import { REPORTABLE_STATUSES, STOCK_STATUS_META } from "@/lib/stock";
 import type { ID, ReportableStockStatus } from "@/types";
 import { StockDot } from "./StockBadge";
@@ -11,7 +12,21 @@ type PanelState =
   | { kind: "idle" }
   | { kind: "submitting"; status: ReportableStockStatus }
   | { kind: "done"; status: ReportableStockStatus }
-  | { kind: "error" };
+  | { kind: "error"; message: string };
+
+/** 送信エラーをユーザー向けのメッセージにする */
+function errorMessage(error: unknown): string {
+  if (error instanceof StockReportError) {
+    if (error.code === "rate_limited") {
+      const minutes = Math.max(1, Math.ceil((error.retryAfterSeconds ?? 60) / 60));
+      return `このガチャのこの場所の在庫は、少し前に報告済みです。続けて報告できないため、あと${minutes}分ほど待ってからお試しください。`;
+    }
+    if (error.code === "unauthenticated") {
+      return "報告者の確認ができませんでした。ページを再読み込みしてから、もう一度お試しください。";
+    }
+  }
+  return "送信できませんでした。時間をおいて再度お試しください。";
+}
 
 /** 「在庫あり / 残りわずか / 売り切れ」の報告ボタン */
 export function StockReportPanel({ productId, locationId }: { productId: ID; locationId: ID }) {
@@ -24,8 +39,8 @@ export function StockReportPanel({ productId, locationId }: { productId: ID; loc
     try {
       await report({ productId, locationId, status });
       setState({ kind: "done", status });
-    } catch {
-      setState({ kind: "error" });
+    } catch (error) {
+      setState({ kind: "error", message: errorMessage(error) });
     }
   }
 
@@ -64,7 +79,9 @@ export function StockReportPanel({ productId, locationId }: { productId: ID; loc
           </p>
         )}
         {state.kind === "error" && (
-          <p className="mt-2 text-xs font-bold text-stock-out-ink">送信できませんでした。時間をおいて再度お試しください。</p>
+          <p role="alert" className="mt-2 text-xs font-bold text-stock-out-ink">
+            {state.message}
+          </p>
         )}
       </div>
       {!persistent && (

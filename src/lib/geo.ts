@@ -1,4 +1,4 @@
-import type { GeoPoint } from "@/types";
+import type { GeoPoint, ID, NearbyFind, NearbyFindCandidate } from "@/types";
 
 const EARTH_RADIUS_M = 6_371_000;
 
@@ -17,4 +17,14 @@ export function distanceMeters(a: GeoPoint, b: GeoPoint): number {
 export function googleMapsUrl(point: GeoPoint, label?: string): string {
   const query = label ? `${label} ${point.lat},${point.lng}` : `${point.lat},${point.lng}`;
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+/** 候補を現在地から近い順に並べ、同じ商品は最寄りの1件だけ残して上位 limit 件を返す */
+export function pickNearbyFinds(candidates: NearbyFindCandidate[], origin: GeoPoint, limit = 6): NearbyFind[] {
+  const seen = new Set<ID>();
+  return candidates
+    .map((c) => ({ ...c, distanceMeters: distanceMeters(origin, c.location) }))
+    .sort((a, b) => a.distanceMeters - b.distanceMeters)
+    .filter((f) => (seen.has(f.product.id) ? false : (seen.add(f.product.id), true)))
+    .slice(0, limit);
 }

@@ -5,7 +5,6 @@
 import "server-only";
 import { cache } from "react";
 import { mockCurrentPosition } from "@/data/mock";
-import { distanceMeters } from "@/lib/geo";
 import { matchesQuery } from "@/lib/search";
 import { STOCK_STATUS_ORDER, isAvailable } from "@/lib/stock";
 import type {
@@ -15,7 +14,7 @@ import type {
   ID,
   Location,
   LocationProductEntry,
-  NearbyFind,
+  NearbyFindCandidate,
   PlacementWithStock,
   ProductLocationEntry,
   StockSnapshot,
@@ -120,13 +119,19 @@ export async function getNewProducts(limit = 6): Promise<GachaProductSummary[]> 
     .slice(0, limit);
 }
 
-/** 現在地（位置情報実装までは開発用の基準地点） */
-export function getCurrentPosition(): GeoPoint & { label: string } {
+/**
+ * 現在地を取得できないとき（位置情報を許可しない・取得失敗・非対応）に使う基準地点。
+ * 実際の現在地はブラウザ側（CurrentPositionProvider）でのみ扱い、サーバーには送らない。
+ */
+export function getFallbackPosition(): GeoPoint & { label: string } {
   return mockCurrentPosition;
 }
 
-/** 📍 近くで見つかったガチャ：現在地から近い設置場所で、在庫ありと報告された商品 */
-export async function getNearbyFinds(origin: GeoPoint, limit = 6): Promise<NearbyFind[]> {
+/**
+ * 📍 近くで見つかったガチャの候補：在庫ありと報告された「商品×設置場所」をすべて返す。
+ * 現在地をサーバーに送らないため、距離の計算と絞り込みはブラウザ側（pickNearbyFinds）で行う。
+ */
+export async function getAvailableFinds(): Promise<NearbyFindCandidate[]> {
   const [products, locations, placements] = await Promise.all([
     loadProducts(),
     loadLocations(),
@@ -135,21 +140,15 @@ export async function getNearbyFinds(origin: GeoPoint, limit = 6): Promise<Nearb
   const productMap = new Map(products.map((p) => [p.id, p]));
   const locationMap = new Map(locations.map((l) => [l.id, l]));
 
-  const finds: NearbyFind[] = [];
+  const candidates: NearbyFindCandidate[] = [];
   for (const { placement, stock } of placements) {
     const product = productMap.get(placement.productId);
     const location = locationMap.get(placement.locationId);
     if (!product || !location) continue;
     if (!isAvailable(stock.status)) continue;
-    finds.push({ product, location, stock, distanceMeters: distanceMeters(origin, location) });
+    candidates.push({ product, location, stock });
   }
-
-  // 同じ商品は最寄りの1件だけ残す
-  const seen = new Set<ID>();
-  return finds
-    .sort((a, b) => a.distanceMeters - b.distanceMeters)
-    .filter((f) => (seen.has(f.product.id) ? false : (seen.add(f.product.id), true)))
-    .slice(0, limit);
+  return candidates;
 }
 
 /** generateMetadata とページ本体で同じ詳細を2回読まないよう、リクエスト内でキャッシュする */

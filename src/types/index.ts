@@ -125,6 +125,9 @@ export interface NearbyFind {
   distanceMeters: number;
 }
 
+/** 近くで見つかったガチャの候補（距離は現在地が分かるブラウザ側で計算する） */
+export type NearbyFindCandidate = Omit<NearbyFind, "distanceMeters">;
+
 export interface GeoPoint {
   lat: number;
   lng: number;

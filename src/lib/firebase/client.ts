@@ -1,9 +1,8 @@
 /**
  * Firebase Client SDK（ブラウザ用）の初期化。
  *
- * 現時点ではデータの読み書きはすべてサーバー（Admin SDK）で行っており、
- * このモジュールはまだどこからも使っていない。
- * 将来、Firebase Authentication（ログイン）や Storage への直接アップロードを追加する際に使う。
+ * データの読み書きはすべてサーバー（Admin SDK）で行っている。
+ * ブラウザ側では、在庫報告の報告者を識別する匿名認証（./clientAuth.ts）でのみ使う。
  *
  * NEXT_PUBLIC_FIREBASE_* はブラウザに公開される値（Firebase の Web 用設定）で、秘密情報ではないが、
  * プロジェクトごとに異なるため環境変数で渡す。アクセス制御は Security Rules で行う。

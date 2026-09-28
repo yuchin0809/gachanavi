@@ -1,13 +1,17 @@
 import { createMockDatabase } from "@/data/mock";
 import { latestSnapshot } from "@/lib/stock";
 import type { DataSource } from "./source";
-import { PlacementNotFoundError } from "./source";
+import { PlacementNotFoundError, REPORT_COOLDOWN_MS, ReportRateLimitedError, placementIdOf } from "./source";
 
 const HOUR = 60 * 60 * 1000;
+
+/** 連投制限の確認用：「ユーザー × 商品×場所」ごとの最後の報告時刻（サーバーのメモリ上のみ） */
+const lastReportedAtByKey = new Map<string, number>();
 
 /**
  * src/data/mock.ts のモックデータを返す DataSource 実装。
  * 書き込み（在庫報告）は保存せず、作成されたかのような StockReport を返すだけ。
+ * 連投制限は Firestore 版と同じ動きを確認できるよう、サーバーのメモリ上で判定する。
  */
 export function createMockDataSource(): DataSource {
   // 相対時刻（「12分前」など）を保つため、呼び出しのたびに現在時刻基準で生成する
@@ -69,6 +73,15 @@ export function createMockDataSource(): DataSource {
         (pl) => pl.productId === input.productId && pl.locationId === input.locationId,
       );
       if (!exists) throw new PlacementNotFoundError(input.productId, input.locationId);
+
+      const now = input.reportedAt ? Date.parse(input.reportedAt) : Date.now();
+      const key = `${input.userId}:${placementIdOf(input.productId, input.locationId)}`;
+      const last = lastReportedAtByKey.get(key);
+      if (last !== undefined && now - last < REPORT_COOLDOWN_MS) {
+        throw new ReportRateLimitedError(REPORT_COOLDOWN_MS - (now - last));
+      }
+      lastReportedAtByKey.set(key, now);
+
       return {
         id: `local-${Date.now()}`,
         productId: input.productId,

@@ -5,7 +5,7 @@ import { ProductFacts } from "@/components/gacha/ProductFacts";
 import { BackLink } from "@/components/layout/BackLink";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { ProductLocationsView } from "@/components/location/ProductLocationsView";
-import { getCurrentPosition, getProductDetail } from "@/lib/data";
+import { getProductDetail } from "@/lib/data";
 import { isAvailable } from "@/lib/stock";
 
 export async function generateMetadata({ params }: PageProps<"/gacha/[id]">): Promise<Metadata> {
@@ -69,7 +69,7 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
           </span>
           このガチャが見つかった場所
         </h2>
-        <ProductLocationsView productId={product.id} entries={locations} currentPosition={getCurrentPosition()} />
+        <ProductLocationsView productId={product.id} entries={locations} />
       </section>
     </PageContainer>
   );

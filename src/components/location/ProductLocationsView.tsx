@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { CurrentPositionBar } from "@/components/geo/CurrentPositionBar";
+import { useCurrentPosition } from "@/components/geo/CurrentPositionProvider";
 import { LocationMap, type MapMarker } from "@/components/map/LocationMap";
 import { LastChecked } from "@/components/stock/LastChecked";
 import { StockBadge } from "@/components/stock/StockBadge";
@@ -11,7 +13,7 @@ import { ChevronRightIcon } from "@/components/ui/Icons";
 import { formatDistance } from "@/lib/format";
 import { distanceMeters } from "@/lib/geo";
 import { STOCK_STATUS_ORDER } from "@/lib/stock";
-import type { GeoPoint, ID, ProductLocationEntry } from "@/types";
+import type { ID, ProductLocationEntry } from "@/types";
 
 type View = "list" | "map";
 
@@ -19,12 +21,11 @@ type View = "list" | "map";
 export function ProductLocationsView({
   productId,
   entries,
-  currentPosition,
 }: {
   productId: ID;
   entries: ProductLocationEntry[];
-  currentPosition: GeoPoint;
 }) {
+  const { position: currentPosition, label: positionLabel } = useCurrentPosition();
   const resolve = useStockResolver();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [view, setView] = useState<View>("list");
@@ -60,6 +61,7 @@ export function ProductLocationsView({
 
   return (
     <div>
+      <CurrentPositionBar className="mb-3" />
       <div className="mb-3 flex items-center justify-between gap-2">
         <StockLegend />
         {/* スマホでは地図とリストを切り替え、PC では両方表示 */}
@@ -103,7 +105,7 @@ export function ProductLocationsView({
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-2 text-sm font-bold leading-snug">{location.name}</p>
                   <p className="mt-0.5 text-xs text-muted">
-                    {location.area}・現在地から{formatDistance(distance)}
+                    {location.area}・{positionLabel}から{formatDistance(distance)}
                   </p>
                   <LastChecked at={stock.lastCheckedAt} className="mt-1" />
                 </div>

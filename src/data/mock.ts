@@ -219,7 +219,7 @@ export const mockLocations: Location[] = [
   },
 ];
 
-/** 開発用の基準地点（渋谷駅周辺）。位置情報の取得を実装するまではここを現在地とみなす */
+/** 現在地を取得できないとき（位置情報を許可しない・取得失敗・非対応）に使う基準地点（渋谷駅周辺） */
 export const mockCurrentPosition: GeoPoint & { label: string } = {
   label: "渋谷駅周辺",
   lat: 35.658,
