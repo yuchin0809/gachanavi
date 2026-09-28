@@ -4,7 +4,7 @@
  *   npm run seed:firestore            # products が空の場合のみ投入
  *   npm run seed:firestore -- --force # 既存データがあっても同じIDで上書き
  *
- * 認証情報は .env.local から読み込む（README「Firebase の設定手順」参照）。
+ * 認証情報は .env.local（無ければ環境変数）から読み込む（README「Firebase の設定手順」参照）。
  * 書き込み件数はモックデータ全体で約80件（Spark プランの1日の書き込み上限 20,000 件に対して十分小さい）。
  */
 import { Timestamp, type WriteBatch } from "firebase-admin/firestore";
@@ -20,6 +20,10 @@ import {
 } from "../src/lib/data/firestore/schema";
 import { placementIdOf } from "../src/lib/data/source";
 import { getAdminFirestore } from "../src/lib/firebase/adminApp";
+import { loadLocalEnv } from "./loadEnv";
+
+// 認証情報は getAdminFirestore() の呼び出し時に読むため、ここで読み込めば間に合う
+loadLocalEnv();
 
 const BATCH_LIMIT = 400;
 

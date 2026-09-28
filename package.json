@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed:firestore": "tsx --env-file=.env.local scripts/seed-firestore.ts"
+    "firestore:check": "tsx scripts/check-firestore.ts",
+    "seed:firestore": "tsx scripts/seed-firestore.ts"
   },
   "dependencies": {
     "firebase": "^12.19.0",

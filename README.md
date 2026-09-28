@@ -29,6 +29,7 @@ npm run dev      # 開発サーバー起動 → http://localhost:3000
 npm run build           # 本番ビルド
 npm run start           # 本番ビルドの起動
 npm run lint            # ESLint
+npm run firestore:check # Firestore への接続確認（読み取りのみ）
 npm run seed:firestore  # モックデータを Firestore に投入（Firebase 設定後）
 ```
 
@@ -80,6 +81,7 @@ src/
 │   └── format.ts / geo.ts / search.ts / stock.ts
 └── types/index.ts              # ドメインモデルの型定義
 scripts/seed-firestore.ts       # モックデータの Firestore 投入スクリプト
+scripts/check-firestore.ts      # Firestore 接続確認スクリプト
 firebase.json                   # Firebase CLI 設定
 firestore.rules                 # Firestore Security Rules
 firestore.indexes.json          # Firestore インデックス
@@ -160,7 +162,8 @@ Firebase プロジェクト作成後に、以下の手順で Firestore に接続
 ### 2. Cloud Firestore を作成する
 
 1. 左メニュー「構築」→「Firestore Database」→「データベースを作成」
-2. ロケーションは `asia-northeast1（東京）` を推奨（**作成後は変更できません**）
+2. ロケーションは日本国内（`asia-northeast1` 東京 / `asia-northeast2` 大阪）を推奨（**作成後は変更できません**。
+   アプリ側でロケーションを指定する設定は不要です）
 3. セキュリティルールは「本番環境モード」で開始（このリポジトリの `firestore.rules` を後でデプロイします）
 
 ### 3. サービスアカウントの秘密鍵を取得する（サーバー用）
@@ -187,19 +190,28 @@ FIREBASE_PRIVATE_KEY="（JSON の private_key。\n を含む1行のまま "" で
 `NEXT_PUBLIC_FIREBASE_*` は将来のログイン機能用です。「プロジェクトの設定」→「全般」→「マイアプリ」で
 ウェブアプリ（`</>`）を登録すると表示される `firebaseConfig` の値を設定します（現時点では未設定でも動作します）。
 
-### 5. Security Rules とインデックスをデプロイする
+`.env.local` の代わりに、シェルやホスティング先（Vercel など）・クラウド開発環境の設定画面で
+同じ名前の環境変数を設定しても動作します（Next.js もスクリプトも両方に対応しています）。
+
+### 5. 接続を確認し、初期データを投入して起動する
+
+```bash
+npm run firestore:check  # 接続確認（各コレクションの件数を表示。書き込みはしない）
+npm run seed:firestore   # モックデータ（約80件）を Firestore に書き込み
+npm run dev
+```
+
+### 6. Security Rules とインデックスをデプロイする
+
+アプリは Admin SDK（Security Rules の対象外）でアクセスするため、この手順を行わなくても動作します。
+「本番環境モード」で作成した場合、初期ルールはブラウザからのアクセスをすべて拒否する内容で、
+`firestore.rules` とほぼ同じです。ルールをリポジトリの内容と揃える場合や、在庫報告の履歴を表示する機能
+（複合インデックスが必要）を追加する際に実行してください。
 
 ```bash
 npx firebase-tools login
 npx firebase-tools use --add            # 作成したプロジェクトを選択（.firebaserc が作成されます）
 npx firebase-tools deploy --only firestore:rules,firestore:indexes
-```
-
-### 6. 初期データを投入して起動する
-
-```bash
-npm run seed:firestore   # モックデータ（約80件）を Firestore に書き込み
-npm run dev
 ```
 
 在庫報告ボタンを押すと、Firestore の `stockReports` に履歴が追加され、`placements.latestStock` が更新されます。

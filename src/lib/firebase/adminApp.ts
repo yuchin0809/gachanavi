@@ -24,6 +24,29 @@ export class FirebaseConfigError extends Error {
   }
 }
 
+/**
+ * 秘密鍵の表記ゆれを吸収する。
+ * - JSON からコピーした "\n"（バックスラッシュ + n）を改行に戻す
+ * - 環境変数の設定画面などで値ごと "..." を貼り付けた場合の外側の引用符を外す
+ */
+function normalizePrivateKey(raw: string | undefined): string | undefined {
+  const trimmed = raw?.trim();
+  if (!trimmed) return undefined;
+  const quoted =
+    trimmed.length >= 2 && (trimmed[0] === '"' || trimmed[0] === "'") && trimmed.endsWith(trimmed[0]);
+  const unquoted = quoted ? trimmed.slice(1, -1) : trimmed;
+  return unquoted.replace(/\\n/g, "\n");
+}
+
+/** 接続先の確認用（秘密情報は含まない） */
+export function describeAdminTarget(): { projectId: string | null; emulator: string | null; clientEmail: string | null } {
+  return {
+    projectId: process.env.FIREBASE_PROJECT_ID?.trim() || null,
+    emulator: process.env.FIRESTORE_EMULATOR_HOST || null,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL?.trim() || null,
+  };
+}
+
 function createAdminApp(): App {
   const projectId = process.env.FIREBASE_PROJECT_ID?.trim();
   if (!projectId) {
@@ -37,7 +60,7 @@ function createAdminApp(): App {
   }
 
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+  const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
   if (!clientEmail || !privateKey) {
     throw new FirebaseConfigError(
       "FIREBASE_CLIENT_EMAIL / FIREBASE_PRIVATE_KEY が設定されていません。サービスアカウントの鍵を .env.local に設定してください。",
