@@ -7,6 +7,7 @@
  * 「〇分前に確認」を自然に見せるため、日時は「現在時刻からの差分」で定義し、
  * createMockDatabase(now) を呼んだ時点で ISO 文字列に変換する。
  */
+import { placementIdOf } from "@/lib/data/source";
 import type {
   GachaProduct,
   GeoPoint,
@@ -320,8 +321,8 @@ export function createMockDatabase(now: Date): MockDatabase {
     products: mockProducts,
     locations: mockLocations,
     users: mockUsers,
-    placements: placementSeeds.map(([productId, locationId, daysAgo], i) => ({
-      id: `pl-${String(i + 1).padStart(3, "0")}`,
+    placements: placementSeeds.map(([productId, locationId, daysAgo]) => ({
+      id: placementIdOf(productId, locationId),
       productId,
       locationId,
       firstSeenAt: new Date(t - daysAgo * DAY).toISOString(),

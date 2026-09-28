@@ -34,6 +34,15 @@ yarn-error.log*
 .env*
 !.env.example
 
+# firebase（サービスアカウントの鍵ファイルは絶対にコミットしない）
+*-firebase-adminsdk-*.json
+service-account*.json
+serviceAccount*.json
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
 # vercel
 .vercel
 

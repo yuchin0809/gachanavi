@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { StockReportsProvider } from "@/components/stock/StockReportsProvider";
+import { getDataSourceKind } from "@/lib/data/config";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ja" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
-        <StockReportsProvider>
+        <StockReportsProvider persistent={getDataSourceKind() === "firestore"}>
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />

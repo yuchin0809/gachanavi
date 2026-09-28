@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// GachaNavi Firestore Security Rules
+//
+// 現在の構成では、Firestore の読み書きはすべて Next.js のサーバー（Firebase Admin SDK）経由で行う。
+// Admin SDK は Security Rules の影響を受けないため、ブラウザ（Client SDK）からの直接アクセスは原則拒否する。
+//
+// - 不正な書き込み（在庫状態の改ざん・大量投稿）を防ぐ
+// - 第三者が公開 API キーを使って全件読み取りを繰り返し、Spark プランの無料枠を消費することを防ぐ
+//
+// 将来、ブラウザから直接読み書きする機能（ログインユーザーのプロフィールなど）を追加する際は、
+// 必要なパスだけを最小限の条件で許可すること。
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ガチャ商品・設置場所・設置情報・在庫報告：サーバー経由のみ
+    match /products/{productId} {
+      allow read, write: if false;
+    }
+    match /locations/{locationId} {
+      allow read, write: if false;
+    }
+    match /placements/{placementId} {
+      allow read, write: if false;
+    }
+    match /stockReports/{reportId} {
+      allow read, write: if false;
+    }
+
+    // ユーザー：Authentication 導入後、本人のドキュメントのみ読み取りを許可する
+    // （作成・更新はサーバー経由）
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // 上記以外はすべて拒否
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

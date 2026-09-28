@@ -5,7 +5,7 @@ import { CheckIcon } from "@/components/ui/Icons";
 import { REPORTABLE_STATUSES, STOCK_STATUS_META } from "@/lib/stock";
 import type { ID, ReportableStockStatus } from "@/types";
 import { StockDot } from "./StockBadge";
-import { useReportStock } from "./StockReportsProvider";
+import { useReportStock, useReportsPersistent } from "./StockReportsProvider";
 
 type PanelState =
   | { kind: "idle" }
@@ -16,6 +16,7 @@ type PanelState =
 /** 「在庫あり / 残りわずか / 売り切れ」の報告ボタン */
 export function StockReportPanel({ productId, locationId }: { productId: ID; locationId: ID }) {
   const report = useReportStock();
+  const persistent = useReportsPersistent();
   const [state, setState] = useState<PanelState>({ kind: "idle" });
 
   async function handleReport(status: ReportableStockStatus) {
@@ -66,7 +67,9 @@ export function StockReportPanel({ productId, locationId }: { productId: ID; loc
           <p className="mt-2 text-xs font-bold text-stock-out-ink">送信できませんでした。時間をおいて再度お試しください。</p>
         )}
       </div>
-      <p className="text-[11px] text-muted">※ 開発版のため、報告内容はこの画面にのみ反映され保存されません。</p>
+      {!persistent && (
+        <p className="text-[11px] text-muted">※ 開発版のため、報告内容はこの画面にのみ反映され保存されません。</p>
+      )}
     </div>
   );
 }

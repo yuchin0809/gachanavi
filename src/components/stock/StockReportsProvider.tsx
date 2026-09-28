@@ -7,18 +7,21 @@ import type { ID, StockReport, StockSnapshot } from "@/types";
 /**
  * このブラウザセッション中にユーザーが行った在庫報告を保持する。
  * サーバーから取得した在庫状態より新しい報告があれば、そちらを画面に反映する。
- * （バックエンド導入後は、送信後の再取得やリアルタイム購読に置き換える想定）
+ * （Firestore 使用時は報告が保存され、キャッシュ無効化後の再取得でも同じ状態になる。
+ *   読み取り件数を抑えるため、リアルタイム購読は行わない）
  */
 interface StockReportsContextValue {
   localReports: Record<string, StockReport>;
   report: (input: StockReportInput) => Promise<StockReport>;
+  /** 報告が保存されるか（モック環境では false） */
+  persistent: boolean;
 }
 
 const StockReportsContext = createContext<StockReportsContextValue | null>(null);
 
 const keyOf = (productId: ID, locationId: ID) => `${productId}__${locationId}`;
 
-export function StockReportsProvider({ children }: { children: ReactNode }) {
+export function StockReportsProvider({ children, persistent }: { children: ReactNode; persistent: boolean }) {
   const [localReports, setLocalReports] = useState<Record<string, StockReport>>({});
 
   const report = useCallback(async (input: StockReportInput) => {
@@ -27,7 +30,7 @@ export function StockReportsProvider({ children }: { children: ReactNode }) {
     return created;
   }, []);
 
-  const value = useMemo(() => ({ localReports, report }), [localReports, report]);
+  const value = useMemo(() => ({ localReports, report, persistent }), [localReports, report, persistent]);
   return <StockReportsContext.Provider value={value}>{children}</StockReportsContext.Provider>;
 }
 
@@ -62,4 +65,8 @@ export function useStockResolver() {
 
 export function useReportStock() {
   return useStockReportsContext().report;
+}
+
+export function useReportsPersistent() {
+  return useStockReportsContext().persistent;
 }

@@ -84,6 +84,16 @@ export interface StockSnapshot {
   lastCheckedAt: ISODateString | null;
 }
 
+/**
+ * 設置情報 + その「商品×場所」の最新在庫状態。
+ * Firestore では placements ドキュメントの latestStock フィールドから、
+ * モックでは StockReport の履歴から算出する。
+ */
+export interface PlacementWithStock {
+  placement: Placement;
+  stock: StockSnapshot;
+}
+
 /** 商品一覧・検索結果用の集計付き商品 */
 export interface GachaProductSummary {
   product: GachaProduct;

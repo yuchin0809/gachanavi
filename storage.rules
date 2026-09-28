@@ -1,0 +1,25 @@
+rules_version = '2';
+
+// GachaNavi Cloud Storage Security Rules
+//
+// 現時点では Storage を使用していない（商品画像は public/images/ に同梱している）。
+// 将来 Storage を使う場合に備え、最小限のルールだけを用意している。
+//
+// - 商品画像（products/{productId}/...）は誰でも読み取り可能
+// - ブラウザからのアップロードは禁止（画像の登録は Firebase コンソールまたはサーバー経由）
+// - それ以外のパスはすべて拒否
+//
+// ユーザー投稿画像を受け付ける場合は、ログイン必須・画像形式のみ・サイズ上限（例: 1MB）などの
+// 条件を付けて、容量と転送量を圧迫しないようにすること。
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /products/{productId}/{fileName} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

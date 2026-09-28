@@ -1,4 +1,4 @@
-import { mockCurrentUserId } from "@/data/mock";
+import { reportStockAction } from "@/app/actions/stockReports";
 import type { ID, ReportableStockStatus, StockReport } from "@/types";
 
 export interface StockReportInput {
@@ -7,18 +7,20 @@ export interface StockReportInput {
   status: ReportableStockStatus;
 }
 
+export class StockReportError extends Error {
+  constructor(public readonly code: string) {
+    super(`在庫報告に失敗しました (${code})`);
+    this.name = "StockReportError";
+  }
+}
+
 /**
- * 在庫報告の送信。
- *
- * 現段階では保存を行わず、送信されたかのように StockReport を組み立てて返すだけ。
- * バックエンド導入時は、ここを Firestore への書き込みや API 呼び出しに置き換える。
+ * 在庫報告の送信（クライアントから呼び出す）。
+ * 保存処理はサーバー側の Server Action（src/app/actions/stockReports.ts）で行う。
+ * DATA_SOURCE=mock の場合は保存されず、作成された報告だけが返る。
  */
 export async function submitStockReport(input: StockReportInput): Promise<StockReport> {
-  await new Promise((resolve) => setTimeout(resolve, 400));
-  return {
-    id: `local-${Date.now()}`,
-    userId: mockCurrentUserId,
-    reportedAt: new Date().toISOString(),
-    ...input,
-  };
+  const result = await reportStockAction(input);
+  if (!result.ok) throw new StockReportError(result.error);
+  return result.report;
 }
