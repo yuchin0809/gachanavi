@@ -25,10 +25,10 @@ export function StockReportsProvider({ children, persistent }: { children: React
   const [localReports, setLocalReports] = useState<Record<string, StockReport>>({});
 
   const report = useCallback(async (input: StockReportInput) => {
-    const created = await submitStockReport(input);
+    const created = await submitStockReport(input, { requireAuth: persistent });
     setLocalReports((prev) => ({ ...prev, [keyOf(created.productId, created.locationId)]: created }));
     return created;
-  }, []);
+  }, [persistent]);
 
   const value = useMemo(() => ({ localReports, report, persistent }), [localReports, report, persistent]);
   return <StockReportsContext.Provider value={value}>{children}</StockReportsContext.Provider>;

@@ -13,6 +13,7 @@
  * アプリ内からは server-only 付きの ./admin.ts を経由して使う。
  */
 import { cert, getApps, initializeApp, type App } from "firebase-admin/app";
+import { getAuth, type Auth } from "firebase-admin/auth";
 import { getFirestore, type Firestore } from "firebase-admin/firestore";
 
 const APP_NAME = "gachanavi-admin";
@@ -99,14 +100,25 @@ function createAdminApp(): App {
   return initializeApp({ projectId, credential: cert({ projectId, clientEmail, privateKey }) }, APP_NAME);
 }
 
+function getAdminApp(): App {
+  return getApps().find((a) => a.name === APP_NAME) ?? createAdminApp();
+}
+
 // 開発サーバーのホットリロードでモジュールが再評価されても、settings() を二重に呼ばないよう globalThis に保持する
 const globalForFirestore = globalThis as typeof globalThis & { __gachanaviFirestore?: Firestore };
 
 export function getAdminFirestore(): Firestore {
   if (globalForFirestore.__gachanaviFirestore) return globalForFirestore.__gachanaviFirestore;
-  const app = getApps().find((a) => a.name === APP_NAME) ?? createAdminApp();
-  const firestore = getFirestore(app);
+  const firestore = getFirestore(getAdminApp());
   firestore.settings({ ignoreUndefinedProperties: true });
   globalForFirestore.__gachanaviFirestore = firestore;
   return firestore;
+}
+
+/**
+ * ID トークンの検証に使う Firebase Authentication（Admin SDK）。
+ * FIREBASE_AUTH_EMULATOR_HOST が設定されている場合は Auth エミュレータのトークンを検証する。
+ */
+export function getAdminAuth(): Auth {
+  return getAuth(getAdminApp());
 }

@@ -5,8 +5,10 @@
  *   locations/{locationId}        Location
  *   placements/{productId__locationId}
  *                                 Placement + latestStock（最新在庫状態のキャッシュ）
- *   stockReports/{autoId}         StockReport（履歴。削除・更新しない）
- *   users/{uid}                   User（ドキュメントID = Firebase Auth の uid を想定）
+ *   stockReports/{autoId}         StockReport（履歴。削除・更新しない。userId = 報告者の Firebase Auth uid）
+ *   users/{uid}                   User（ドキュメントID = Firebase Auth の uid。匿名ユーザーは初回報告時に作成）
+ *   users/{uid}/reportThrottles/{placementId}
+ *                                 連投対策用：その「商品×場所」に最後に報告した日時
  *
  * GachaProduct 1 ── * Placement * ── 1 Location の関係を placements で表す。
  * 日時は Firestore では Timestamp、ドメイン型では ISO 文字列で扱う。
@@ -28,6 +30,8 @@ export const COLLECTIONS = {
   placements: "placements",
   stockReports: "stockReports",
   users: "users",
+  /** users/{uid} のサブコレクション */
+  reportThrottles: "reportThrottles",
 } as const;
 
 /* ------------------------------------------------------------------
@@ -66,6 +70,11 @@ export interface StockReportDoc {
 export interface UserDoc {
   displayName: string;
   createdAt: Timestamp;
+}
+
+/** users/{uid}/reportThrottles/{placementId} */
+export interface ReportThrottleDoc {
+  lastReportedAt: Timestamp;
 }
 
 /* ------------------------------------------------------------------

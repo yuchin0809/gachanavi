@@ -79,7 +79,7 @@ src/
 │   ├── firebase/
 │   │   ├── adminApp.ts / admin.ts  # Admin SDK（サーバー専用）
 │   │   └── client.ts           #   Client SDK（将来のログイン用・現在未使用）
-│   ├── auth/reporter.ts        # 報告者ID（ログイン導入まではゲスト）
+│   ├── auth/reporter.ts        # 報告者ID（匿名認証の ID トークンをサーバーで検証して uid を返す）
 │   └── format.ts / geo.ts / search.ts / stock.ts
 └── types/index.ts              # ドメインモデルの型定義
 scripts/seed-firestore.ts       # モックデータの Firestore 投入スクリプト
@@ -119,13 +119,22 @@ GachaProduct × Location ── * StockReport（履歴） * ── 1 User
 | `products` | 任意（モックは `p-001` など） | name, series, maker, price, releaseMonth, imageUrl, description, characters, tags |
 | `locations` | 任意（モックは `l-001` など） | name, address, area, lat, lng, openingHours |
 | `placements` | `{productId}__{locationId}` | productId, locationId, firstSeenAt, **latestStock**（status, reportedAt, reportId / 報告なしは null） |
-| `stockReports` | 自動ID | productId, locationId, placementId, userId, status, reportedAt |
-| `users` | Firebase Auth の uid（予定） | displayName, createdAt |
+| `stockReports` | 自動ID | productId, locationId, placementId, userId（報告者の Firebase Auth uid）, status, reportedAt |
+| `users` | Firebase Auth の uid | displayName, createdAt（匿名ユーザーは初回報告時に「ゲスト」として作成） |
+| `users/{uid}/reportThrottles` | `{productId}__{locationId}` | lastReportedAt（連投制限用） |
 
 - `stockReports` は履歴としてすべて残し、更新・削除しません。
 - 在庫報告の保存はトランザクションで「`stockReports` への追加」と「`placements.latestStock` の更新」をまとめて行います。
   既存の `latestStock` より **新しい報告のときだけ** 上書きするため、古い報告で最新状態が戻ることはありません。
 - 画面の在庫表示は `placements.latestStock` だけを読み、報告履歴は読みません（読み取り件数の削減）。
+
+### 報告者の識別と連投制限
+
+- ブラウザは在庫報告の直前に Firebase Authentication の **匿名認証** でログインし（端末・ブラウザごとに1人）、
+  ID トークンを Server Action に送ります。サーバーは Admin SDK の `verifyIdToken` で検証した uid を報告者として保存します。
+- 同じユーザーが同じ「商品×場所」に **10分以内** に再度報告すると保存せず、画面に待ち時間を表示します
+  （`REPORT_COOLDOWN_MS`・`src/lib/data/source.ts`）。判定は報告保存と同じトランザクション内で行います。
+- 導入前の報告（userId が `guest` のもの）はそのまま残ります。
 
 ## Spark プラン（無料枠）での運用方針
 
@@ -189,8 +198,12 @@ FIREBASE_CLIENT_EMAIL=（JSON の client_email）
 FIREBASE_PRIVATE_KEY="（JSON の private_key。\n を含む1行のまま "" で囲む）"
 ```
 
-`NEXT_PUBLIC_FIREBASE_*` は将来のログイン機能用です。「プロジェクトの設定」→「全般」→「マイアプリ」で
-ウェブアプリ（`</>`）を登録すると表示される `firebaseConfig` の値を設定します（現時点では未設定でも動作します）。
+在庫報告の匿名認証に `NEXT_PUBLIC_FIREBASE_*` も必要です。「プロジェクトの設定」→「全般」→「マイアプリ」で
+ウェブアプリ（`</>`）を登録すると表示される `firebaseConfig` の値を設定します。
+`NEXT_PUBLIC_` の値はビルド時に埋め込まれるため、設定・変更後は `npm run dev` / `npm run build` をやり直してください。
+
+さらに Firebase コンソールの「Authentication」→「始める」→「ログイン方法」で **匿名** を有効にしてください。
+無効のままだと、在庫報告時に「報告者の確認ができませんでした」と表示され保存されません。
 
 `.env.local` の代わりに、シェルやホスティング先（Vercel など）・クラウド開発環境の設定画面で
 同じ名前の環境変数を設定しても動作します（Next.js もスクリプトも両方に対応しています）。
@@ -223,11 +236,14 @@ npx firebase-tools deploy --only firestore:rules,firestore:indexes
 Firebase プロジェクトの無料枠を消費せずに試せます（Java が必要です）。
 
 ```bash
-npx firebase-tools emulators:start --only firestore --project demo-gachanavi
+npx firebase-tools emulators:start --only auth,firestore --project demo-gachanavi
 ```
 
 `.env.local` に `DATA_SOURCE=firestore`、`FIREBASE_PROJECT_ID=demo-gachanavi`、
 `FIRESTORE_EMULATOR_HOST=127.0.0.1:8080` を設定すると、サービスアカウント無しでエミュレータに接続します。
+匿名認証もエミュレータで試す場合は、`FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099`、
+`NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099`、`NEXT_PUBLIC_FIREBASE_PROJECT_ID=demo-gachanavi`、
+`NEXT_PUBLIC_FIREBASE_API_KEY` と `NEXT_PUBLIC_FIREBASE_APP_ID`（エミュレータでは任意の文字列で可）も設定します。
 
 ### デプロイ先について
 
@@ -237,9 +253,8 @@ Firebase App Hosting は Blaze プランが必要なため、Spark プランの�
 
 ## 今後の予定（未実装）
 
-- **ログイン（Firebase Authentication）**：現在の報告者は共通の `guest` ユーザーです。
-  公開前に匿名認証などを導入し、`src/lib/auth/reporter.ts` で ID トークンを検証して uid を使うようにします。
-  あわせて連続投稿の制限や App Check の導入を検討します。
+- **ログイン**：現在は匿名認証のみです。ブラウザのデータを消すと別のユーザーになります。
+  メール等のログインや、匿名ユーザーからのアカウント引き継ぎ、App Check の導入を検討します。
 - 地図サービス（Google Maps など）の接続：`LocationMapProps`（`src/components/map/types.ts`）を満たす実装を作り、
   `src/components/map/LocationMap.tsx` で切り替えます。
 - 位置情報による「近くで見つかったガチャ」
