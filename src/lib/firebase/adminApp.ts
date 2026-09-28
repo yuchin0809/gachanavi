@@ -38,6 +38,35 @@ function normalizePrivateKey(raw: string | undefined): string | undefined {
   return unquoted.replace(/\\n/g, "\n");
 }
 
+/**
+ * よくある貼り付けミスを、値そのものを表示せずに指摘する。
+ * （JSON の行ごとコピーして "private_key": や末尾の , が残っている、余計な文字が前に付いている など）
+ */
+function validateCredentialFormat(projectId: string, clientEmail: string, privateKey: string): void {
+  const problems: string[] = [];
+  if (/\s/.test(projectId)) {
+    problems.push("FIREBASE_PROJECT_ID に空白が含まれています（JSON の project_id の値だけを設定してください）");
+  }
+  if (/\s/.test(clientEmail) || !clientEmail.endsWith(".iam.gserviceaccount.com")) {
+    problems.push(
+      "FIREBASE_CLIENT_EMAIL の形式が正しくありません（JSON の client_email の値だけを設定してください。末尾は .iam.gserviceaccount.com）",
+    );
+  }
+  if (!privateKey.startsWith("-----BEGIN PRIVATE KEY-----")) {
+    problems.push(
+      "FIREBASE_PRIVATE_KEY が -----BEGIN PRIVATE KEY----- で始まっていません（前に余計な文字が付いていないか確認してください）",
+    );
+  }
+  if (!/-----END PRIVATE KEY-----\s*$/.test(privateKey)) {
+    problems.push(
+      "FIREBASE_PRIVATE_KEY が -----END PRIVATE KEY----- で終わっていません（末尾の \" や , が残っていないか確認してください）",
+    );
+  }
+  if (problems.length > 0) {
+    throw new FirebaseConfigError(`環境変数の形式に問題があります:\n  - ${problems.join("\n  - ")}`);
+  }
+}
+
 /** 接続先の確認用（秘密情報は含まない） */
 export function describeAdminTarget(): { projectId: string | null; emulator: string | null; clientEmail: string | null } {
   return {
@@ -66,6 +95,7 @@ function createAdminApp(): App {
       "FIREBASE_CLIENT_EMAIL / FIREBASE_PRIVATE_KEY が設定されていません。サービスアカウントの鍵を .env.local に設定してください。",
     );
   }
+  validateCredentialFormat(projectId, clientEmail, privateKey);
   return initializeApp({ projectId, credential: cert({ projectId, clientEmail, privateKey }) }, APP_NAME);
 }
 
