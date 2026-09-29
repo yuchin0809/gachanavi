@@ -66,6 +66,9 @@ export interface DataSource {
   /**
    * 在庫報告を履歴として追加し、placements.latestStock を更新する。
    * latestStock は、既存の最新報告より新しい報告の場合のみ上書きする。
+   *
+   * - 同じユーザーが同じ「商品×場所」に REPORT_COOLDOWN_MS 以内に再度報告した場合は ReportRateLimitedError
+   * - 報告者の users ドキュメントが無ければ作成する（匿名ユーザーの初回報告時など）
    */
   addStockReport(input: NewStockReport): Promise<StockReport>;
 }
@@ -75,6 +78,17 @@ export class PlacementNotFoundError extends Error {
   constructor(productId: ID, locationId: ID) {
     super(`Placement not found: ${productId} × ${locationId}`);
     this.name = "PlacementNotFoundError";
+  }
+}
+
+/** 同じユーザーが同じ「商品×場所」に続けて報告できるまでの間隔（連投対策） */
+export const REPORT_COOLDOWN_MS = 10 * 60 * 1000;
+
+/** 連投制限：同じ「商品×場所」への前回の報告から REPORT_COOLDOWN_MS が経っていない */
+export class ReportRateLimitedError extends Error {
+  constructor(public readonly retryAfterMs: number) {
+    super(`Report rate limited: retry after ${Math.ceil(retryAfterMs / 1000)}s`);
+    this.name = "ReportRateLimitedError";
   }
 }
 

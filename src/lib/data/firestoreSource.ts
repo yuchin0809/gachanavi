@@ -16,7 +16,9 @@ import { cacheSeconds, cacheTags } from "./cacheTags";
 import {
   COLLECTIONS,
   type LatestStockDoc,
+  type ReportThrottleDoc,
   type StockReportDoc,
+  type UserDoc,
   locationFromDoc,
   placementFromDoc,
   productFromDoc,
@@ -24,7 +26,7 @@ import {
   userFromDoc,
 } from "./firestore/schema";
 import type { DataSource, PlacementFilter } from "./source";
-import { PlacementNotFoundError, placementIdOf } from "./source";
+import { PlacementNotFoundError, REPORT_COOLDOWN_MS, ReportRateLimitedError, placementIdOf } from "./source";
 
 /** 話題のガチャ集計で読む報告件数の上限（無料枠の読み取りを使い切らないための安全弁） */
 const MAX_RECENT_REPORTS = 1000;
@@ -141,13 +143,16 @@ export function createFirestoreDataSource(): DataSource {
 
     /**
      * 在庫報告の追加（トランザクション）
-     * 読み取り1件（placement）+ 書き込み最大2件（stockReports 追加・latestStock 更新）。
+     * 読み取り3件（placement・user・連投制限）+ 書き込み最大4件
+     * （stockReports 追加・latestStock 更新・連投制限の記録・初回のみ users 作成）。
      */
     async addStockReport(input) {
       const firestore = db();
       const placementId = placementIdOf(input.productId, input.locationId);
       const placementRef = firestore.collection(COLLECTIONS.placements).doc(placementId);
       const reportRef = firestore.collection(COLLECTIONS.stockReports).doc();
+      const userRef = firestore.collection(COLLECTIONS.users).doc(input.userId);
+      const throttleRef = userRef.collection(COLLECTIONS.reportThrottles).doc(placementId);
       const reportedAt = input.reportedAt ? Timestamp.fromDate(new Date(input.reportedAt)) : Timestamp.now();
 
       const reportDoc: StockReportDoc = {
@@ -160,11 +165,26 @@ export function createFirestoreDataSource(): DataSource {
       };
 
       await firestore.runTransaction(async (tx) => {
-        const placementSnap = await tx.get(placementRef);
+        const [placementSnap, userSnap, throttleSnap] = await tx.getAll(placementRef, userRef, throttleRef);
         if (!placementSnap.exists) throw new PlacementNotFoundError(input.productId, input.locationId);
+
+        // 連投対策：同じユーザーが同じ「商品×場所」に短時間で繰り返し報告できないようにする
+        // （トランザクション内で判定するため、同時に複数回送信されても1件だけが通る）
+        const lastReportedAt = throttleSnap.get("lastReportedAt");
+        if (lastReportedAt instanceof Timestamp) {
+          const elapsed = reportedAt.toMillis() - lastReportedAt.toMillis();
+          if (elapsed < REPORT_COOLDOWN_MS) throw new ReportRateLimitedError(REPORT_COOLDOWN_MS - elapsed);
+        }
+
+        if (!userSnap.exists) {
+          const userDoc: UserDoc = { displayName: "ゲスト", createdAt: reportedAt };
+          tx.create(userRef, userDoc);
+        }
 
         // 報告は常に履歴として残す
         tx.create(reportRef, reportDoc);
+        const throttleDoc: ReportThrottleDoc = { lastReportedAt: reportedAt };
+        tx.set(throttleRef, throttleDoc);
 
         // 既存の最新報告より新しい場合のみ latestStock を更新する（古い報告で上書きしない）
         const current = placementSnap.get("latestStock") as LatestStockDoc | null | undefined;
