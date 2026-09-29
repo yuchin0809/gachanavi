@@ -1,0 +1,155 @@
+{
+ "products": [
+  {
+   "id": "bandai-4582770068238000",
+   "name": "SKZOO フーディースタイルフィギュア",
+   "series": "",
+   "maker": "バンダイ",
+   "price": 500,
+   "releaseMonth": "2027-02",
+   "imageUrl": "https://bandai-a.akamaihd.net/bc/img/model/xl/1000258042_2.jpg",
+   "description": "Stray Kids公式キャラクターの『SKZOO』の新商品がガシャポンに登場！\nガシャポンオリジナルのフーディーでポーズを決める姿がかわいい！\n全種台座付属で並べて飾れます♪",
+   "characters": [],
+   "tags": [
+    "ガシャポン"
+   ],
+   "latestMonth": "2027-02",
+   "resaleMonth": null,
+   "releaseText": "2027年2月未定",
+   "priceText": "500円",
+   "priceTaxIncluded": true,
+   "lineupCount": "全8種",
+   "janCode": "4582770068238000",
+   "officialUrl": "https://gashapon.jp/products/detail.php?jan_code=4582770068238000",
+   "source": {
+    "type": "official",
+    "site": "gashapon.jp",
+    "url": "https://gashapon.jp/products/detail.php?jan_code=4582770068238000",
+    "fetchedAt": "2026-09-29T15:07:28+00:00"
+   },
+   "isSample": false,
+   "importBatch": "2026-09-initial"
+  },
+  {
+   "id": "toysp-2609metarikkucamera",
+   "name": "画面が光る！デジタルカメラフォトフレームマスコット メタリック",
+   "series": "",
+   "maker": "トイズスピリッツ",
+   "price": 500,
+   "releaseMonth": "2026-09",
+   "imageUrl": "https://www.toysp.co.jp/images/cms_rwd/2609dejikame.jpg",
+   "description": "",
+   "characters": [],
+   "tags": [],
+   "latestMonth": "2026-09",
+   "resaleMonth": null,
+   "releaseText": "2026年9月発売予定",
+   "priceText": "500円 全5種",
+   "priceTaxIncluded": null,
+   "lineupCount": "全5種",
+   "janCode": "4580854481393",
+   "officialUrl": "https://www.toysp.co.jp/2609metarikkucamera.html",
+   "source": {
+    "type": "official",
+    "site": "toysp.co.jp",
+    "url": "https://www.toysp.co.jp/2609metarikkucamera.html",
+    "fetchedAt": "2026-09-29T15:19:38+00:00"
+   },
+   "isSample": false,
+   "importBatch": "2026-09-initial"
+  },
+  {
+   "id": "tta-Y098826",
+   "name": "ひつじのショーン ゆらゆらつながるマスコット",
+   "series": "",
+   "maker": "タカラトミーアーツ",
+   "price": 300,
+   "releaseMonth": "2026-03",
+   "imageUrl": "https://www.takaratomy-arts.co.jp/upfiles/products/Y098826_b.jpg",
+   "description": "カニカンで上下に連結できる「ゆらゆらつながるマスコット」シリーズに、『ひつじのショーン』が仲間入り。ふわふわと空から舞い降りるようなポーズのショーンと仲間たちを集めて、ゆらゆらを楽しもう！ 本体サイズは高さ約6cm。\nラインナップは\n「ショーンA」\n「ティミー」\n「ビッツァー」\n「ショーンB」",
+   "characters": [],
+   "tags": [
+    "ガチャ™"
+   ],
+   "latestMonth": "2026-09",
+   "resaleMonth": "2026-09",
+   "releaseText": "2026年3月（3月23日週発売・2026年9月28日週再発売））",
+   "priceText": "300円(税込)",
+   "priceTaxIncluded": true,
+   "lineupCount": null,
+   "janCode": null,
+   "officialUrl": "https://www.takaratomy-arts.co.jp/items/item.html?n=Y098826",
+   "source": {
+    "type": "official",
+    "site": "takaratomy-arts.co.jp",
+    "url": "https://www.takaratomy-arts.co.jp/items/item.html?n=Y098826",
+    "fetchedAt": "2026-09-29T15:11:00+00:00"
+   },
+   "isSample": false,
+   "importBatch": "2026-09-initial"
+  }
+ ],
+ "locations": [
+  {
+   "id": "gp-S90000927",
+   "name": "ガシャポンバンダイオフィシャルショップTSUTAYAいまじん白揚伊勢上地店",
+   "address": "三重県伊勢市上地町774-6",
+   "area": "伊勢市",
+   "lat": 34.4941313,
+   "lng": 136.6722693,
+   "openingHours": "9:00～22:00",
+   "prefecture": "三重県",
+   "city": "伊勢市",
+   "chain": "ガシャポンバンダイオフィシャルショップ",
+   "operator": "株式会社バンダイナムコアミューズメント",
+   "phone": "0596-65-7102",
+   "postalCode": "516‐0051",
+   "coordinateSource": "gashapon.jp店舗検索（公式データ）",
+   "coordinatePrecision": "official",
+   "statusNote": null,
+   "officialUrl": "https://bandainamco-am.co.jp/others/gashapon-bandai-officialshop/store/iseueji/",
+   "sources": [
+    {
+     "name": "バンダイナムコアミューズメント 公式店舗ページ",
+     "url": "https://bandainamco-am.co.jp/others/gashapon-bandai-officialshop/store/iseueji/",
+     "fetchedAt": "2026-09-29T15:51:17+00:00"
+    },
+    {
+     "name": "ガシャポン公式「ガシャポンどこ？」店舗検索",
+     "url": "https://gashapon.jp/shop/shop.php?shop_code=S90000927",
+     "fetchedAt": "2026-09-29T15:08:00+00:00"
+    }
+   ],
+   "isSample": false,
+   "importBatch": "2026-09-initial"
+  },
+  {
+   "id": "loc-hf3b6d258ce7a",
+   "name": "Pon!イオンモール東員店",
+   "address": "三重県員弁郡東員町大字長深字築田510番地1 イオンモール東員3F",
+   "area": "員弁郡東員町",
+   "lat": 35.061817,
+   "lng": 136.57991,
+   "openingHours": "月〜木曜日/10:00〜20:00金･土･日･祝/10:00〜21:00",
+   "prefecture": "三重県",
+   "city": "員弁郡東員町",
+   "chain": "ガチャガチャの森",
+   "operator": "株式会社ルルアーク",
+   "phone": "080-8958-9710",
+   "postalCode": "511-0255",
+   "coordinateSource": "国土地理院 住所検索API（住所から算出）",
+   "coordinatePrecision": "block",
+   "statusNote": null,
+   "officialUrl": "https://www.gachagachanomori.com/shoplist/",
+   "sources": [
+    {
+     "name": "ガチャガチャの森 公式店舗一覧",
+     "url": "https://www.gachagachanomori.com/shoplist/",
+     "fetchedAt": "2026-09-29T15:11:34+00:00"
+    }
+   ],
+   "isSample": false,
+   "importBatch": "2026-09-initial"
+  }
+ ]
+}

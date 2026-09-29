@@ -1,0 +1,399 @@
+{
+ "baseMonth": "2026-09",
+ "currentWindowMonths": 6,
+ "products": {
+  "total": 23464,
+  "byLevel": {
+   "ok": 21880,
+   "fixable": 970,
+   "review": 614,
+   "exclude": 0
+  },
+  "byIssue": {
+   "price_tax_excluded": {
+    "count": 873,
+    "severity": "ok"
+   },
+   "name_prefix_label": {
+    "count": 520,
+    "severity": "fixable"
+   },
+   "duplicate_candidate": {
+    "count": 494,
+    "severity": "review"
+   },
+   "officialUrl_http": {
+    "count": 310,
+    "severity": "fixable"
+   },
+   "sourceUrl_http": {
+    "count": 310,
+    "severity": "fixable"
+   },
+   "image_http": {
+    "count": 310,
+    "severity": "fixable"
+   },
+   "source_is_list_page": {
+    "count": 139,
+    "severity": "ok"
+   },
+   "image_unencoded": {
+    "count": 130,
+    "severity": "fixable"
+   },
+   "price_missing": {
+    "count": 47,
+    "severity": "review"
+   },
+   "release_date_wrong": {
+    "count": 42,
+    "severity": "fixable"
+   },
+   "resale": {
+    "count": 40,
+    "severity": "ok"
+   },
+   "image_shared": {
+    "count": 37,
+    "severity": "review"
+   },
+   "image_placeholder": {
+    "count": 31,
+    "severity": "fixable"
+   },
+   "price_multiple": {
+    "count": 20,
+    "severity": "review"
+   },
+   "release_missing": {
+    "count": 15,
+    "severity": "review"
+   },
+   "price_high": {
+    "count": 9,
+    "severity": "ok"
+   },
+   "price_not_round": {
+    "count": 9,
+    "severity": "review"
+   },
+   "name_short": {
+    "count": 2,
+    "severity": "ok"
+   },
+   "image_no_extension": {
+    "count": 1,
+    "severity": "review"
+   },
+   "image_missing": {
+    "count": 1,
+    "severity": "review"
+   },
+   "name_too_long": {
+    "count": 1,
+    "severity": "review"
+   },
+   "price_outlier": {
+    "count": 1,
+    "severity": "review"
+   }
+  },
+  "duplicateCandidateGroups": 240,
+  "duplicateCandidateRecords": 494,
+  "releaseStatus": {
+   "upcoming": 119,
+   "current": 1823,
+   "past": 21507,
+   "unknown": 15
+  },
+  "releaseStatusByYear": {
+   "不明": {
+    "unknown": 15
+   },
+   "2027": {
+    "upcoming": 8
+   },
+   "2026": {
+    "upcoming": 111,
+    "current": 1823,
+    "past": 609
+   },
+   "2025": {
+    "past": 3214
+   },
+   "2024": {
+    "past": 2604
+   },
+   "2023": {
+    "past": 2252
+   },
+   "2022": {
+    "past": 1849
+   },
+   "2021": {
+    "past": 1514
+   },
+   "2020": {
+    "past": 1217
+   },
+   "2019": {
+    "past": 1229
+   },
+   "2018": {
+    "past": 1098
+   },
+   "2017": {
+    "past": 931
+   },
+   "2016": {
+    "past": 868
+   },
+   "2015": {
+    "past": 692
+   },
+   "2014": {
+    "past": 583
+   },
+   "2013": {
+    "past": 288
+   },
+   "2012": {
+    "past": 299
+   },
+   "2011": {
+    "past": 236
+   },
+   "2010": {
+    "past": 208
+   },
+   "2009": {
+    "past": 166
+   },
+   "2008": {
+    "past": 221
+   },
+   "2007": {
+    "past": 204
+   },
+   "2006": {
+    "past": 237
+   },
+   "2005": {
+    "past": 254
+   },
+   "2004": {
+    "past": 222
+   },
+   "2003": {
+    "past": 193
+   },
+   "2002": {
+    "past": 155
+   },
+   "2001": {
+    "past": 115
+   },
+   "2000": {
+    "past": 49
+   }
+  },
+  "resaleCount": 40,
+  "releaseStatusByMaker": {
+   "バンダイ": {
+    "upcoming": 45,
+    "current": 858,
+    "past": 8631
+   },
+   "ブシロードクリエイティブ": {
+    "upcoming": 35,
+    "current": 100,
+    "past": 1375,
+    "unknown": 4
+   },
+   "トイズキャビン": {
+    "upcoming": 24,
+    "current": 43,
+    "past": 345,
+    "unknown": 1
+   },
+   "タカラトミーアーツ": {
+    "upcoming": 10,
+    "current": 305,
+    "past": 6659
+   },
+   "スタンド・ストーンズ": {
+    "upcoming": 5,
+    "current": 70,
+    "past": 542
+   },
+   "トイズスピリッツ": {
+    "current": 89,
+    "past": 221
+   },
+   "キタンクラブ": {
+    "current": 41,
+    "past": 908,
+    "unknown": 1
+   },
+   "アイピーフォー": {
+    "current": 90,
+    "past": 1648
+   },
+   "SO-TA": {
+    "current": 24,
+    "past": 440,
+    "unknown": 1
+   },
+   "Qualia": {
+    "current": 154,
+    "past": 648,
+    "unknown": 8
+   },
+   "Jドリーム": {
+    "current": 49,
+    "past": 90
+   }
+  },
+  "makers": {
+   "バンダイ": 9534,
+   "ブシロードクリエイティブ": 1514,
+   "トイズキャビン": 413,
+   "タカラトミーアーツ": 6974,
+   "スタンド・ストーンズ": 617,
+   "トイズスピリッツ": 310,
+   "キタンクラブ": 950,
+   "アイピーフォー": 1738,
+   "SO-TA": 465,
+   "Qualia": 810,
+   "Jドリーム": 139
+  },
+  "sellersDifferentFromMaker": {}
+ },
+ "locations": {
+  "total": 1796,
+  "byLevel": {
+   "ok": 1373,
+   "fixable": 203,
+   "review": 220,
+   "exclude": 0
+  },
+  "byIssue": {
+   "hours_missing": {
+    "count": 545,
+    "severity": "ok"
+   },
+   "coords_geocoded": {
+    "count": 428,
+    "severity": "ok"
+   },
+   "old_source_update": {
+    "count": 196,
+    "severity": "ok"
+   },
+   "duplicate_candidate": {
+    "count": 184,
+    "severity": "review"
+   },
+   "operator_notation": {
+    "count": 145,
+    "severity": "fixable"
+   },
+   "maker_list_only": {
+    "count": 74,
+    "severity": "review"
+   },
+   "coords_missing": {
+    "count": 50,
+    "severity": "review"
+   },
+   "address_notation": {
+    "count": 29,
+    "severity": "fixable"
+   },
+   "name_notation": {
+    "count": 21,
+    "severity": "fixable"
+   },
+   "coords_conflict_with_official_map": {
+    "count": 14,
+    "severity": "review"
+   },
+   "closed_or_suspended": {
+    "count": 3,
+    "severity": "review"
+   },
+   "name_parse_error": {
+    "count": 2,
+    "severity": "fixable"
+   },
+   "missing_city": {
+    "count": 2,
+    "severity": "fixable"
+   },
+   "coords_far_from_prefecture": {
+    "count": 1,
+    "severity": "review"
+   }
+  },
+  "duplicateCandidateGroups": 92,
+  "duplicateCandidateRecords": 150,
+  "coordinatePrecision": {
+   "official": 1318,
+   "block": 168,
+   "street": 260,
+   "none": 50
+  },
+  "operators": {
+   "株式会社バンダイナムコアミューズメント": 468,
+   "株式会社トーシン": 314,
+   "株式会社ルルアーク": 210,
+   "株式会社ハピネット・ベンディングサービス": 169,
+   "株式会社 バンダイ": 122,
+   "ドリームカプセル株式会社": 96,
+   "株式会社ゲオ／ウェアハウス": 79,
+   "null": 74,
+   "株式会社ニトリ": 60,
+   "NAMCO": 42,
+   "（株）ハピネット・ベンディングサービス": 41,
+   "株式会社 ハピネット・ベンディングサービス": 21,
+   "大日本印刷（株）": 21,
+   "株式会社マキシム愛媛": 15,
+   "株式会社カプコン": 14,
+   "株式会社バンジハンエース": 10,
+   "株式会社 TNJ": 9,
+   "株式会社アルファー": 8,
+   "株式会社プレステージ": 6,
+   "大日本印刷株式会社": 4,
+   "有限会社トミヤ": 2,
+   "有限会社 サカモト": 2,
+   "株式会社クリエイション・コム": 2,
+   "（株）東京デッセル": 1,
+   "株式会社 東京デッセル": 1,
+   "（株）TNJ": 1,
+   "株式会社 寿屋": 1,
+   "（株）マキシム愛媛": 1,
+   "（株）バンジハンエース": 1,
+   "株式会社山陽アップル": 1
+  }
+ },
+ "reconcile": {
+  "report_products_total_matches": true,
+  "report_locations_total_matches": true,
+  "product_ids_unique": true,
+  "location_ids_unique": true,
+  "product_source_urls_unique": true,
+  "excluded_products_not_in_products": true,
+  "excluded_reason_counts": {
+   "年齢確認（15歳以上）が必要なページのため詳細を取得していない": 475,
+   "対象外（箱売り・物販・店頭販売など、ガチャの筐体で販売される商品ではない）": 236,
+   "対象外（価格0円の景品・非売品）": 1,
+   "重複（JANコード一致）": 14,
+   "重複（同じメーカー・商品名・発売時期）": 14,
+   "店舗名または住所がない": 6,
+   "重複（住所または電話番号と、店舗名が一致）": 1010,
+   "チェーン公式の店舗一覧で確認できない（メーカーの取扱店舗一覧のみに掲載。閉店・改称の可能性）": 37
+  },
+  "collides_with_mock_ids": false
+ }
+}

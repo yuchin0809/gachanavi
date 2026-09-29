@@ -1,0 +1,8549 @@
+[
+ {
+  "id": "loc-09d2802116",
+  "level": "review",
+  "name": "Pon!イオンモール東員店",
+  "chain": "ガチャガチャの森",
+  "address": "三重県員弁郡東員町大字長深字築田510番地1 イオンモール東員3F",
+  "prefecture": "三重県",
+  "lat": 35.061817,
+  "lng": 136.57991,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-aac4a3a559",
+  "level": "review",
+  "name": "Pon!イオンモール東員店",
+  "chain": null,
+  "address": "三重県員弁郡東員町長深字築田510番地1 イオンモール東員3F",
+  "prefecture": "三重県",
+  "lat": 35.06186498317662,
+  "lng": 136.57941202559158,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-631a0ef212",
+  "level": "review",
+  "name": "ドリームカプセル 津チャム",
+  "chain": "ドリームカプセル",
+  "address": "三重県津市羽所町",
+  "prefecture": "三重県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-ab3c116f35",
+  "level": "review",
+  "name": "アルプラザボウル 亀岡",
+  "chain": null,
+  "address": "京都府亀岡市篠町野条上又１１－１ アルプラザ亀岡３F",
+  "prefecture": "京都府",
+  "lat": 35.001572,
+  "lng": 135.60202,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1260bca44b",
+  "level": "review",
+  "name": "#C-pla ゼスト御池店",
+  "chain": "#C-pla",
+  "address": "京都府京都市中京区御池通寺町東入下本能寺前町492-1",
+  "prefecture": "京都府",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-456ff0c3de",
+  "level": "review",
+  "name": "#C-pla 京都河原町OPA店",
+  "chain": "#C-pla",
+  "address": "京都府京都市中京区河原町通四条上ル米屋町385番地",
+  "prefecture": "京都府",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-01341a90bc",
+  "level": "review",
+  "name": "a-cho 京都店",
+  "chain": null,
+  "address": "京都市中京区四条通寺町上る東大文字町302・303 A-breakビル",
+  "prefecture": "京都府",
+  "lat": 35.016865,
+  "lng": 135.764053,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-31ab35eb86",
+  "level": "review",
+  "name": "あそVIVA 福知山店",
+  "chain": null,
+  "address": "京都府福知山市堀小字上高田２１４６−１",
+  "prefecture": "京都府",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-827a0de711",
+  "level": "review",
+  "name": "#C-pla 2nd モラージュ佐賀店",
+  "chain": "#C-pla",
+  "address": "佐賀県佐賀市巨勢町大字牛島字二本松730番地",
+  "prefecture": "佐賀県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9565e92c20",
+  "level": "review",
+  "name": "#C-pla モラージュ佐賀店",
+  "chain": "#C-pla",
+  "address": "佐賀県佐賀市巨勢町大字牛島字二本松730番地",
+  "prefecture": "佐賀県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-64d1ed431b",
+  "level": "review",
+  "name": "Pon! 姫路駅前店",
+  "chain": null,
+  "address": "兵庫県姫路市東駅前町60番地 新井ビル1F",
+  "prefecture": "兵庫県",
+  "lat": 34.828747,
+  "lng": 134.693069,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-7e5d1ae704",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップ淡河パーキングエリア下り線店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "兵庫県神戸市北区淡河町神田日光836-1",
+  "prefecture": "兵庫県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-504250cb5c",
+  "level": "review",
+  "name": "#C-pla エビスタ西宮店",
+  "chain": "#C-pla",
+  "address": "兵庫県西宮市田中町1番6号",
+  "prefecture": "兵庫県",
+  "lat": 34.737003,
+  "lng": 135.338486,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 9983 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-a8918bcc30",
+  "level": "review",
+  "name": "PON！ ららぽーと甲子園店",
+  "chain": null,
+  "address": "兵庫県西宮市甲子園八番町1-100 ららぽーと甲子園1F",
+  "prefecture": "兵庫県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a931a8130c",
+  "level": "review",
+  "name": "MEGAドン・キホーテ函館店内 カプセルトイOCEAN",
+  "chain": null,
+  "address": "北海道函館市美原１丁目７−１",
+  "prefecture": "北海道",
+  "lat": 41.81432,
+  "lng": 140.75621,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-ac42b4528e",
+  "level": "review",
+  "name": "#C-pla 東武イーストモール端野店",
+  "chain": "#C-pla",
+  "address": "北海道北見市端野町三区572番地1",
+  "prefecture": "北海道",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-df27c325d5",
+  "level": "review",
+  "name": "#C-pla イオン名寄店",
+  "chain": "#C-pla",
+  "address": "北海道名寄市徳田80-1",
+  "prefecture": "北海道",
+  "lat": 44.3384307,
+  "lng": 142.4525919,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-5d0e0b81d1",
+  "level": "review",
+  "name": "Cーpla イオン名寄店",
+  "chain": null,
+  "address": "北海道名寄市徳田８０番地１ イオン名寄店２F",
+  "prefecture": "北海道",
+  "lat": 44.338459,
+  "lng": 142.452606,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-3709479c84",
+  "level": "review",
+  "name": "MEGAドン・キホーテ室蘭中島店",
+  "chain": null,
+  "address": "北海道室蘭市中島町 1-19-11",
+  "prefecture": "北海道",
+  "lat": 42.354328,
+  "lng": 141.017853,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-3d3ed44d5a",
+  "level": "review",
+  "name": "#C-pla イオンモール旭川駅前店",
+  "chain": "#C-pla",
+  "address": "北海道旭川市宮下通7丁目2番5号",
+  "prefecture": "北海道",
+  "lat": 43.7643122,
+  "lng": 142.3579479,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 2961 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-5c1fc5b71a",
+  "level": "review",
+  "name": "ガチャガチャの森ピヴォクロス店",
+  "chain": "ガチャガチャの森",
+  "address": "北海道札幌市南一条西2-9-1ピヴォクロス5階",
+  "prefecture": "北海道",
+  "lat": 43.05889625139296,
+  "lng": 141.35441345015346,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-f4c06133ac",
+  "level": "review",
+  "name": "#C-pla 狸小路2丁目店",
+  "chain": "#C-pla",
+  "address": "北海道札幌市中央区南3条西2丁目26番地7‐4",
+  "prefecture": "北海道",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-27ced61141",
+  "level": "review",
+  "name": "ガチャガチャの森 ピヴォクロス店",
+  "chain": "ガチャガチャの森",
+  "address": "北海道札幌市中央区南1条西2丁目9-1 PIVOT CROSS 5F",
+  "prefecture": "北海道",
+  "lat": 43.059025,
+  "lng": 141.354935,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-9b86671f33",
+  "level": "review",
+  "name": "#C-pla マックスバリュ新道店",
+  "chain": "#C-pla",
+  "address": "北海道札幌市東区北34条東16丁目1-30",
+  "prefecture": "北海道",
+  "lat": 43.104935,
+  "lng": 141.370773,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 374607 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-dc91088f8b",
+  "level": "review",
+  "name": "本屋さんのガシャポンのデパート文教堂 札幌ルーシー店",
+  "chain": "ガシャポンのデパート",
+  "address": "北海道札幌市白石区栄通18-5 1F",
+  "prefecture": "北海道",
+  "lat": 43.028145,
+  "lng": 141.433685,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8dc31e1fec",
+  "level": "review",
+  "name": "本屋さんのガシャポンのデパート文教堂 札幌ルーシー店",
+  "chain": "ガシャポンのデパート",
+  "address": "北海道札幌市白石区栄通18丁目5番地35",
+  "prefecture": "北海道",
+  "lat": 43.0279593,
+  "lng": 141.4335778,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-f3eb7c1eee",
+  "level": "review",
+  "name": "#C-pla CiiNACiiNA福住店",
+  "chain": "#C-pla",
+  "address": "北海道札幌市豊平区福住2条1丁目2-5",
+  "prefecture": "北海道",
+  "lat": 43.019901846178925,
+  "lng": 141.40348820325673,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 4329 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-73dd7b9b5a",
+  "level": "review",
+  "name": "#C-pla マックスバリュ中札内店",
+  "chain": "#C-pla",
+  "address": "北海道河西郡中札内村大通南6丁目3-1-8",
+  "prefecture": "北海道",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-20bc436b25",
+  "level": "review",
+  "name": "#C-pla マックスバリュ深川店",
+  "chain": "#C-pla",
+  "address": "北海道深川市5条西20番1号",
+  "prefecture": "北海道",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-01606126b5",
+  "level": "review",
+  "name": "#C-pla イオン釧路店",
+  "chain": "#C-pla",
+  "address": "北海道釧路郡釧路町桂木1丁目1番地7",
+  "prefecture": "北海道",
+  "lat": 43.0089993,
+  "lng": 144.4049066,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 2812 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-050ea6df48",
+  "level": "review",
+  "name": "ドン・キホーテ 八千代16号バイパス店",
+  "chain": null,
+  "address": "千葉県八千代市村上1245",
+  "prefecture": "千葉県",
+  "lat": 35.73101,
+  "lng": 140.118317,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-fb21d4ec67",
+  "level": "review",
+  "name": "ベイシア 市原八幡店",
+  "chain": null,
+  "address": "千葉県市原市八幡238-1",
+  "prefecture": "千葉県",
+  "lat": 35.528248,
+  "lng": 140.120865,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-266ee8413a",
+  "level": "review",
+  "name": "ガシャポンのデパート 駿河屋柏青葉台店",
+  "chain": "ガシャポンのデパート",
+  "address": "千葉県柏市青葉台2-17-31 2F",
+  "prefecture": "千葉県",
+  "lat": 35.812283,
+  "lng": 139.957947,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-c2c6665c2a",
+  "level": "review",
+  "name": "ガシャポンのデパート駿河屋柏青葉台店",
+  "chain": "ガシャポンのデパート",
+  "address": "千葉県柏市青葉台店2-17-31 2F",
+  "prefecture": "千葉県",
+  "lat": 35.8124435,
+  "lng": 139.9575617,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-87eacad781",
+  "level": "review",
+  "name": "ヨークマート 柏の葉公園",
+  "chain": null,
+  "address": "千葉県柏市柏の葉5丁目5-1",
+  "prefecture": "千葉県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-54ae8f90e3",
+  "level": "review",
+  "name": "#C-pla イクスピアリ店",
+  "chain": "#C-pla",
+  "address": "千葉県浦安市舞浜1-4",
+  "prefecture": "千葉県",
+  "lat": 35.631264,
+  "lng": 139.874329,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 1131 m 差"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d03e15ff85",
+  "level": "review",
+  "name": "Cーpla イクスピアリ店",
+  "chain": null,
+  "address": "千葉県浦安市舞浜1-4",
+  "prefecture": "千葉県",
+  "lat": 35.631264,
+  "lng": 139.874329,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-43566a603f",
+  "level": "review",
+  "name": "#C-pla 津田沼ビート店",
+  "chain": "#C-pla",
+  "address": "千葉県船橋市前原西2丁目19-1",
+  "prefecture": "千葉県",
+  "lat": 35.692284,
+  "lng": 140.022049,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 1661 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-0b8b15e1d1",
+  "level": "review",
+  "name": "ベイシア 野田さくらの里店",
+  "chain": null,
+  "address": "千葉県野田市桜の里2丁目1",
+  "prefecture": "千葉県",
+  "lat": 35.954247,
+  "lng": 139.846893,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a8b42758cd",
+  "level": "review",
+  "name": "Pon!イオンモール和歌山店",
+  "chain": "ガチャガチャの森",
+  "address": "和歌山県和歌山市ふじと台23番 イオンモール和歌山3F",
+  "prefecture": "和歌山県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-291f316d1e",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップTSUTAYAWAYガーデンパーク和歌山店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "和歌山県和歌山市松江向鵜ノ島1469-1",
+  "prefecture": "和歌山県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-c136ebd89f",
+  "level": "review",
+  "name": "ガチャガチャの森 イオンモール和歌山店",
+  "chain": "ガチャガチャの森",
+  "address": "和歌山県和歌山市ふじと台23番 イオンモール和歌山3F",
+  "prefecture": "和歌山県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-ab60b5e284",
+  "level": "review",
+  "name": "がちゃ処 大宮アルシェ店",
+  "chain": null,
+  "address": "埼玉県さいたま市大宮区桜木町2丁目1-1",
+  "prefecture": "埼玉県",
+  "lat": 35.906166,
+  "lng": 139.622147,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-aa957f31e9",
+  "level": "review",
+  "name": "がちゃ処 大宮店",
+  "chain": "がちゃ処",
+  "address": "埼玉県さいたま市大宮区桜木町2-1-1",
+  "prefecture": "埼玉県",
+  "lat": 35.906166,
+  "lng": 139.622147,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-b87953fcb0",
+  "level": "review",
+  "name": "ハレノテラス",
+  "chain": null,
+  "address": "埼玉県さいたま市見沼区島町３９３番地",
+  "prefecture": "埼玉県",
+  "lat": 35.94556,
+  "lng": 139.651321,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-5374d6fe6b",
+  "level": "review",
+  "name": "コモディ イイダ三郷",
+  "chain": null,
+  "address": "埼玉県三郷市高州2丁目449-1",
+  "prefecture": "埼玉県",
+  "lat": 35.78532,
+  "lng": 139.882828,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6b1fd23295",
+  "level": "review",
+  "name": "#C-pla アリオ上尾店&ガシャポンSHOP produced by #C-pla",
+  "chain": "#C-pla",
+  "address": "埼玉県上尾市壱丁目北29番地14",
+  "prefecture": "埼玉県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-f8231b0612",
+  "level": "review",
+  "name": "#C-pla イオンモール上尾店",
+  "chain": "#C-pla",
+  "address": "埼玉県上尾市愛宕3丁目8-1",
+  "prefecture": "埼玉県",
+  "lat": 35.9652499,
+  "lng": 139.6001619,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 3338 m 差"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-282c6f7e06",
+  "level": "review",
+  "name": "Cーplaイオンモール上尾店",
+  "chain": null,
+  "address": "埼玉県上尾市愛宕３丁目８−１ イオンモール上尾 2階",
+  "prefecture": "埼玉県",
+  "lat": 35.965076,
+  "lng": 139.598068,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d9a0547e9b",
+  "level": "review",
+  "name": "ドリームカプセル ウニクス上里",
+  "chain": "ドリームカプセル",
+  "address": "埼玉県児玉郡上里町大字七本木字古新田西2272-1 UNICUS上里2F",
+  "prefecture": "埼玉県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-c784891195",
+  "level": "review",
+  "name": "カインズホ－ム 大利根店",
+  "chain": null,
+  "address": "埼玉県加須市琴寄70",
+  "prefecture": "埼玉県",
+  "lat": 36.126022,
+  "lng": 139.684479,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-3729412cab",
+  "level": "review",
+  "name": "ミエルかわぐち",
+  "chain": null,
+  "address": "埼玉県川口市本町2丁目7-25",
+  "prefecture": "埼玉県",
+  "lat": 35.800613,
+  "lng": 139.727951,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-ac3ecdc559",
+  "level": "review",
+  "name": "あに×くれ所沢店",
+  "chain": null,
+  "address": "埼玉県所沢市東町5-22 TOCOTOCO SQUARE 4階",
+  "prefecture": "埼玉県",
+  "lat": 35.789097,
+  "lng": 139.470337,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-42c3f028a3",
+  "level": "review",
+  "name": "アピタ 東松山店",
+  "chain": null,
+  "address": "埼玉県東松山市あずま町4丁目3番",
+  "prefecture": "埼玉県",
+  "lat": 36.005379,
+  "lng": 139.410278,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-ee976b83c5",
+  "level": "review",
+  "name": "VGMロボット深谷店",
+  "chain": null,
+  "address": "埼玉県深谷市上柴町西4丁目１２－１",
+  "prefecture": "埼玉県",
+  "lat": 36.179054,
+  "lng": 139.29837,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-194e94c060",
+  "level": "review",
+  "name": "Pon! イオンモール三光店",
+  "chain": "ガチャガチャの森",
+  "address": "大分県中津市三光佐知1032 イオンモール三光2F",
+  "prefecture": "大分県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1674199543",
+  "level": "review",
+  "name": "ガチャガチャの森 大分オーパ店",
+  "chain": "ガチャガチャの森",
+  "address": "大分県大分市中央町 1丁目2番17号 大分オーパ2F",
+  "prefecture": "大分県",
+  "lat": 33.236164,
+  "lng": 131.607193,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-7371c1b3eb",
+  "level": "review",
+  "name": "ガチャガチャの森大分OPA店",
+  "chain": "ガチャガチャの森",
+  "address": "大分県大分市中央町1丁目2番17号 大分OPA 2F",
+  "prefecture": "大分県",
+  "lat": 33.235967947293,
+  "lng": 131.607011996438,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-9f9e6ed198",
+  "level": "review",
+  "name": "CAPSULE POP",
+  "chain": null,
+  "address": "大阪府和泉市いぶき野５丁目１和泉中央駅",
+  "prefecture": "大阪府",
+  "lat": 34.460056,
+  "lng": 135.456863,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0cbb27a246",
+  "level": "review",
+  "name": "ガチャガチャの森 イオンモール四條畷店",
+  "chain": "ガチャガチャの森",
+  "address": "大阪府四條畷市砂4丁目3番2号 イオンモール四條畷2F",
+  "prefecture": "大阪府",
+  "lat": 34.744938,
+  "lng": 135.631226,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-90e716acd4",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップイオンモール堺北花田店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "大阪府堺市北区東浅香山町4-1-12 3F",
+  "prefecture": "大阪府",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6785c63090",
+  "level": "review",
+  "name": "#C-pla プラットプラット堺店",
+  "chain": "#C-pla",
+  "address": "大阪府堺市堺区戎島町3-22-1",
+  "prefecture": "大阪府",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a0e59c565e",
+  "level": "review",
+  "name": "#C-pla 南海なんば駅店",
+  "chain": "#C-pla",
+  "address": "大阪府大阪市中央区難波5丁目1番60号",
+  "prefecture": "大阪府",
+  "lat": 34.664921,
+  "lng": 135.501114,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 1287 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-df1963fe2f",
+  "level": "review",
+  "name": "gashacoco なんば戎橋筋",
+  "chain": "gashacoco",
+  "address": "大阪府大阪市中央区難波3-5-1 なんば一番ビル 1F",
+  "prefecture": "大阪府",
+  "lat": 34.66675949,
+  "lng": 135.50117493,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-b68937eb3f",
+  "level": "review",
+  "name": "gashacoco なんば駅前",
+  "chain": "gashacoco",
+  "address": "大阪府大阪市中央区難波3-6-15 難波第一ビル B2F",
+  "prefecture": "大阪府",
+  "lat": 34.66654968,
+  "lng": 135.50071716,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-ebd60c83ae",
+  "level": "review",
+  "name": "カプセルファミリー",
+  "chain": null,
+  "address": "大阪府大阪市浪速区難波中2-1-22アテナ日本橋",
+  "prefecture": "大阪府",
+  "lat": 34.663067,
+  "lng": 135.504974,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-eb17bc59ac",
+  "level": "review",
+  "name": "ドリームカプセル イオンモール大阪ドームシティ",
+  "chain": "ドリームカプセル",
+  "address": "大阪府大阪市西区千代崎三丁目13番1 イオンモール大阪ドームシティ3F",
+  "prefecture": "大阪府",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6d558ab046",
+  "level": "review",
+  "name": "ガチャガチャの森イオンモール四條畷店",
+  "chain": "ガチャガチャの森",
+  "address": "大阪府大阪府四條畷市砂4丁目3番2号 イオンモール四條畷 2F",
+  "prefecture": "大阪府",
+  "lat": 34.7458799886591,
+  "lng": 135.627964796497,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-060d87fe5b",
+  "level": "review",
+  "name": "#C-pla ならファミリー店",
+  "chain": "#C-pla",
+  "address": "奈良県奈良市西大寺東町2-4-1",
+  "prefecture": "奈良県",
+  "lat": 34.695045,
+  "lng": 135.785141,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-9e2d86235a",
+  "level": "review",
+  "name": "#C-plaならファミリー",
+  "chain": "#C-pla",
+  "address": "奈良県奈良市西大寺東町二丁目",
+  "prefecture": "奈良県",
+  "lat": 34.69537870703456,
+  "lng": 135.78535555143046,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-cb1938e5c8",
+  "level": "review",
+  "name": "#C-pla ザ・モール仙台長町店",
+  "chain": "#C-pla",
+  "address": "宮城県仙台市太白区長町7丁目20-15",
+  "prefecture": "宮城県",
+  "lat": 38.225822,
+  "lng": 140.876862,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-360890331b",
+  "level": "review",
+  "name": "Cーpla ザ・モール仙台長町店",
+  "chain": null,
+  "address": "宮城県仙台市太白区長町７丁目２０−３",
+  "prefecture": "宮城県",
+  "lat": 38.225822,
+  "lng": 140.876862,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-b774ae0c77",
+  "level": "review",
+  "name": "ドリームカプセル 三井アウトレットパーク仙台港",
+  "chain": "ドリームカプセル",
+  "address": "宮城県仙台市宮城野区中野3丁目7-2 三井アウトレットパーク仙台港2F",
+  "prefecture": "宮城県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6b8f27a891",
+  "level": "review",
+  "name": "GACHAVA",
+  "chain": null,
+  "address": "宮城県仙台市泉区泉中央1-4-1",
+  "prefecture": "宮城県",
+  "lat": 38.3235575,
+  "lng": 140.8820845,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-95be1d3f4f",
+  "level": "review",
+  "name": "GACHAVA 仙台SELBA",
+  "chain": null,
+  "address": "宮城県仙台市泉区泉中央1丁目4-1 SELBA 4F 1",
+  "prefecture": "宮城県",
+  "lat": 38.323639,
+  "lng": 140.882217,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-100cfef8ba",
+  "level": "review",
+  "name": "#C-pla 仙台ロフト2号店",
+  "chain": "#C-pla",
+  "address": "宮城県仙台市青葉区中央1丁目10-10",
+  "prefecture": "宮城県",
+  "lat": 38.260002,
+  "lng": 140.880493,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 3129 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-01d5fe7aac",
+  "level": "review",
+  "name": "#C-pla 仙台ロフト店",
+  "chain": "#C-pla",
+  "address": "宮城県仙台市青葉区中央1丁目10-10",
+  "prefecture": "宮城県",
+  "lat": 38.260112575200814,
+  "lng": 140.8807857930937,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 3155 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-6a8497c64f",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップあゆみBOOKS仙台一番町店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "宮城県仙台市青葉区一番町4-5-13 サンシャインビル 1F",
+  "prefecture": "宮城県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-160be90348",
+  "level": "review",
+  "name": "ゲームメイト 仙台店",
+  "chain": null,
+  "address": "宮城県仙台市青葉区中央4丁目１－１ イービーンズ４F",
+  "prefecture": "宮城県",
+  "lat": 38.258888,
+  "lng": 140.880264,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0b64c6fbb9",
+  "level": "review",
+  "name": "白牡丹 ガチャガチャコーナー",
+  "chain": null,
+  "address": "宮城県仙台市青葉区一番町３丁目１０−２０",
+  "prefecture": "宮城県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-f0e41916f0",
+  "level": "review",
+  "name": "ガチャ王国 ゆめタウン下松店",
+  "chain": null,
+  "address": "山口県下松市中央町２１−３ ゆめタウン下松店3F",
+  "prefecture": "山口県",
+  "lat": 34.018559,
+  "lng": 131.86322,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-4c7220efe8",
+  "level": "review",
+  "name": "ガチャ王国 ゆめタウン新南陽店",
+  "chain": null,
+  "address": "山口県周南市清水２丁目２−１ ゆめタウン新南陽3F",
+  "prefecture": "山口県",
+  "lat": 34.070301,
+  "lng": 131.772278,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8fc69d1d93",
+  "level": "review",
+  "name": "ガチャ王国 O’s colleboサンパークあじす店",
+  "chain": "ガチャ王国 O's collebo",
+  "address": "山口県山口市阿知須4825-1 サンパークあじす2F",
+  "prefecture": "山口県",
+  "lat": 34.009491,
+  "lng": 131.351761,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-4f98b8a050",
+  "level": "review",
+  "name": "ガチャ王国 サンパークあじす店",
+  "chain": null,
+  "address": "山口県山口市阿知須４８２５−１サンパークあじす",
+  "prefecture": "山口県",
+  "lat": 34.009491,
+  "lng": 131.351761,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-33c51689a9",
+  "level": "review",
+  "name": "サンパークあじす",
+  "chain": null,
+  "address": "山口県山口市阿知須４８２５−１",
+  "prefecture": "山口県",
+  "lat": 34.0094581,
+  "lng": 131.3516708,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-8f97d9199e",
+  "level": "review",
+  "name": "ドリームカプセル イオンタウン防府（10/2リニューアル）",
+  "chain": "ドリームカプセル",
+  "address": "山口県防府市鐘紡町7-1 イオンタウン防府2F",
+  "prefecture": "山口県",
+  "lat": 34.048691,
+  "lng": 131.587585,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "closed_or_suspended",
+    "detail": "ドリームカプセル イオンタウン防府（10/2リニューアル）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d30c58a96d",
+  "level": "review",
+  "name": "#C-pla モレラ岐阜店",
+  "chain": "#C-pla",
+  "address": "岐阜県本巣市三橋1100",
+  "prefecture": "岐阜県",
+  "lat": 35.4547916,
+  "lng": 136.6727337,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-493c25be03",
+  "level": "review",
+  "name": "タワーレコードモレラ岐阜",
+  "chain": null,
+  "address": "岐阜県本巣市三橋１１００",
+  "prefecture": "岐阜県",
+  "lat": 35.4549302,
+  "lng": 136.6726281,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-090a8b292d",
+  "level": "review",
+  "name": "Pon! TSUTAYA十日市店",
+  "chain": "ガチャガチャの森",
+  "address": "岡山県岡山市北区岡南町2丁目299-1",
+  "prefecture": "岡山県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-7dcc2ebd21",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップイオンシネマ江釣子店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "岩手県北上市北鬼柳19地割74-3 江釣子ショッピングセンターパル イオンシネマ館 2F",
+  "prefecture": "岩手県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-7c88b3cc48",
+  "level": "review",
+  "name": "万SAI堂 北上店",
+  "chain": null,
+  "address": "岩手県北上市村崎野14地割68番地32",
+  "prefecture": "岩手県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-de689da5f6",
+  "level": "review",
+  "name": "ガシャポンのデパート駿河屋盛岡MOSSビル店",
+  "chain": "ガシャポンのデパート",
+  "address": "岩手県盛岡市大通2-8-14 MOSSビル 4F",
+  "prefecture": "岩手県",
+  "lat": 39.702847,
+  "lng": 141.144562,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-dd6b3e89b1",
+  "level": "review",
+  "name": "ガシャポンのデパート駿河屋盛岡MOSSビル店",
+  "chain": "ガシャポンのデパート",
+  "address": "岩手県盛岡市盛岡市大通2-8-14 MOSSビル4階",
+  "prefecture": "岩手県",
+  "lat": 39.70262835465728,
+  "lng": 141.14458055121926,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a8f4447e01",
+  "level": "review",
+  "name": "ガチャ王国 ゆめタウン 呉店",
+  "chain": null,
+  "address": "広島県呉市宝町5-10",
+  "prefecture": "広島県",
+  "lat": 34.242977,
+  "lng": 132.556091,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e1542960d2",
+  "level": "review",
+  "name": "#C-pla 広島ニイタニビル店",
+  "chain": "#C-pla",
+  "address": "広島県広島市中区紙屋町2丁目2番16号",
+  "prefecture": "広島県",
+  "lat": 34.393806,
+  "lng": 132.456543,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-5fe472d7d7",
+  "level": "review",
+  "name": "#C-pla広島ニイタニビル",
+  "chain": "#C-pla",
+  "address": "広島県広島市中区紙屋町2丁目2番87号",
+  "prefecture": "広島県",
+  "lat": 34.39379616740691,
+  "lng": 132.45662848254358,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-fd5fce1a10",
+  "level": "review",
+  "name": "ドリームカプセル 紙屋町シャレオ",
+  "chain": "ドリームカプセル",
+  "address": "広島県広島市中区基町 地下街100号 シャレオ東通りE15",
+  "prefecture": "広島県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0a23bb1004",
+  "level": "review",
+  "name": "ゆめタウン みゆき店",
+  "chain": null,
+  "address": "広島県広島市南区宇品西6丁目7-14",
+  "prefecture": "広島県",
+  "lat": 34.358265,
+  "lng": 132.457565,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-491491f2de",
+  "level": "review",
+  "name": "ガチャ王国 アルパーク店",
+  "chain": null,
+  "address": "広島県広島市西区草津新町2丁目26番1号",
+  "prefecture": "広島県",
+  "lat": 34.37373,
+  "lng": 132.394516,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-151d9abaec",
+  "level": "review",
+  "name": "ガチャ王国 ゆめタウン福山店",
+  "chain": null,
+  "address": "広島県福山市入船町３丁目１−６０ ゆめタウン福山1F",
+  "prefecture": "広島県",
+  "lat": 34.485764,
+  "lng": 133.379028,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a8a0be4353",
+  "level": "review",
+  "name": "ガチャ王国オズコレボ 徳島クレメントプラザ店",
+  "chain": null,
+  "address": "徳島県徳島市寺島本町西1-61",
+  "prefecture": "徳島県",
+  "lat": 34.074863,
+  "lng": 134.549835,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9d4fe241cb",
+  "level": "review",
+  "name": "まつちかタウン（松山市駅前地下街）",
+  "chain": null,
+  "address": "愛媛県松山市湊町5丁目",
+  "prefecture": "愛媛県",
+  "lat": 33.835934,
+  "lng": 132.76268,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-57b218de9b",
+  "level": "review",
+  "name": "ガチャ王国 O’s colleboクレスト店",
+  "chain": "ガチャ王国 O's collebo",
+  "address": "愛媛県松山市勝岡町46番地",
+  "prefecture": "愛媛県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-167961d5c8",
+  "level": "review",
+  "name": "ガチャ王国オズコレボ ジョープラ店",
+  "chain": null,
+  "address": "愛媛県松山市朝生田町5丁目1番25号 ジョープラ2F",
+  "prefecture": "愛媛県",
+  "lat": 33.821548,
+  "lng": 132.772491,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-eba0f6093f",
+  "level": "review",
+  "name": "ガチャガチャの森 イオンモール木曽川店",
+  "chain": "ガチャガチャの森",
+  "address": "愛知県一宮市木曽川町黒田字南ハツケ池25-1 イオンモール木曽川3F",
+  "prefecture": "愛知県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8e64240692",
+  "level": "review",
+  "name": "MEGAドン・キホーテ UNY東海通店",
+  "chain": null,
+  "address": "愛知県名古屋市港区港明1丁目10番28号",
+  "prefecture": "愛知県",
+  "lat": 35.111179,
+  "lng": 136.886536,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-4d0ea7be4a",
+  "level": "review",
+  "name": "#C-pla イオンモール常滑店",
+  "chain": "#C-pla",
+  "address": "愛知県常滑市りんくう町2丁目20番3号",
+  "prefecture": "愛知県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e69f02f621",
+  "level": "review",
+  "name": "ドリームカプセル プライムツリー赤池",
+  "chain": "ドリームカプセル",
+  "address": "愛知県日進市赤池町箕ノ手1番 プライムツリー赤池3F",
+  "prefecture": "愛知県",
+  "lat": 35.108621,
+  "lng": 137.0243969,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 1086 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-8bbc3d9c38",
+  "level": "review",
+  "name": "ドリームカプセル イオンモール東浦",
+  "chain": "ドリームカプセル",
+  "address": "愛知県知多郡東浦町大字緒川字旭13-2 イオンモール東浦1F",
+  "prefecture": "愛知県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a7edada9eb",
+  "level": "review",
+  "name": "MEGAドン・キホーテ UNY豊田元町店",
+  "chain": null,
+  "address": "愛知県豊田市土橋町2-65",
+  "prefecture": "愛知県",
+  "lat": 35.062843,
+  "lng": 137.131851,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1c3acd76ec",
+  "level": "review",
+  "name": "ドリームカプセル イオンモール長久手",
+  "chain": "ドリームカプセル",
+  "address": "愛知県長久手市勝入塚501番地 イオンモール長久手3F",
+  "prefecture": "愛知県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8001aea3c9",
+  "level": "review",
+  "name": "gashacoco 中野サンモール",
+  "chain": "gashacoco",
+  "address": "東京都中野区中野5-64-9",
+  "prefecture": "東京都",
+  "lat": 35.70677185,
+  "lng": 139.66564941,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-91986ae651",
+  "level": "review",
+  "name": "カプセル楽局EX中野サンモール店",
+  "chain": "カプセル楽局",
+  "address": "東京都中野区中野5丁目65番12号 中野ｻﾝﾓｰﾙ ｽﾉｰﾋﾞﾙ",
+  "prefecture": "東京都",
+  "lat": 35.707039,
+  "lng": 139.665665,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-c6d37c65d4",
+  "level": "review",
+  "name": "イエローサブマリン 秋葉原店",
+  "chain": null,
+  "address": "東京都千代田区外神田１丁目１５−１６ 秋葉原ラジオ会館 千代田区 6F",
+  "prefecture": "東京都",
+  "lat": 35.6979149,
+  "lng": 139.7719571,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-3a006d54f6",
+  "level": "review",
+  "name": "ガシャポンのデパート秋葉原店",
+  "chain": "ガシャポンのデパート",
+  "address": "東京都千代田区外神田1-15-9 4F",
+  "prefecture": "東京都",
+  "lat": 35.6980094,
+  "lng": 139.7724164,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-7c7c7351c9",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップ秋葉原店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "東京都千代田区外神田1-15-9 4F",
+  "prefecture": "東京都",
+  "lat": 35.6980094,
+  "lng": 139.7724164,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-091b5a90c1",
+  "level": "review",
+  "name": "ジョナサン秋葉原駅前",
+  "chain": null,
+  "address": "東京都千代田区外神田1丁目17-4",
+  "prefecture": "東京都",
+  "lat": 35.69791388994254,
+  "lng": 139.77262243266506,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-251f82e89b",
+  "level": "review",
+  "name": "JR上野駅",
+  "chain": null,
+  "address": "東京都台東区上野7丁目1-1",
+  "prefecture": "東京都",
+  "lat": 35.713612,
+  "lng": 139.7770295,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-536cd085a6",
+  "level": "review",
+  "name": "JR上野駅 入谷改札口付近",
+  "chain": null,
+  "address": "東京都台東区上野７丁目１−１",
+  "prefecture": "東京都",
+  "lat": 35.7133078,
+  "lng": 139.7770178,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-04609a856d",
+  "level": "review",
+  "name": "がちゃ処",
+  "chain": null,
+  "address": "東京都台東区浅草1丁目27-2",
+  "prefecture": "東京都",
+  "lat": 35.712349,
+  "lng": 139.793823,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-5a256bc4fd",
+  "level": "review",
+  "name": "がちゃ処 浅草店",
+  "chain": "がちゃ処",
+  "address": "東京都台東区浅草1-27-10",
+  "prefecture": "東京都",
+  "lat": 35.7123751,
+  "lng": 139.7940571,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-0b1a5bbb9c",
+  "level": "review",
+  "name": "JR大崎駅北改札外",
+  "chain": null,
+  "address": "東京都品川区大崎1-21-4",
+  "prefecture": "東京都",
+  "lat": 35.6199636710926,
+  "lng": 139.728213370192,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-9d3a30749c",
+  "level": "review",
+  "name": "JR大崎駅南改札外",
+  "chain": null,
+  "address": "東京都品川区大崎1-21-4",
+  "prefecture": "東京都",
+  "lat": 35.6199636710926,
+  "lng": 139.728213370192,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-29186b5b03",
+  "level": "review",
+  "name": "JR大崎駅改札内",
+  "chain": null,
+  "address": "東京都品川区大崎1-21-4",
+  "prefecture": "東京都",
+  "lat": 35.6199636710926,
+  "lng": 139.728213370192,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-67a25fd969",
+  "level": "review",
+  "name": "#C-pla 錦糸町PARCO店",
+  "chain": "#C-pla",
+  "address": "東京都墨田区江東橋4丁目27-14",
+  "prefecture": "東京都",
+  "lat": 35.696064,
+  "lng": 139.815231,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-59a4ffd019",
+  "level": "review",
+  "name": "gashacoco 錦糸町駅前",
+  "chain": "gashacoco",
+  "address": "東京都墨田区 江東橋３丁目１３−６ 1・2F",
+  "prefecture": "東京都",
+  "lat": 35.6960674,
+  "lng": 139.8136588,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-fd22f11a6d",
+  "level": "review",
+  "name": "ガシャココ錦糸町駅前",
+  "chain": "gashacoco",
+  "address": "東京都墨田区江東橋３丁目１３－６",
+  "prefecture": "東京都",
+  "lat": 35.69606945002497,
+  "lng": 139.81365663175205,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-4a14c4ce8a",
+  "level": "review",
+  "name": "＃C-plaパルコ錦糸町",
+  "chain": "#C-pla",
+  "address": "東京都墨田区江東橋４丁目２７－１４ 錦糸町PARCO５階",
+  "prefecture": "東京都",
+  "lat": 35.6962944,
+  "lng": 139.8155665,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-2a316a1f3c",
+  "level": "review",
+  "name": "いなげや 花小金井駅前店",
+  "chain": null,
+  "address": "東京都小平市花小金井1丁目8-3",
+  "prefecture": "東京都",
+  "lat": 35.727486,
+  "lng": 139.513535,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-dd9d3c3118",
+  "level": "review",
+  "name": "いなげや 武蔵野関前店",
+  "chain": null,
+  "address": "東京都武蔵野市関前1丁目9-7",
+  "prefecture": "東京都",
+  "lat": 35.711647,
+  "lng": 139.5439,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0ec4345167",
+  "level": "review",
+  "name": "カプセル楽局吉祥寺レンガ通り店",
+  "chain": "カプセル楽局",
+  "address": "東京都武蔵野市吉祥寺本町1丁目2番3号",
+  "prefecture": "東京都",
+  "lat": 35.70388,
+  "lng": 139.578506,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-8330810309",
+  "level": "review",
+  "name": "カプセル楽局吉祥寺店",
+  "chain": "カプセル楽局",
+  "address": "東京都武蔵野市吉祥寺本町1丁目7番7号\n島田ビル1F",
+  "prefecture": "東京都",
+  "lat": 35.704281,
+  "lng": 139.578354,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-e1a8e7080b",
+  "level": "review",
+  "name": "ドリームカプセル 吉祥寺マルイ（10/19移転リニューアル）",
+  "chain": "ドリームカプセル",
+  "address": "東京都武蔵野市吉祥寺南町1丁目7-1 吉祥寺マルイ2F",
+  "prefecture": "東京都",
+  "lat": 35.702263,
+  "lng": 139.579193,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "closed_or_suspended",
+    "detail": "ドリームカプセル 吉祥寺マルイ（10/19移転リニューアル）"
+   }
+  ]
+ },
+ {
+  "id": "loc-5db904a604",
+  "level": "review",
+  "name": "カラオケ館 渋谷本店",
+  "chain": null,
+  "address": "東京都渋谷区宇田川町25-6",
+  "prefecture": "東京都",
+  "lat": 35.660404,
+  "lng": 139.698715,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-38c7a61aa9",
+  "level": "review",
+  "name": "お台場バンバントレカ",
+  "chain": null,
+  "address": "東京都港区台場１丁目６－１ お台場デックス東京ビーチ シーサイドモール４階 一丁目商店街内",
+  "prefecture": "東京都",
+  "lat": 35.629063,
+  "lng": 139.775894,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-03a2cb2f09",
+  "level": "review",
+  "name": "カラオケ館 六本木店",
+  "chain": null,
+  "address": "東京都港区六本木4丁目9-9",
+  "prefecture": "東京都",
+  "lat": 35.663651,
+  "lng": 139.732422,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e313786751",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップイオンシネマ日の出店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "東京都西多摩郡日の出町大字平井237-3 イオンモール日の出 3F",
+  "prefecture": "東京都",
+  "lat": 35.734825,
+  "lng": 139.275146,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0e3320c285",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップイオンシネマ日の出店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "東京都西多摩郡日の出町平井字三吉野桜木237-3 イオンモール日の出3F",
+  "prefecture": "東京都",
+  "lat": 35.7346685,
+  "lng": 139.2748154,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d7d8efbbaf",
+  "level": "review",
+  "name": "MEGAドン・キホーテ ラパーク宇都宮店",
+  "chain": null,
+  "address": "栃木県宇都宮市馬場通り２丁目３−１２",
+  "prefecture": "栃木県",
+  "lat": 36.560909,
+  "lng": 139.885864,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8c54f2ea23",
+  "level": "review",
+  "name": "タイトーFステーション 小山",
+  "chain": null,
+  "address": "栃木県小山市大字喜沢1475 ハーヴェストトウォーク内スポ－ツシネマ棟",
+  "prefecture": "栃木県",
+  "lat": 36.334133,
+  "lng": 139.806915,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e689c44194",
+  "level": "review",
+  "name": "ガチャガチャの森イオンモール沖縄ライカム店",
+  "chain": "ガチャガチャの森",
+  "address": "沖縄県中頭軍北中城村ライカム1番地 イオンモール沖縄ライカム4F",
+  "prefecture": "沖縄県",
+  "lat": 26.3141997780763,
+  "lng": 127.796965037715,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-1d4a9e6c67",
+  "level": "review",
+  "name": "ガチャガチャの森 イオンモール沖縄ライカム店",
+  "chain": "ガチャガチャの森",
+  "address": "沖縄県中頭郡北中城村字ライカム1番地 イオンモール沖縄ライカム4F",
+  "prefecture": "沖縄県",
+  "lat": 26.314575,
+  "lng": 127.796043,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-fd1d2d797e",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップイオンタウン読谷SC店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "沖縄県中頭郡読谷村字古堅740 イオンタウン読谷ショッピングセンター内",
+  "prefecture": "沖縄県",
+  "lat": 26.36792024698858,
+  "lng": 127.74502449741351,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-84e464d5f9",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップイオンタウン読谷ショッピングセンター店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "沖縄県中頭郡読谷村字古堅740 イオンタウン読谷ショッピングセンター内",
+  "prefecture": "沖縄県",
+  "lat": 26.368006,
+  "lng": 127.745178,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-43c6de5ffa",
+  "level": "review",
+  "name": "ドリームカプセル マックスバリュやいま",
+  "chain": "ドリームカプセル",
+  "address": "沖縄県石垣市真栄里292-1",
+  "prefecture": "沖縄県",
+  "lat": 24.336519,
+  "lng": 124.181503,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_far_from_prefecture",
+    "detail": "沖縄県 の中心から 413 km"
+   }
+  ]
+ },
+ {
+  "id": "loc-5b9cccbfda",
+  "level": "review",
+  "name": "ドリームカプセル 那覇OPA店",
+  "chain": "ドリームカプセル",
+  "address": "沖縄県那覇市泉崎 1-20-1 カフーナ旭橋A街区",
+  "prefecture": "沖縄県",
+  "lat": 26.2113208,
+  "lng": 127.6764053,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-c7daea65fb",
+  "level": "review",
+  "name": "ドリームカプセル 那覇オーパ",
+  "chain": "ドリームカプセル",
+  "address": "沖縄県那覇市泉崎1丁目20-1 那覇オーパ2F",
+  "prefecture": "沖縄県",
+  "lat": 26.211456,
+  "lng": 127.675957,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-a655de082a",
+  "level": "review",
+  "name": "ガシャポンのデパート イオンモール宇城店",
+  "chain": "ガシャポンのデパート",
+  "address": "熊本県宇城市小川町河江1-1 イオンモール宇城 2F",
+  "prefecture": "熊本県",
+  "lat": 32.5967619,
+  "lng": 130.7064298,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "closed_or_suspended",
+    "detail": "統合元の情報源に記載: ['ガシャポンのデパートイオンモール宇城店(営業休止中)']"
+   }
+  ]
+ },
+ {
+  "id": "loc-7188159ec9",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップゆめタウンサンピアン店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "熊本県熊本市上南部町2-2-2 ゆめタウンサンピアン3F",
+  "prefecture": "熊本県",
+  "lat": 32.827301572322604,
+  "lng": 130.76358264325523,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-e7cf3eec01",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップゆめタウンサンピアン店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "熊本県熊本市東区上南部2-2-2 ゆめタウンサンピアン 3F",
+  "prefecture": "熊本県",
+  "lat": 32.826042,
+  "lng": 130.763504,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-ac17fe8835",
+  "level": "review",
+  "name": "ドリームカプセル イオンモール新小松",
+  "chain": "ドリームカプセル",
+  "address": "石川県小松市清六町315 イオンモール新小松2F",
+  "prefecture": "石川県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9d44594ce0",
+  "level": "review",
+  "name": "C-pla 川崎ルフロン店",
+  "chain": "#C-pla",
+  "address": "神奈川県川崎市川崎区日進町１−１１",
+  "prefecture": "神奈川県",
+  "lat": 35.5294013,
+  "lng": 139.6967214,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-299e1945c3",
+  "level": "review",
+  "name": "ヨドバシカメラ マルチメディア川崎ルフロン",
+  "chain": null,
+  "address": "神奈川県川崎市川崎区日進町１－１１",
+  "prefecture": "神奈川県",
+  "lat": 35.5294013,
+  "lng": 139.6967214,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-94cb2a9266",
+  "level": "review",
+  "name": "ドリームカプセル THE OUTLETS SHONAN HIRATSUKA",
+  "chain": "ドリームカプセル",
+  "address": "神奈川県平塚市大神八丁目1番1号 THE OUTLETS SHONAN HIRATSUKA 2207区画",
+  "prefecture": "神奈川県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-7b81c2752e",
+  "level": "review",
+  "name": "MEGAドン・キホーテ UNY座間店",
+  "chain": null,
+  "address": "神奈川県座間市入谷1丁目416番地の2",
+  "prefecture": "神奈川県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-123f633a60",
+  "level": "review",
+  "name": "gashacoco 港山下ナナイロ",
+  "chain": "gashacoco",
+  "address": "神奈川県横浜市中区新山下１丁目２−８",
+  "prefecture": "神奈川県",
+  "lat": 35.4423847,
+  "lng": 139.6540572,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-62c2cc2683",
+  "level": "review",
+  "name": "#C-pla ゆめが丘ソラトス店",
+  "chain": "#C-pla",
+  "address": "神奈川県横浜市泉区ゆめが丘31番地",
+  "prefecture": "神奈川県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-42f403acbf",
+  "level": "review",
+  "name": "HaKoNiWa アカフーパーク店",
+  "chain": null,
+  "address": "神奈川県横浜市港南区上大岡西2-1-28アカフーパーク本館１F",
+  "prefecture": "神奈川県",
+  "lat": 35.406994,
+  "lng": 139.596054,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-3b9f1224ed",
+  "level": "review",
+  "name": "MEGAドン・キホーテ UNY大口店",
+  "chain": null,
+  "address": "神奈川県横浜市神奈川区神之木町2番30号",
+  "prefecture": "神奈川県",
+  "lat": 35.493694,
+  "lng": 139.647919,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-262f0a74df",
+  "level": "review",
+  "name": "ガシャポンのデパート 港北TOKYU S.C.店",
+  "chain": "ガシャポンのデパート",
+  "address": "神奈川県横浜市都筑区茅ヶ崎中央5-1 港北TOKYU S.C. 6F namco内",
+  "prefecture": "神奈川県",
+  "lat": 35.544209,
+  "lng": 139.572586,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-d91d523e10",
+  "level": "review",
+  "name": "ガシャポンのデパート港北TOKYUショッピングセンター店",
+  "chain": "ガシャポンのデパート",
+  "address": "神奈川県横浜市都筑区茅ヶ崎中央5-1 港北TOKYU S.C. 6F namco内",
+  "prefecture": "神奈川県",
+  "lat": 35.5442223,
+  "lng": 139.5722386,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-728cf20ae0",
+  "level": "review",
+  "name": "ガチャガチャの森 ボーノ相模大野店",
+  "chain": "ガチャガチャの森",
+  "address": "神奈川県相模原市南区相模大野3丁目2番 ボーノ相模大野ショッピングセンター3F",
+  "prefecture": "神奈川県",
+  "lat": 35.531067,
+  "lng": 139.434906,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-5db62a5c0a",
+  "level": "review",
+  "name": "ガチャガチャの森ボーノ相模大野店",
+  "chain": "ガチャガチャの森",
+  "address": "神奈川県相模原市南区相模大野3-2-1 ボーノ相模大野3F",
+  "prefecture": "神奈川県",
+  "lat": 35.53122405683655,
+  "lng": 139.43511439438853,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-2442604167",
+  "level": "review",
+  "name": "ガシャココ港山下ナナイロ",
+  "chain": "gashacoco",
+  "address": "神奈川県神奈川県横浜市中区新山下1丁目2-8",
+  "prefecture": "神奈川県",
+  "lat": 35.442377024498,
+  "lng": 139.6540518323131,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-af9be1f979",
+  "level": "review",
+  "name": "Pon! ららぽーと福岡店",
+  "chain": null,
+  "address": "福岡県福岡市博多区那珂６丁目",
+  "prefecture": "福岡県",
+  "lat": 33.565086,
+  "lng": 130.439713,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-c2c26d2d75",
+  "level": "review",
+  "name": "ガチャガチャの森トリアス店",
+  "chain": "ガチャガチャの森",
+  "address": "福岡県福岡県糟屋郡久山町大字山田1111 トリアスモール",
+  "prefecture": "福岡県",
+  "lat": 33.6522367350292,
+  "lng": 130.489172825523,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-a2370126ef",
+  "level": "review",
+  "name": "Pon！ イオンモール福津店",
+  "chain": "ガチャガチャの森",
+  "address": "福岡県福津市日蒔野6丁目16番地の1 イオンモール福津2F",
+  "prefecture": "福岡県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1f5ecc00dd",
+  "level": "review",
+  "name": "Pon!トリアス久山店",
+  "chain": null,
+  "address": "福岡県糟屋郡久山町山田１１１１",
+  "prefecture": "福岡県",
+  "lat": 33.653015,
+  "lng": 130.489349,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6d6b5e5094",
+  "level": "review",
+  "name": "ガチャガチャの森トリアス店",
+  "chain": "ガチャガチャの森",
+  "address": "福岡県糟屋郡久山町大字山田1111トリアスモール",
+  "prefecture": "福岡県",
+  "lat": 33.653015,
+  "lng": 130.489349,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-0f4f344fd7",
+  "level": "review",
+  "name": "#C-pla ゆめタウン行橋店",
+  "chain": "#C-pla",
+  "address": "福岡県行橋市西宮市3丁目8-1",
+  "prefecture": "福岡県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-3d0233dfe4",
+  "level": "review",
+  "name": "イオン穂波",
+  "chain": null,
+  "address": "福岡県飯塚市枝国長浦６６６－４８",
+  "prefecture": "福岡県",
+  "lat": 33.6370733648652,
+  "lng": 130.673738456158,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-fe7268e301",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップABOOKイオン穂波店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "福岡県飯塚市枝国長浦666-48 イオン穂波 1F",
+  "prefecture": "福岡県",
+  "lat": 33.63705719383006,
+  "lng": 130.67374404528897,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-b57bdd889f",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップブックエース上荒川店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "福島県いわき市平上荒川島田5",
+  "prefecture": "福島県",
+  "lat": 37.036346,
+  "lng": 140.894104,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9e145ad16d",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップブックエース上荒川店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "福島県いわき市平上荒川字島田5",
+  "prefecture": "福島県",
+  "lat": 37.0362892128434,
+  "lng": 140.89392356130978,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-5e1a9ff78c",
+  "level": "review",
+  "name": "ブックエース 小名浜住吉店",
+  "chain": null,
+  "address": "福島県いわき市小名浜住吉花木内1-1",
+  "prefecture": "福島県",
+  "lat": 36.977631,
+  "lng": 140.888916,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e87a18f843",
+  "level": "review",
+  "name": "ガシャポンのデパートPLANT-5 大玉店",
+  "chain": "ガシャポンのデパート",
+  "address": "福島県大玉村（安達郡）安達郡大玉村大山字仲江271",
+  "prefecture": "福島県",
+  "lat": 37.541648208673145,
+  "lng": 140.39561899681974,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-af47a76cd7",
+  "level": "review",
+  "name": "ガシャポンのデパートPLANT-5 大玉",
+  "chain": "ガシャポンのデパート",
+  "address": "福島県安達郡大玉村大山字仲江271",
+  "prefecture": "福島県",
+  "lat": 37.541664,
+  "lng": 140.395432,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-7f926aaf3d",
+  "level": "review",
+  "name": "みどり書房 福島南店",
+  "chain": null,
+  "address": "福島県福島市黒岩浜井場24-1",
+  "prefecture": "福島県",
+  "lat": 37.727837,
+  "lng": 140.468704,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-7bb7b6f0cf",
+  "level": "review",
+  "name": "フレッセイ フォリオ赤堀店",
+  "chain": null,
+  "address": "群馬県伊勢崎市曲沢町196-1",
+  "prefecture": "群馬県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-118a0bcfd1",
+  "level": "review",
+  "name": "アピタ 前橋店",
+  "chain": null,
+  "address": "群馬県前橋市文京町2-1-1",
+  "prefecture": "群馬県",
+  "lat": 36.380619,
+  "lng": 139.076813,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8293bfd94f",
+  "level": "review",
+  "name": "ベイシア 前橋みなみモール店",
+  "chain": null,
+  "address": "群馬県前橋市新堀町８９３",
+  "prefecture": "群馬県",
+  "lat": 36.330158,
+  "lng": 139.095581,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-94628fa7f0",
+  "level": "review",
+  "name": "WonderGOO 富岡店",
+  "chain": null,
+  "address": "群馬県富岡市七日市１７１２−１",
+  "prefecture": "群馬県",
+  "lat": 36.260513,
+  "lng": 138.870163,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-4317aab535",
+  "level": "review",
+  "name": "Cーplaトナリエつくばスクエア店",
+  "chain": null,
+  "address": "茨城県つくば市吾妻１丁目６−１ トナリエつくば2F",
+  "prefecture": "茨城県",
+  "lat": 36.081863,
+  "lng": 140.111633,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-5b9d0a413b",
+  "level": "review",
+  "name": "ブックエース 下妻店",
+  "chain": null,
+  "address": "茨城県下妻市下妻井戌115-1",
+  "prefecture": "茨城県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-3b2401c41c",
+  "level": "review",
+  "name": "ランドローム 利根店",
+  "chain": null,
+  "address": "茨城県北相馬郡利根町もえぎ野台2丁目1-1",
+  "prefecture": "茨城県",
+  "lat": 35.875408,
+  "lng": 140.156372,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d011f84230",
+  "level": "review",
+  "name": "カスミ 守谷テラス店 ガチャガチャコーナー",
+  "chain": null,
+  "address": "茨城県守谷市久保ケ丘２丁目１−１",
+  "prefecture": "茨城県",
+  "lat": 35.96777,
+  "lng": 139.974762,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-2f019f7acc",
+  "level": "review",
+  "name": "ガシャココ MEGAドン・キホーテ上水戸",
+  "chain": "gashacoco",
+  "address": "茨城県水戸市上水戸2-9-10MEGAドン・キホーテ上水戸１F",
+  "prefecture": "茨城県",
+  "lat": 36.3895973,
+  "lng": 140.4453394,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-97ac0f80ed",
+  "level": "review",
+  "name": "ガシャココ 上水戸",
+  "chain": "gashacoco",
+  "address": "茨城県水戸市上水戸2-9-10 ドン・キホーテ上水戸 1F",
+  "prefecture": "茨城県",
+  "lat": 36.38957977,
+  "lng": 140.44541931,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-2d8e819f6a",
+  "level": "review",
+  "name": "笠間SC協同組合",
+  "chain": null,
+  "address": "茨城県笠間市赤坂8",
+  "prefecture": "茨城県",
+  "lat": 36.390781,
+  "lng": 140.250519,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-47cb02eda2",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップ軽井沢・プリンスショッピングプラザ店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "長野県北佐久郡軽井沢町軽井沢 ​ 軽井沢・プリンスショッピングプラザ内 プリンスボウル 1F",
+  "prefecture": "長野県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-12b3c9e773",
+  "level": "review",
+  "name": "ゲームメイト松本 PARCO店",
+  "chain": null,
+  "address": "長野県松本市中央１－１０－３０ 松本PARCO３F",
+  "prefecture": "長野県",
+  "lat": 36.232265,
+  "lng": 137.968079,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-854b4274b4",
+  "level": "review",
+  "name": "#C-pla イオンモール須坂店",
+  "chain": "#C-pla",
+  "address": "長野県須坂市大字福島386番地1",
+  "prefecture": "長野県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d90c1f29d0",
+  "level": "review",
+  "name": "ELM",
+  "chain": null,
+  "address": "青森県五所川原市大字唐笠柳字藤巻517-1",
+  "prefecture": "青森県",
+  "lat": 40.79874579642538,
+  "lng": 140.4542324603045,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-46509445da",
+  "level": "review",
+  "name": "エルムの街 ガチャガチャコーナー",
+  "chain": null,
+  "address": "青森県五所川原市大字唐笠柳字藤巻517-1",
+  "prefecture": "青森県",
+  "lat": 40.800228,
+  "lng": 140.452988,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8802cdccb2",
+  "level": "review",
+  "name": "ガシャポンのデパート青森ELM店",
+  "chain": "ガシャポンのデパート",
+  "address": "青森県五所川原市大字唐笠柳字藤巻517-1 ELM2F namco内",
+  "prefecture": "青森県",
+  "lat": 40.798930044365484,
+  "lng": 140.4540332491465,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-8a417a0bec",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップ青森ELM店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "青森県五所川原市大字唐笠柳字藤巻517-1 ELM2F namco内",
+  "prefecture": "青森県",
+  "lat": 40.79882094111231,
+  "lng": 140.45424103207108,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-d4a13bb3d0",
+  "level": "review",
+  "name": "#C-pla 八戸ラピア店",
+  "chain": "#C-pla",
+  "address": "青森県八戸市江陽2丁目14-1",
+  "prefecture": "青森県",
+  "lat": 40.5122055,
+  "lng": 141.4882743,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 1670 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-44ef8de187",
+  "level": "review",
+  "name": "#C-pla 未来屋書店青森西店",
+  "chain": "#C-pla",
+  "address": "青森県青森市三好2丁目3-19",
+  "prefecture": "青森県",
+  "lat": 40.833221,
+  "lng": 140.702148,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_conflict_with_official_map",
+    "detail": "公式ページの地図と 2895 m 差"
+   }
+  ]
+ },
+ {
+  "id": "loc-18373c402b",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップザザ中央館店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "静岡県浜松市中央区鍛治町100-1 ザザ中央館 1F",
+  "prefecture": "静岡県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-29d0dea10a",
+  "level": "review",
+  "name": "ドリームカプセル イオンモール浜松市野",
+  "chain": "ドリームカプセル",
+  "address": "静岡県浜松市中央区天王町字諏訪1981-3 イオンモール浜松市野2F",
+  "prefecture": "静岡県",
+  "lat": 34.738644,
+  "lng": 137.763733,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-fd60caaac5",
+  "level": "review",
+  "name": "ドリームカプセル イオンモール浜松市野",
+  "chain": "ドリームカプセル",
+  "address": "静岡県浜松市東区天王町字諏訪1981-3",
+  "prefecture": "静岡県",
+  "lat": 34.7402437618215,
+  "lng": 137.763105306042,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-0ac00ec9f1",
+  "level": "review",
+  "name": "#C-pla 静岡PARCO店",
+  "chain": "#C-pla",
+  "address": "静岡県静岡市葵区紺屋町6-7",
+  "prefecture": "静岡県",
+  "lat": 34.972866,
+  "lng": 138.385696,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-0a0b9882ac",
+  "level": "review",
+  "name": "#C-pla 静岡パルシェ店",
+  "chain": "#C-pla",
+  "address": "静岡県静岡市葵区黒金町49番地",
+  "prefecture": "静岡県",
+  "lat": 34.971794,
+  "lng": 138.388901,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-748c085e30",
+  "level": "review",
+  "name": "C-pla 静岡パルコ店",
+  "chain": "#C-pla",
+  "address": "静岡県静岡市葵区紺屋町６−７静岡パルコ4F",
+  "prefecture": "静岡県",
+  "lat": 34.972761,
+  "lng": 138.385721,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-09a6e3b713",
+  "level": "review",
+  "name": "タワーレコード静岡パルコ",
+  "chain": null,
+  "address": "静岡県静岡市葵区紺屋町６－７",
+  "prefecture": "静岡県",
+  "lat": 34.972761,
+  "lng": 138.385721,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・名前が類似"
+   }
+  ]
+ },
+ {
+  "id": "loc-e1fea161a3",
+  "level": "review",
+  "name": "マークイズ静岡３Fガチャガチャコーナー",
+  "chain": null,
+  "address": "静岡県静岡市葵区柚木１０２６ マークイズ静岡３F",
+  "prefecture": "静岡県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d5a415b678",
+  "level": "review",
+  "name": "静岡モディ2Fイベントスペース",
+  "chain": null,
+  "address": "静岡県静岡市葵区御幸町６−１０",
+  "prefecture": "静岡県",
+  "lat": 34.973972,
+  "lng": 138.386841,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e6688ab9d3",
+  "level": "review",
+  "name": "＃C-pla静岡パルシェ",
+  "chain": "#C-pla",
+  "address": "静岡県静岡市葵区黒鉄町49番地",
+  "prefecture": "静岡県",
+  "lat": 34.9721640661534,
+  "lng": 138.388711613829,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "近接（50m以内）・同チェーン"
+   }
+  ]
+ },
+ {
+  "id": "loc-d5b075dfc0",
+  "level": "review",
+  "name": "サントムーン柿田川 ガチャガチャコーナー",
+  "chain": null,
+  "address": "静岡県駿東郡清水町玉川６１−２",
+  "prefecture": "静岡県",
+  "lat": 35.109955,
+  "lng": 138.905624,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1b656fc5e6",
+  "level": "review",
+  "name": "ゆめタウン 三豊店",
+  "chain": null,
+  "address": "香川県三豊市豊中町本山甲22",
+  "prefecture": "香川県",
+  "lat": 34.145252,
+  "lng": 133.699081,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e815843bc1",
+  "level": "review",
+  "name": "ゆめタウン 丸亀店",
+  "chain": null,
+  "address": "香川県丸亀市新田町150",
+  "prefecture": "香川県",
+  "lat": 34.273121,
+  "lng": 133.785736,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-565247be1c",
+  "level": "review",
+  "name": "#C-pla ゆめタウン高松店",
+  "chain": "#C-pla",
+  "address": "香川県高松市三条町608-1",
+  "prefecture": "香川県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9b589f9ca7",
+  "level": "review",
+  "name": "ガシャポンのデパートアミパラ屋島店",
+  "chain": "ガシャポンのデパート",
+  "address": "香川県高松市新田町甲甲35-2",
+  "prefecture": "香川県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9fdf0200f8",
+  "level": "review",
+  "name": "ガチャ王国 高松店",
+  "chain": null,
+  "address": "香川県高松市兵庫町1-12",
+  "prefecture": "香川県",
+  "lat": 34.346279,
+  "lng": 134.049911,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0f51c98b24",
+  "level": "review",
+  "name": "ヴィレッジヴァンガード イオンモール高知店",
+  "chain": null,
+  "address": "高知県高知市秦南町1-4-8 イオンモール高知2F",
+  "prefecture": "高知県",
+  "lat": 33.575348,
+  "lng": 133.541473,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "maker_list_only",
+    "detail": "メーカーの取扱店舗一覧のみ（営業時間・電話なし、最新性未確認）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1db416e17e",
+  "level": "review",
+  "name": "ガシャポンのデパートイオンモール鳥取北店",
+  "chain": "ガシャポンのデパート",
+  "address": "鳥取県鳥取市晩稲348 イオンモール鳥取北 2F 201区画",
+  "prefecture": "鳥取県",
+  "lat": 35.523964,
+  "lng": 134.201614,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同一区画に別ブランド（改装・ブランド変更の可能性）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-02c1fe5923",
+  "level": "review",
+  "name": "ガシャポンバンダイオフィシャルショップイオンモール鳥取北店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "鳥取県鳥取市晩稲348 イオンモール鳥取北 2F 201区画",
+  "prefecture": "鳥取県",
+  "lat": 35.523964,
+  "lng": 134.201614,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同一区画に別ブランド（改装・ブランド変更の可能性）"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-ffc99bd6d0",
+  "level": "review",
+  "name": "ガチャガチャの森 イオンモールKAGOSHIMABAY店",
+  "chain": "ガチャガチャの森",
+  "address": "鹿児島鹿児島市東開町7 イオンモールKAGOSHIMABAY3F",
+  "prefecture": "鹿児島県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "missing_city",
+    "detail": "鹿児島鹿児島市東開町7 イオンモールKAGOSHIMABAY3F"
+   },
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   },
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-28659eb8bf",
+  "level": "review",
+  "name": "ガチャガチャの森イオンモール KAGOSHIMA BAY店",
+  "chain": "ガチャガチャの森",
+  "address": "鹿児島県鹿児島市東開町7 イオンモール鹿児島3F",
+  "prefecture": "鹿児島県",
+  "lat": 31.5272891177588,
+  "lng": 130.53698727163,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "duplicate_candidate",
+    "detail": "同名・別の市区町村"
+   }
+  ]
+ },
+ {
+  "id": "loc-41a588ab25",
+  "level": "review",
+  "name": "Pon!サンキュー寿店",
+  "chain": "ガチャガチャの森",
+  "address": "鹿児島県鹿屋市寿七丁目494番1",
+  "prefecture": "鹿児島県",
+  "lat": null,
+  "lng": null,
+  "coordinatePrecision": null,
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "review",
+    "code": "coords_missing",
+    "detail": "座標なし（アプリは 0,0 として扱い距離がおかしくなる）"
+   }
+  ]
+ },
+ {
+  "id": "loc-ca3cca4360",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア京都",
+  "chain": null,
+  "address": "京都府京都市下京区京都駅前",
+  "prefecture": "京都府",
+  "lat": 34.9864417,
+  "lng": 135.7588665,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-7c72b4280d",
+  "level": "fixable",
+  "name": "＃C-plaあまがさきキューズモール",
+  "chain": "#C-pla",
+  "address": "兵庫県尼崎市潮江3番1号",
+  "prefecture": "兵庫県",
+  "lat": 34.733804587534,
+  "lng": 135.430699898486,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-d1fcff8223",
+  "level": "fixable",
+  "name": "ガチャガチャの森 サンシャインワーフ神戸店",
+  "chain": "ガチャガチャの森",
+  "address": "兵庫県神戸市東灘区青木1丁目2-34 サンシャインワーフ神戸2F",
+  "prefecture": "兵庫県",
+  "lat": 34.713257,
+  "lng": 135.282852,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d1164eb0d3",
+  "level": "fixable",
+  "name": "ガチャガチャの森サンシャインワーフ神戸店",
+  "chain": "ガチャガチャの森",
+  "address": "兵庫県神戸市東灘区青木１丁目３１３番地５ P棟（P-５）",
+  "prefecture": "兵庫県",
+  "lat": 34.71501000958595,
+  "lng": 135.28677771801114,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-32aa79c6ef",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップ新千歳空港店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "北海道千歳市美々987ｰ22 新千歳空港 国内線旅客ターミナルビル 4F",
+  "prefecture": "北海道",
+  "lat": 42.78769737828417,
+  "lng": 141.68054680156797,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-90391af19d",
+  "level": "fixable",
+  "name": "ビックカメラ札幌",
+  "chain": null,
+  "address": "北海道札幌市中央区北５条西２－１",
+  "prefecture": "北海道",
+  "lat": 43.0665809567933,
+  "lng": 141.352789425472,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-83030a8b5f",
+  "level": "fixable",
+  "name": "＃C-pla狸小路4丁目",
+  "chain": "#C-pla",
+  "address": "北海道札幌市中央区南２条西４丁目１０−２ 清水ビル 1階",
+  "prefecture": "北海道",
+  "lat": 43.057226280722546,
+  "lng": 141.35151381486003,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-7a6f833941",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア札幌",
+  "chain": null,
+  "address": "北海道札幌市北区北６条西５－１－１２",
+  "prefecture": "北海道",
+  "lat": 43.0679261,
+  "lng": 141.3478095,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-0cdbbb4a0a",
+  "level": "fixable",
+  "name": "#C-pla マックスバリュ留萌店",
+  "chain": "#C-pla",
+  "address": "北海道留萌市南町4丁目73ｰ1",
+  "prefecture": "北海道",
+  "lat": 43.923397,
+  "lng": 141.671265,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-12374a2901",
+  "level": "fixable",
+  "name": "カプセル楽局千葉C・one店",
+  "chain": "カプセル楽局",
+  "address": "千葉県千葉市中央区富士見2丁目25番1号\n千葉ｼｮｯﾋﾟﾝｸﾞｾﾝﾀｰC･one内",
+  "prefecture": "千葉県",
+  "lat": 35.610886,
+  "lng": 140.115936,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b466310654",
+  "level": "fixable",
+  "name": "カプセル楽局千葉中央Mio店",
+  "chain": "カプセル楽局",
+  "address": "千葉県千葉市中央区本千葉町15番1号\nユアエルム千葉Mio1 1F",
+  "prefecture": "千葉県",
+  "lat": 35.607456,
+  "lng": 140.11763,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-9ea00f8dd2",
+  "level": "fixable",
+  "name": "ヨドバシカメラ千葉",
+  "chain": null,
+  "address": "千葉県千葉市中央区富士見２－３－１",
+  "prefecture": "千葉県",
+  "lat": 35.6116456,
+  "lng": 140.116511,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-1097c885a6",
+  "level": "fixable",
+  "name": "メッセ・アミューズ・モール",
+  "chain": null,
+  "address": "千葉県千葉市美浜区ひび野1-8",
+  "prefecture": "千葉県",
+  "lat": 35.6497936,
+  "lng": 140.0424937,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）東京デッセル"
+   }
+  ]
+ },
+ {
+  "id": "loc-b760bacfb1",
+  "level": "fixable",
+  "name": "ドリームカプセル イコアス千城台（10/23オープン）",
+  "chain": "ドリームカプセル",
+  "address": "千葉県千葉市若葉区千城台北3ｰ21-1 イコアス千城台2F",
+  "prefecture": "千葉県",
+  "lat": 35.622665,
+  "lng": 140.189178,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8d36bfde26",
+  "level": "fixable",
+  "name": "カプセル楽局市川駅北口店",
+  "chain": "カプセル楽局",
+  "address": "千葉県市川市市川1丁目6番7号 IKビル",
+  "prefecture": "千葉県",
+  "lat": 35.729397,
+  "lng": 139.909088,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-700eb9ffa8",
+  "level": "fixable",
+  "name": "カプセル楽局イオン新松戸店",
+  "chain": "カプセル楽局",
+  "address": "千葉県松戸市新松戸3丁目2番2号 イオン新松戸店4F",
+  "prefecture": "千葉県",
+  "lat": 35.825249,
+  "lng": 139.916031,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-93471d72be",
+  "level": "fixable",
+  "name": "カプセル楽局松戸駅西口店",
+  "chain": "カプセル楽局",
+  "address": "千葉県松戸市本町1丁目23番\nW松戸1F",
+  "prefecture": "千葉県",
+  "lat": 35.783905,
+  "lng": 139.899689,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-a807bcadd7",
+  "level": "fixable",
+  "name": "＃C-pla OKAWARI！ プラーレ松戸店",
+  "chain": "#C-pla",
+  "address": "千葉県松戸市松戸1149-1",
+  "prefecture": "千葉県",
+  "lat": 35.782894,
+  "lng": 139.902496,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-9785ef34fa",
+  "level": "fixable",
+  "name": "カプセル楽局柏駅東口店",
+  "chain": "カプセル楽局",
+  "address": "千葉県柏市柏1丁目5−16",
+  "prefecture": "千葉県",
+  "lat": 35.860607,
+  "lng": 139.973297,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-2717cd0d89",
+  "level": "fixable",
+  "name": "カプセル楽局PLUS南流山店",
+  "chain": "カプセル楽局",
+  "address": "千葉県流山市南流山4丁目16番地の6",
+  "prefecture": "千葉県",
+  "lat": 35.839855,
+  "lng": 139.904709,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-ffd099e925",
+  "level": "fixable",
+  "name": "カプセル楽局津田沼店",
+  "chain": "カプセル楽局",
+  "address": "千葉県習志野市津田沼1丁目10番47号",
+  "prefecture": "千葉県",
+  "lat": 35.690762,
+  "lng": 140.022339,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-ac0c3d7341",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップTSUTAYA WAY ガーデンパーク和歌山店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "和歌山県和歌山市松江字向鵜ノ島1469-1",
+  "prefecture": "和歌山県",
+  "lat": 34.23933162098501,
+  "lng": 135.15376362551908,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d8afd462ec",
+  "level": "fixable",
+  "name": "ガチャガチャの森 イオンモール和歌山店",
+  "chain": "ガチャガチャの森",
+  "address": "和歌山県和歌山市中字楠谷573番地",
+  "prefecture": "和歌山県",
+  "lat": 34.27573684839862,
+  "lng": 135.14894332672887,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-973decef52",
+  "level": "fixable",
+  "name": "カプセル楽局大宮すずらん通り店",
+  "chain": "カプセル楽局",
+  "address": "埼玉県さいたま市大宮区大門町1丁目17番",
+  "prefecture": "埼玉県",
+  "lat": 35.907112,
+  "lng": 139.625626,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-4538ac2a96",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディアさいたま新都心",
+  "chain": null,
+  "address": "埼玉県さいたま市大宮区吉敷町４－２６３－６",
+  "prefecture": "埼玉県",
+  "lat": 35.8953998,
+  "lng": 139.6344207,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-a20443409a",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップBOOKOFF PAPA上尾店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "埼玉県上尾市緑丘3-3-11 P･A･P･A上尾ショッピングアヴェニュー プリンス棟 2F",
+  "prefecture": "埼玉県",
+  "lat": 35.9874124,
+  "lng": 139.5796973,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6e2c095b6f",
+  "level": "fixable",
+  "name": "＃C-pla 3rd イオンモール上尾店",
+  "chain": "#C-pla",
+  "address": "埼玉県上尾市愛宕3丁目8番1号",
+  "prefecture": "埼玉県",
+  "lat": 35.965076,
+  "lng": 139.598068,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-b0a0fd7744",
+  "level": "fixable",
+  "name": "＃C-pla アリオ上尾",
+  "chain": "#C-pla",
+  "address": "埼玉県上尾市壱丁目367",
+  "prefecture": "埼玉県",
+  "lat": 35.9617367,
+  "lng": 139.5660363,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-08a54a8ab1",
+  "level": "fixable",
+  "name": "カプセル楽局川口樹モール店",
+  "chain": "カプセル楽局",
+  "address": "埼玉県川口市栄町3丁目10番16号 吉田ビル1F",
+  "prefecture": "埼玉県",
+  "lat": 35.803478,
+  "lng": 139.720123,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b5383cf3d2",
+  "level": "fixable",
+  "name": "カプセル楽局川口駅前店",
+  "chain": "カプセル楽局",
+  "address": "埼玉県川口市栄町3丁目5番9号 安藤ビル1F",
+  "prefecture": "埼玉県",
+  "lat": 35.803322,
+  "lng": 139.717773,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-c0b48fba79",
+  "level": "fixable",
+  "name": "カプセル楽局川越クレアモール店",
+  "chain": "カプセル楽局",
+  "address": "埼玉県川越市脇田町12-1 矢島ﾋﾞﾙ1号館 1F",
+  "prefecture": "埼玉県",
+  "lat": 35.911083,
+  "lng": 139.483047,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-d9fb5bfd9d",
+  "level": "fixable",
+  "name": "カプセル楽局戸田T-FRONTE店",
+  "chain": "カプセル楽局",
+  "address": "埼玉県戸田市新曽662 T-FRONTE 3F",
+  "prefecture": "埼玉県",
+  "lat": 35.817581,
+  "lng": 139.668274,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b8565b31ef",
+  "level": "fixable",
+  "name": "カプセル楽局所沢プロペ通り店",
+  "chain": "カプセル楽局",
+  "address": "埼玉県所沢市日吉町8番6号",
+  "prefecture": "埼玉県",
+  "lat": 35.788925,
+  "lng": 139.471146,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-60cac52d04",
+  "level": "fixable",
+  "name": "カプセル楽局蕨駅東口店",
+  "chain": "カプセル楽局",
+  "address": "埼玉県蕨市塚越1丁目5番14号 須賀第五ﾋﾞﾙ",
+  "prefecture": "埼玉県",
+  "lat": 35.827663,
+  "lng": 139.692108,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-aadfce217f",
+  "level": "fixable",
+  "name": "店舗情報",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "大阪府四條畷市砂4-3-2 イオンモール四條畷 4F",
+  "prefecture": "大阪府",
+  "lat": 34.744938,
+  "lng": 135.631226,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_parse_error",
+    "detail": "店舗名がページ見出しの「店舗情報」になっている（収集時の解析誤り。公式ページの店名で置き換える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e48f775709",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップイオンモール堺北花田店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "大阪府堺市北区東浅香山町4丁1-12",
+  "prefecture": "大阪府",
+  "lat": 34.58481153123492,
+  "lng": 135.51506092372776,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-11f2018dd7",
+  "level": "fixable",
+  "name": "ビックカメラなんば",
+  "chain": null,
+  "address": "大阪府大阪市中央区千日前２－１０－１",
+  "prefecture": "大阪府",
+  "lat": 34.6666726,
+  "lng": 135.5025827,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-900a28c5cf",
+  "level": "fixable",
+  "name": "＃C-plaplus大阪心斎橋",
+  "chain": "#C-pla",
+  "address": "大阪府大阪市中央区心斎橋筋２丁目7番３号",
+  "prefecture": "大阪府",
+  "lat": 34.6708305,
+  "lng": 135.5010638,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-ccd8b97b9c",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア梅田",
+  "chain": null,
+  "address": "大阪府大阪市北区大深町１－１",
+  "prefecture": "大阪府",
+  "lat": 34.7039559,
+  "lng": 135.4959793,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-fdb6dda320",
+  "level": "fixable",
+  "name": "＃C-plaみのおキューズモール",
+  "chain": "#C-pla",
+  "address": "大阪府箕面市西宿1丁目17番22号EAST1階",
+  "prefecture": "大阪府",
+  "lat": 34.8321688,
+  "lng": 135.4905796,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-7f27e94c74",
+  "level": "fixable",
+  "name": "ガチャガチャの森 イオンモール茨木店",
+  "chain": "ガチャガチャの森",
+  "address": "大阪府茨木市松ケ本町8-30 イオンモール茨木2F",
+  "prefecture": "大阪府",
+  "lat": 34.811398,
+  "lng": 135.557831,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1e23bff75e",
+  "level": "fixable",
+  "name": "ガチャガチャの森イオンモール茨木店",
+  "chain": "ガチャガチャの森",
+  "address": "大阪府茨木市松ヶ本町8-30 イオンモール茨木 2F",
+  "prefecture": "大阪府",
+  "lat": 34.8110426990341,
+  "lng": 135.55877823669,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-d330a355c7",
+  "level": "fixable",
+  "name": "ガチャガチャの森 せんちゅうパル店",
+  "chain": "ガチャガチャの森",
+  "address": "大阪府豊中市新千里東町1-3 せんちゅうパル3F",
+  "prefecture": "大阪府",
+  "lat": 34.808842,
+  "lng": 135.494934,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-38b302da65",
+  "level": "fixable",
+  "name": "ガチャガチャの森せんちゅうパル店",
+  "chain": "ガチャガチャの森",
+  "address": "大阪府豊中市新千里東町１丁目３－３",
+  "prefecture": "大阪府",
+  "lat": 34.807451751402425,
+  "lng": 135.49519803805805,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a998cb6f10",
+  "level": "fixable",
+  "name": "♯C-pla ザ・モール仙台長町",
+  "chain": "#C-pla",
+  "address": "宮城県仙台市太白区長町7丁目20番地3号",
+  "prefecture": "宮城県",
+  "lat": 38.2259902,
+  "lng": 140.8753898,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-7805149d4b",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア仙台",
+  "chain": null,
+  "address": "宮城県仙台市宮城野区榴岡１－２－１３",
+  "prefecture": "宮城県",
+  "lat": 38.2591267,
+  "lng": 140.8852702,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-e1d99e65c3",
+  "level": "fixable",
+  "name": "仙台コロナワールド",
+  "chain": null,
+  "address": "仙台市宮城野区福室字田中前1-53-1",
+  "prefecture": "宮城県",
+  "lat": 38.2605875,
+  "lng": 140.9689146,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）TNJ"
+   }
+  ]
+ },
+ {
+  "id": "loc-c4f3bad092",
+  "level": "fixable",
+  "name": "＃C-pla Bivi仙台駅東口店",
+  "chain": "#C-pla",
+  "address": "宮城県仙台市宮城野区榴岡2丁目1-25 Bivi仙台駅東口店1階1-⑤区画",
+  "prefecture": "宮城県",
+  "lat": 38.2610474,
+  "lng": 140.8835827,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-1464c10fdf",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップアピタ富山東店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "富山県富山市上冨居3-8-38 アピタ富山東店内 2F",
+  "prefecture": "富山県",
+  "lat": 36.708546,
+  "lng": 137.241669,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6fad77b536",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップアピタ富山東店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "富山県富山市上冨居(かみふご)三丁目8番38号",
+  "prefecture": "富山県",
+  "lat": 36.708674197129795,
+  "lng": 137.2407509391815,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6d625f5dbe",
+  "level": "fixable",
+  "name": "フジグラン宇部",
+  "chain": null,
+  "address": "山口県宇部市明神町３－１－１",
+  "prefecture": "山口県",
+  "lat": 33.9306171,
+  "lng": 131.2568935,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-122da19847",
+  "level": "fixable",
+  "name": "ガチャガチャの森 おのだサンパーク店",
+  "chain": "ガチャガチャの森",
+  "address": "山口県山陽小野田市中川6丁目4番1号 おのだサンパーク2F",
+  "prefecture": "山口県",
+  "lat": 33.985802,
+  "lng": 131.170547,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8ba97aa7c5",
+  "level": "fixable",
+  "name": "ガチャガチャの森おのだサンパーク店",
+  "chain": "ガチャガチャの森",
+  "address": "山口県山陽小野田市中川4丁目4番1号",
+  "prefecture": "山口県",
+  "lat": 33.985002574279406,
+  "lng": 131.17172613537463,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-94a3643c75",
+  "level": "fixable",
+  "name": "#C-pla イオンモール三川店",
+  "chain": "#C-pla",
+  "address": "山形県東田川郡三川町大字猪子字和田庫128-1",
+  "prefecture": "山形県",
+  "lat": 38.815754,
+  "lng": 139.835663,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0d3f3ac348",
+  "level": "fixable",
+  "name": "＃C-plaイオンモール三川店",
+  "chain": "#C-pla",
+  "address": "山形県東田川郡三川町大宇猪子宇和田庫128-1",
+  "prefecture": "山形県",
+  "lat": 38.8168642,
+  "lng": 139.8378904,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   },
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e792faae7a",
+  "level": "fixable",
+  "name": "アピタ大垣",
+  "chain": null,
+  "address": "岐阜県大垣市林町６－８０－２１",
+  "prefecture": "岐阜県",
+  "lat": 35.3698817,
+  "lng": 136.6172999,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-95c29e1a1b",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップイオンシネマ江釣子店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "岩手県北上市北鬼柳19-74-3江釣子ショッピングセンター パル イオンシネマ館2階",
+  "prefecture": "岩手県",
+  "lat": 39.29307508615359,
+  "lng": 141.09327804097953,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-7fe63911e5",
+  "level": "fixable",
+  "name": "gashacoco エムズエクスポ花巻",
+  "chain": "gashacoco",
+  "address": "岩手県花巻市桜台1ｰ12ｰ12 アルテマルカン桜台",
+  "prefecture": "岩手県",
+  "lat": 39.39834213,
+  "lng": 141.10771179,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6d043ede92",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップブックスジュピター店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "徳島県板野郡藍住町奥野字西中須62-1",
+  "prefecture": "徳島県",
+  "lat": 34.128288,
+  "lng": 134.484161,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-07aa5cd9e4",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップブックスジュピター店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "徳島県板野郡藍住町奥野字西中須6 2-1",
+  "prefecture": "徳島県",
+  "lat": 34.129747719373746,
+  "lng": 134.48480905593485,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0d10a90b32",
+  "level": "fixable",
+  "name": "フジグランエミフル松前",
+  "chain": null,
+  "address": "愛媛県伊予郡松前町筒井850",
+  "prefecture": "愛媛県",
+  "lat": 33.7913986,
+  "lng": 132.716622,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-bbdd4c543c",
+  "level": "fixable",
+  "name": "いよてつ高島屋",
+  "chain": null,
+  "address": "松山市湊町5丁目1番地1",
+  "prefecture": "愛媛県",
+  "lat": 33.8349628,
+  "lng": 132.7632954,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）マキシム愛媛"
+   }
+  ]
+ },
+ {
+  "id": "loc-8b5409e307",
+  "level": "fixable",
+  "name": "ガチャガチャの森イオンモール木曽川店",
+  "chain": "ガチャガチャの森",
+  "address": "愛知県一宮市木曽川町黒田字南八ツヶ池25-1 イオンモール木曽川3F",
+  "prefecture": "愛知県",
+  "lat": 35.3493170744312,
+  "lng": 136.773469567687,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-18c8888c84",
+  "level": "fixable",
+  "name": "＃C-plaミュープラット一宮",
+  "chain": "#C-pla",
+  "address": "愛知県一宮市新生1丁目1-1",
+  "prefecture": "愛知県",
+  "lat": 35.302142561110976,
+  "lng": 136.79690462099364,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-6d95190427",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア名古屋松坂屋",
+  "chain": null,
+  "address": "愛知県名古屋市中区栄３－１６－１",
+  "prefecture": "愛知県",
+  "lat": 35.1652908,
+  "lng": 136.9079024,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-ba2acab0a1",
+  "level": "fixable",
+  "name": "ヤマダ電機 ＬＡＢＩ名古屋",
+  "chain": null,
+  "address": "愛知県名古屋市中村区名駅１－２－５",
+  "prefecture": "愛知県",
+  "lat": 35.1681089,
+  "lng": 136.8846171,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-210649726c",
+  "level": "fixable",
+  "name": "ドリームカプセル イオンモール岡崎",
+  "chain": "ドリームカプセル",
+  "address": "愛知県岡崎市戸崎町字外山38-5 イオンモール岡崎3F",
+  "prefecture": "愛知県",
+  "lat": 34.936398,
+  "lng": 137.162979,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-96fd5a0ecd",
+  "level": "fixable",
+  "name": "ドリームカプセル イオンモール岡崎",
+  "chain": "ドリームカプセル",
+  "address": "愛知県岡崎市戸崎町外山３８−５ イオンモール岡崎３F",
+  "prefecture": "愛知県",
+  "lat": 34.9370852,
+  "lng": 137.1645648,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8400c6b529",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップららぽーと愛知東郷店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "愛知県愛知郡東郷町東郷中央土地区画整理事業62街区1､3",
+  "prefecture": "愛知県",
+  "lat": 35.09868460587846,
+  "lng": 137.04694608997158,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-3aa4f50679",
+  "level": "fixable",
+  "name": "アピタ阿久比",
+  "chain": null,
+  "address": "愛知県知多郡阿久比町大字椋岡字徳吉１－１２",
+  "prefecture": "愛知県",
+  "lat": 34.9204164,
+  "lng": 136.9205665,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-ac33c10760",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア新潟駅前",
+  "chain": null,
+  "address": "新潟県新潟市中央区弁天１－２－６",
+  "prefecture": "新潟県",
+  "lat": 37.9132033,
+  "lng": 139.0594268,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-facae91f5d",
+  "level": "fixable",
+  "name": "アピタ長岡",
+  "chain": null,
+  "address": "新潟県長岡市千秋２－２７８リバーサイド千秋",
+  "prefecture": "新潟県",
+  "lat": 37.4606687,
+  "lng": 138.8267039,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-d9faf82d23",
+  "level": "fixable",
+  "name": "夢大陸長岡",
+  "chain": null,
+  "address": "新潟県長岡市喜多町３９２－１",
+  "prefecture": "新潟県",
+  "lat": 37.4517196,
+  "lng": 138.8035872,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-03d081f563",
+  "level": "fixable",
+  "name": "カプセル楽局下北沢駅南店",
+  "chain": "カプセル楽局",
+  "address": "東京都世田谷区北沢2丁目14番8号 下北沢春日ﾋﾞﾙ",
+  "prefecture": "東京都",
+  "lat": 35.660282,
+  "lng": 139.667389,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-e5323fa77d",
+  "level": "fixable",
+  "name": "カプセル楽局千歳烏山店",
+  "chain": "カプセル楽局",
+  "address": "東京都世田谷区南烏山6丁目7番19号",
+  "prefecture": "東京都",
+  "lat": 35.668789,
+  "lng": 139.599564,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-3ac5fb8b20",
+  "level": "fixable",
+  "name": "カプセル楽局千歳船橋店",
+  "chain": "カプセル楽局",
+  "address": "東京都世田谷区船橋1丁目9番21号 千歳船橋ｶｸﾊﾁ第1ﾋﾞﾙ 1階",
+  "prefecture": "東京都",
+  "lat": 35.64806,
+  "lng": 139.62384,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-487c3d981e",
+  "level": "fixable",
+  "name": "カプセル楽局祖師ヶ谷大蔵店",
+  "chain": "カプセル楽局",
+  "address": "東京都世田谷区祖師谷1丁目36番5号",
+  "prefecture": "東京都",
+  "lat": 35.646343,
+  "lng": 139.608582,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-2efc5630c1",
+  "level": "fixable",
+  "name": "カプセル楽局経堂農大通り店",
+  "chain": "カプセル楽局",
+  "address": "東京都世田谷区経堂1丁目11番8号 ｼﾝﾌｫﾆｰ経堂1F",
+  "prefecture": "東京都",
+  "lat": 35.649151,
+  "lng": 139.63652,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-4f6a8cb447",
+  "level": "fixable",
+  "name": "カプセル楽局東中野店",
+  "chain": "カプセル楽局",
+  "address": "東京都中野区東中野3丁目7番23号 サトウビル",
+  "prefecture": "東京都",
+  "lat": 35.707565,
+  "lng": 139.68219,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f2df891160",
+  "level": "fixable",
+  "name": "カプセル楽局野方駅南店",
+  "chain": "カプセル楽局",
+  "address": "東京都中野区野方5丁目24番5号",
+  "prefecture": "東京都",
+  "lat": 35.718761,
+  "lng": 139.652634,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-56e90eacdc",
+  "level": "fixable",
+  "name": "カプセル楽局イオン八王子滝山店",
+  "chain": "カプセル楽局",
+  "address": "東京都八王子市滝山町一丁目884 イオン八王子滝山1F",
+  "prefecture": "東京都",
+  "lat": 35.684898,
+  "lng": 139.341461,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-fb52203aa1",
+  "level": "fixable",
+  "name": "カプセル楽局八王子駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都八王子市三崎町4番14号 関口ﾋﾞﾙ",
+  "prefecture": "東京都",
+  "lat": 35.657402,
+  "lng": 139.337463,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-380e8b92d2",
+  "level": "fixable",
+  "name": "ヨドバシカメラ八王子",
+  "chain": null,
+  "address": "東京都八王子市東町７－４",
+  "prefecture": "東京都",
+  "lat": 35.6579712,
+  "lng": 139.3396578,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-9daead15b9",
+  "level": "fixable",
+  "name": "カプセル楽局十条店",
+  "chain": "カプセル楽局",
+  "address": "東京都北区十条仲原1丁目8番26号 清水ﾋﾞﾙ 1F",
+  "prefecture": "東京都",
+  "lat": 35.762173,
+  "lng": 139.721268,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-d37ff12bda",
+  "level": "fixable",
+  "name": "カプセル楽局東十条店",
+  "chain": "カプセル楽局",
+  "address": "東京都北区中十条3-17-3 本田ハイツ",
+  "prefecture": "東京都",
+  "lat": 35.764729,
+  "lng": 139.72522,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f620784863",
+  "level": "fixable",
+  "name": "カプセル楽局赤羽スズラン通り店",
+  "chain": "カプセル楽局",
+  "address": "東京都北区赤羽2丁目1番18号",
+  "prefecture": "東京都",
+  "lat": 35.779217,
+  "lng": 139.723114,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-6cc79f241b",
+  "level": "fixable",
+  "name": "カプセル楽局赤羽ララガーデンビル店",
+  "chain": "カプセル楽局",
+  "address": "東京都北区赤羽2丁目10番1号",
+  "prefecture": "東京都",
+  "lat": 35.77948,
+  "lng": 139.724579,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-4427def36e",
+  "level": "fixable",
+  "name": "カプセル楽局赤羽駅東口店",
+  "chain": "カプセル楽局",
+  "address": "東京都北区赤羽1丁目13番7号 はやまビル1F",
+  "prefecture": "東京都",
+  "lat": 35.779423,
+  "lng": 139.721588,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-3e6581635a",
+  "level": "fixable",
+  "name": "カプセル楽局神田店",
+  "chain": "カプセル楽局",
+  "address": "東京都千代田区内神田2丁目9番11号 神田森田リズム共同ビル",
+  "prefecture": "東京都",
+  "lat": 35.691132,
+  "lng": 139.768753,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-460d7384e3",
+  "level": "fixable",
+  "name": "ビックカメラ有楽町",
+  "chain": null,
+  "address": "東京都千代田区有楽町１－１１－１",
+  "prefecture": "東京都",
+  "lat": 35.6753598,
+  "lng": 139.7628974,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-6e4a258406",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディアＡｋｉｂａ",
+  "chain": null,
+  "address": "東京都千代田区神田花岡町１－１",
+  "prefecture": "東京都",
+  "lat": 35.6989712,
+  "lng": 139.774683,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b7601966f7",
+  "level": "fixable",
+  "name": "カプセル楽局上野アメ横店",
+  "chain": "カプセル楽局",
+  "address": "東京都台東区上野6丁目4番12号",
+  "prefecture": "東京都",
+  "lat": 35.708862,
+  "lng": 139.77507,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-1447d52c77",
+  "level": "fixable",
+  "name": "カプセル楽局浅草ROX・3G店",
+  "chain": "カプセル楽局",
+  "address": "東京都台東区浅草1丁目25番15号 浅草ROX3G 2F",
+  "prefecture": "東京都",
+  "lat": 35.71294,
+  "lng": 139.793137,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f1f5f0f7ea",
+  "level": "fixable",
+  "name": "カプセル楽局谷中銀座商店街店",
+  "chain": "カプセル楽局",
+  "address": "東京都台東区谷中3-13-3 谷中SGﾋﾞﾙ 1F",
+  "prefecture": "東京都",
+  "lat": 35.727684,
+  "lng": 139.765091,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b8c82b9f85",
+  "level": "fixable",
+  "name": "ガシャポン横丁",
+  "chain": null,
+  "address": "東京都台東区上野4-1-7 MYS御徒町",
+  "prefecture": "東京都",
+  "lat": 35.7084154,
+  "lng": 139.7743635,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-430819437c",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア上野",
+  "chain": null,
+  "address": "東京都台東区上野４－１０－１０",
+  "prefecture": "東京都",
+  "lat": 35.7111643,
+  "lng": 139.774465,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-c6ef9682b5",
+  "level": "fixable",
+  "name": "JR五反田駅改札内エキレスク前",
+  "chain": null,
+  "address": "東京都品川区東五反田1-26-4",
+  "prefecture": "東京都",
+  "lat": 35.6261426,
+  "lng": 139.7238511,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-86644842b1",
+  "level": "fixable",
+  "name": "JR五反田駅改札外改札横",
+  "chain": null,
+  "address": "東京都品川区東五反田1-26-4",
+  "prefecture": "東京都",
+  "lat": 35.6261426,
+  "lng": 139.7238511,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-6f7c2b4486",
+  "level": "fixable",
+  "name": "JR目黒駅東急連絡改札内",
+  "chain": null,
+  "address": "東京都品川区上大崎2-16-9",
+  "prefecture": "東京都",
+  "lat": 35.6344723,
+  "lng": 139.7159104,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-2cf861694c",
+  "level": "fixable",
+  "name": "JR西大井駅改札内改札横",
+  "chain": null,
+  "address": "東京都品川区西大井1-3-2",
+  "prefecture": "東京都",
+  "lat": 35.6017749,
+  "lng": 139.7218166,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-c2114001e4",
+  "level": "fixable",
+  "name": "カプセル楽局戸越銀座店",
+  "chain": "カプセル楽局",
+  "address": "東京都品川区戸越3丁目2-3 篠嵜ビル１F",
+  "prefecture": "東京都",
+  "lat": 35.615078,
+  "lng": 139.717667,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-66c466917e",
+  "level": "fixable",
+  "name": "カプセル楽局武蔵小山店",
+  "chain": "カプセル楽局",
+  "address": "東京都品川区荏原3丁目4番14号",
+  "prefecture": "東京都",
+  "lat": 35.617317,
+  "lng": 139.707306,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-7670ac2b66",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア錦糸町",
+  "chain": null,
+  "address": "東京都墨田区江東橋３－１４－５",
+  "prefecture": "東京都",
+  "lat": 35.6964465,
+  "lng": 139.8139269,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-4db419ec2d",
+  "level": "fixable",
+  "name": "#C-pla グランデュオ蒲田店",
+  "chain": "#C-pla",
+  "address": "東京都大田区蒲田5-13-1",
+  "prefecture": "東京都",
+  "lat": 35.56295,
+  "lng": 139.716553,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-4ff3e0b216",
+  "level": "fixable",
+  "name": "C-pla グランデュオ蒲田店",
+  "chain": "#C-pla",
+  "address": "東京都大田区西蒲田7-68-1",
+  "prefecture": "東京都",
+  "lat": 35.5624867,
+  "lng": 139.7161897,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a0f1d7c2fa",
+  "level": "fixable",
+  "name": "JR蒲田駅改札外みどりの窓口前",
+  "chain": null,
+  "address": "東京都大田区蒲田5",
+  "prefecture": "東京都",
+  "lat": 35.562585938517,
+  "lng": 139.716259656158,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-f57fc144e7",
+  "level": "fixable",
+  "name": "カプセル楽局大岡山店",
+  "chain": "カプセル楽局",
+  "address": "東京都大田区北千束1丁目40番3号",
+  "prefecture": "東京都",
+  "lat": 35.609436,
+  "lng": 139.685593,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-223e0c5e69",
+  "level": "fixable",
+  "name": "カプセル楽局糀谷店",
+  "chain": "カプセル楽局",
+  "address": "東京都大田区萩中2丁目8番15号1F",
+  "prefecture": "東京都",
+  "lat": 35.551914,
+  "lng": 139.729965,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-6d3e41b3ae",
+  "level": "fixable",
+  "name": "カプセル楽局蒲田駅東口店",
+  "chain": "カプセル楽局",
+  "address": "東京都大田区蒲田5丁目24番1号",
+  "prefecture": "東京都",
+  "lat": 35.562737,
+  "lng": 139.719208,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-44dc94fb05",
+  "level": "fixable",
+  "name": "カプセル楽局蒲田駅西口店",
+  "chain": "カプセル楽局",
+  "address": "東京都大田区西蒲田7丁目49番10号 蒲田ﾅｵﾐﾋﾞﾙ 1階",
+  "prefecture": "東京都",
+  "lat": 35.562294,
+  "lng": 139.712509,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-4a9f6bd260",
+  "level": "fixable",
+  "name": "カプセル楽局PLUS一橋学園店",
+  "chain": "カプセル楽局",
+  "address": "東京都小平市学園東町1丁目4−39 平山ビル 3F",
+  "prefecture": "東京都",
+  "lat": 35.723106,
+  "lng": 139.480698,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-ad702632f7",
+  "level": "fixable",
+  "name": "カプセル楽局鷹の台店",
+  "chain": "カプセル楽局",
+  "address": "東京都小平市たかの台44番9号",
+  "prefecture": "東京都",
+  "lat": 35.72319,
+  "lng": 139.460876,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-c2a08694c8",
+  "level": "fixable",
+  "name": "カプセル楽局武蔵小金井駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都小金井市本町5丁目10番18号 武蔵小金井ﾗﾒｿﾞﾝｳﾞｪｰﾙ",
+  "prefecture": "東京都",
+  "lat": 35.701893,
+  "lng": 139.505325,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-810ef79351",
+  "level": "fixable",
+  "name": "カプセル楽局早稲田駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都新宿区馬場下町5-1 ファミリーマート早稲田駅前店内",
+  "prefecture": "東京都",
+  "lat": 35.705742,
+  "lng": 139.719818,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-355d77a5ed",
+  "level": "fixable",
+  "name": "ガチャガチャの森 新宿サブナード店",
+  "chain": "ガチャガチャの森",
+  "address": "東京都新宿区歌舞伎町1丁目靖国通り下 新宿サブナード地下街内401区画",
+  "prefecture": "東京都",
+  "lat": 35.695393,
+  "lng": 139.701294,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-5aa70bc211",
+  "level": "fixable",
+  "name": "ガチャガチャの森新宿サブナード店",
+  "chain": "ガチャガチャの森",
+  "address": "東京都新宿区歌舞伎町1-2-2サブナード1丁目",
+  "prefecture": "東京都",
+  "lat": 35.6936082994623,
+  "lng": 139.700567062315,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-08a1fe4128",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア新宿東口別館",
+  "chain": null,
+  "address": "東京都新宿区新宿３－２６－７",
+  "prefecture": "東京都",
+  "lat": 35.6916892,
+  "lng": 139.7018233,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-bc6dbd2439",
+  "level": "fixable",
+  "name": "ヨドバシカメラ新宿西口本店 ガシャポン館",
+  "chain": null,
+  "address": "東京都新宿区西新宿１－１１－１",
+  "prefecture": "東京都",
+  "lat": 35.6895165,
+  "lng": 139.6976186,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f5072d459f",
+  "level": "fixable",
+  "name": "店舗情報",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "東京都新宿区歌舞伎町1-29-1 東急歌舞伎町タワー 3F",
+  "prefecture": "東京都",
+  "lat": 35.695492,
+  "lng": 139.700806,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_parse_error",
+    "detail": "店舗名がページ見出しの「店舗情報」になっている（収集時の解析誤り。公式ページの店名で置き換える）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1a038620ba",
+  "level": "fixable",
+  "name": "カプセル楽局久我山駅北口店",
+  "chain": "カプセル楽局",
+  "address": "東京都杉並区久我山4丁目1−9",
+  "prefecture": "東京都",
+  "lat": 35.688229,
+  "lng": 139.59993,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f36d071b64",
+  "level": "fixable",
+  "name": "カプセル楽局方南町駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都杉並区方南2丁目13番7号",
+  "prefecture": "東京都",
+  "lat": 35.683388,
+  "lng": 139.658386,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-06710cece7",
+  "level": "fixable",
+  "name": "カプセル楽局永福町駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都杉並区和泉3丁目4番2号 友和ビル1F",
+  "prefecture": "東京都",
+  "lat": 35.676025,
+  "lng": 139.643799,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-e5b9fbe977",
+  "level": "fixable",
+  "name": "カプセル楽局浜田山店",
+  "chain": "カプセル楽局",
+  "address": "東京都杉並区浜田山3丁目30−5 越路ビル",
+  "prefecture": "東京都",
+  "lat": 35.681923,
+  "lng": 139.627411,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-dc5768776e",
+  "level": "fixable",
+  "name": "カプセル楽局阿佐ヶ谷店",
+  "chain": "カプセル楽局",
+  "address": "東京都杉並区阿佐谷南1丁目17番17号",
+  "prefecture": "東京都",
+  "lat": 35.701019,
+  "lng": 139.637115,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-44240ee737",
+  "level": "fixable",
+  "name": "カプセル楽局高円寺パル商店街店",
+  "chain": "カプセル楽局",
+  "address": "東京都杉並区高円寺南3丁目46番10号 高円寺EMAビル1F",
+  "prefecture": "東京都",
+  "lat": 35.703411,
+  "lng": 139.64859,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-276b050650",
+  "level": "fixable",
+  "name": "カプセル楽局高円寺店",
+  "chain": "カプセル楽局",
+  "address": "東京都杉並区高円寺北3-20-20 アイル高円寺ビル",
+  "prefecture": "東京都",
+  "lat": 35.706963,
+  "lng": 139.649475,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-6d8dba4251",
+  "level": "fixable",
+  "name": "ヤマダ電機 ＬＡＢＩ自由が丘",
+  "chain": null,
+  "address": "東京都東京都目黒区緑が丘２－１７－９",
+  "prefecture": "東京都",
+  "lat": 35.6088389,
+  "lng": 139.672714,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-d4cdd86c03",
+  "level": "fixable",
+  "name": "カプセル楽局ときわ台駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都板橋区南常盤台1-23-14",
+  "prefecture": "東京都",
+  "lat": 35.758015,
+  "lng": 139.689667,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-09ce3c94f0",
+  "level": "fixable",
+  "name": "カプセル楽局大山ハッピーロード店",
+  "chain": "カプセル楽局",
+  "address": "東京都板橋区大山町31番2号トレジャリィ大山",
+  "prefecture": "東京都",
+  "lat": 35.748962,
+  "lng": 139.700989,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b61a805678",
+  "level": "fixable",
+  "name": "カプセル楽局武蔵境店",
+  "chain": "カプセル楽局",
+  "address": "東京都武蔵野市境1丁目2番4号\n武蔵境 ﾊﾟｰｸﾊｳｽ武蔵野1F",
+  "prefecture": "東京都",
+  "lat": 35.703163,
+  "lng": 139.54422,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-49b0b68dc9",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア吉祥寺",
+  "chain": null,
+  "address": "東京都武蔵野市吉祥寺本町１－１９－１",
+  "prefecture": "東京都",
+  "lat": 35.704697,
+  "lng": 139.5815099,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-5fbf274ed9",
+  "level": "fixable",
+  "name": "カプセル楽局平井駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都江戸川区平井4丁目12番1号 立花屋ビル１F",
+  "prefecture": "東京都",
+  "lat": 35.706421,
+  "lng": 139.843201,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-10bff23753",
+  "level": "fixable",
+  "name": "カプセル楽局門前仲町店",
+  "chain": "カプセル楽局",
+  "address": "東京都江東区門前仲町1丁目13番地10号",
+  "prefecture": "東京都",
+  "lat": 35.673447,
+  "lng": 139.795334,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-7de8c48037",
+  "level": "fixable",
+  "name": "カプセル楽局幡ヶ谷店",
+  "chain": "カプセル楽局",
+  "address": "東京都渋谷区幡ヶ谷2丁目9番15号\nエーレ幡ヶ谷",
+  "prefecture": "東京都",
+  "lat": 35.678886,
+  "lng": 139.677414,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-6bef817c2a",
+  "level": "fixable",
+  "name": "カプセル楽局渋谷センター街店",
+  "chain": "カプセル楽局",
+  "address": "東京都渋谷区宇田川町29番3号 渋谷平松ビル",
+  "prefecture": "東京都",
+  "lat": 35.660522,
+  "lng": 139.69838,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-7216f08e9d",
+  "level": "fixable",
+  "name": "カプセル楽局笹塚十号通り店",
+  "chain": "カプセル楽局",
+  "address": "東京都渋谷区笹塚2丁目41番22号",
+  "prefecture": "東京都",
+  "lat": 35.675556,
+  "lng": 139.668076,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-5d24641d11",
+  "level": "fixable",
+  "name": "＃C-pla Labo",
+  "chain": "#C-pla",
+  "address": "東京都渋谷区神南1丁目18-2",
+  "prefecture": "東京都",
+  "lat": 35.6627351,
+  "lng": 139.7000304,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-12db4d5cb6",
+  "level": "fixable",
+  "name": "＃C-pla渋谷109",
+  "chain": "#C-pla",
+  "address": "東京都渋谷区道玄坂2丁目29-1",
+  "prefecture": "東京都",
+  "lat": 35.6596043,
+  "lng": 139.6987104,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-d42b131e20",
+  "level": "fixable",
+  "name": "JR品川駅 駅構内エキュート品川近く",
+  "chain": null,
+  "address": "東京都港区高輪３丁目２６−２７",
+  "prefecture": "東京都",
+  "lat": 35.6287731,
+  "lng": 139.7384435,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8a04590ed6",
+  "level": "fixable",
+  "name": "JR品川駅中央改札内ポスト横",
+  "chain": null,
+  "address": "東京都港区高輪3-26-27",
+  "prefecture": "東京都",
+  "lat": 35.6287731,
+  "lng": 139.7384435,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8587abed75",
+  "level": "fixable",
+  "name": "JR田町駅南改札内NewDays KIOSK裏",
+  "chain": null,
+  "address": "東京都港区芝5-33-36",
+  "prefecture": "東京都",
+  "lat": 35.6462347,
+  "lng": 139.7481388,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e732afd137",
+  "level": "fixable",
+  "name": "NewDays 町田店",
+  "chain": null,
+  "address": "東京都町田市原町田1-1-36 町田駅改札内",
+  "prefecture": "東京都",
+  "lat": 35.5419941,
+  "lng": 139.4453761,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9cec1b3092",
+  "level": "fixable",
+  "name": "カプセル楽局町田店",
+  "chain": "カプセル楽局",
+  "address": "東京都町田市原町田4丁目5番10号1F",
+  "prefecture": "東京都",
+  "lat": 35.541679,
+  "lng": 139.448547,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-a865d6f18e",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア町田",
+  "chain": null,
+  "address": "東京都町田市原町田１－１－１１",
+  "prefecture": "東京都",
+  "lat": 35.5423569,
+  "lng": 139.4443508,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-a591c6bc64",
+  "level": "fixable",
+  "name": "カプセル楽局自由が丘店",
+  "chain": "カプセル楽局",
+  "address": "東京都目黒区自由が丘2丁目12番19号 3.4.1 building west 1F",
+  "prefecture": "東京都",
+  "lat": 35.607246,
+  "lng": 139.667572,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-187a11ba51",
+  "level": "fixable",
+  "name": "JR立川駅2F改札外券売機横",
+  "chain": null,
+  "address": "東京都立川市曙町2丁目",
+  "prefecture": "東京都",
+  "lat": 35.6979918734984,
+  "lng": 139.413732874976,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0b81fb9c44",
+  "level": "fixable",
+  "name": "JR西日暮里駅改札外NewDays KIOSK前",
+  "chain": null,
+  "address": "東京都荒川区西日暮里5丁目",
+  "prefecture": "東京都",
+  "lat": 35.732965,
+  "lng": 139.7681062,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-2cd0854034",
+  "level": "fixable",
+  "name": "カプセル楽局お花茶屋駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都葛飾区宝町2丁目36番8号",
+  "prefecture": "東京都",
+  "lat": 35.747444,
+  "lng": 139.840454,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f149bf3cf1",
+  "level": "fixable",
+  "name": "カプセル楽局亀有店",
+  "chain": "カプセル楽局",
+  "address": "東京都葛飾区亀有3丁目33-3",
+  "prefecture": "東京都",
+  "lat": 35.764435,
+  "lng": 139.848846,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-ea239bf974",
+  "level": "fixable",
+  "name": "カプセル楽局新小岩ルミエール店",
+  "chain": "カプセル楽局",
+  "address": "東京都葛飾区新小岩1丁目51番1号",
+  "prefecture": "東京都",
+  "lat": 35.714809,
+  "lng": 139.860504,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-bb8736b72a",
+  "level": "fixable",
+  "name": "カプセル楽局青砥駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都葛飾区青戸3丁目39番13号 都ﾋﾞﾙ1F",
+  "prefecture": "東京都",
+  "lat": 35.745422,
+  "lng": 139.855606,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b727bc9382",
+  "level": "fixable",
+  "name": "カプセル楽局ひばりが丘店",
+  "chain": "カプセル楽局",
+  "address": "東京都西東京市ひばりが丘北4-3-30 ひばりヶ丘 JCﾋﾞﾙⅢ 1F",
+  "prefecture": "東京都",
+  "lat": 35.752476,
+  "lng": 139.544754,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-531aec1c4a",
+  "level": "fixable",
+  "name": "カプセル楽局仙川2号店",
+  "chain": "カプセル楽局",
+  "address": "東京都調布市仙川町1丁目12番13号 仙川ﾏﾙﾊﾀﾋﾞﾙ1F",
+  "prefecture": "東京都",
+  "lat": 35.660683,
+  "lng": 139.584641,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-93b3b5be4c",
+  "level": "fixable",
+  "name": "カプセル楽局仙川店",
+  "chain": "カプセル楽局",
+  "address": "東京都調布市仙川町2丁目21番12号 VICﾋﾞﾙ7 1F",
+  "prefecture": "東京都",
+  "lat": 35.662617,
+  "lng": 139.583923,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-4801b64c41",
+  "level": "fixable",
+  "name": "＃C-pla 2nd 調布PARCO店",
+  "chain": "#C-pla",
+  "address": "東京都調布市小島町1-38-1",
+  "prefecture": "東京都",
+  "lat": 35.652805,
+  "lng": 139.543518,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-031b15e21b",
+  "level": "fixable",
+  "name": "NewDays 巣鴨店",
+  "chain": null,
+  "address": "東京都豊島区巣鴨1-16-1",
+  "prefecture": "東京都",
+  "lat": 35.7331367,
+  "lng": 139.7395961,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-14675b2c97",
+  "level": "fixable",
+  "name": "カプセル楽局EX池袋店",
+  "chain": "カプセル楽局",
+  "address": "東京都豊島区南池袋1丁目22番4号\nエイチ･エフ南池袋ビル",
+  "prefecture": "東京都",
+  "lat": 35.729229,
+  "lng": 139.712296,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-561979df33",
+  "level": "fixable",
+  "name": "カプセル楽局巣鴨地蔵通り店",
+  "chain": "カプセル楽局",
+  "address": "東京都豊島区巣鴨4丁目22番2号",
+  "prefecture": "東京都",
+  "lat": 35.736137,
+  "lng": 139.73436,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-d497de5f9b",
+  "level": "fixable",
+  "name": "カプセル楽局巣鴨駅前店",
+  "chain": "カプセル楽局",
+  "address": "東京都豊島区巣鴨3丁目27番6号 川合ハウス",
+  "prefecture": "東京都",
+  "lat": 35.733433,
+  "lng": 139.738235,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-e9ce4f113f",
+  "level": "fixable",
+  "name": "カプセル楽局池袋西口店",
+  "chain": "カプセル楽局",
+  "address": "東京都豊島区西池袋1丁目16番3号",
+  "prefecture": "東京都",
+  "lat": 35.730747,
+  "lng": 139.708893,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f039efd9ce",
+  "level": "fixable",
+  "name": "ラウンドワン池袋店",
+  "chain": null,
+  "address": "東京都豊島区東池袋一丁目14番1号 池袋スクエア",
+  "prefecture": "東京都",
+  "lat": 35.7301216,
+  "lng": 139.7151399,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）バンジハンエース"
+   }
+  ]
+ },
+ {
+  "id": "loc-9676d3250c",
+  "level": "fixable",
+  "name": "カプセル楽局北千住東口店",
+  "chain": "カプセル楽局",
+  "address": "東京都足立区千住旭町35-18 書店ビル2",
+  "prefecture": "東京都",
+  "lat": 35.749325,
+  "lng": 139.807983,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-7c0ab0a360",
+  "level": "fixable",
+  "name": "カプセル楽局竹の塚店",
+  "chain": "カプセル楽局",
+  "address": "東京都足立区竹の塚6丁目9番2号",
+  "prefecture": "東京都",
+  "lat": 35.794338,
+  "lng": 139.793625,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-c00fbffca6",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア宇都宮",
+  "chain": null,
+  "address": "栃木県宇都宮市駅前通り１－４－６",
+  "prefecture": "栃木県",
+  "lat": 36.5604377,
+  "lng": 139.8969676,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-5ac441f856",
+  "level": "fixable",
+  "name": "ドリームカプセル イオンモール沖縄ライカム",
+  "chain": "ドリームカプセル",
+  "address": "沖縄県中頭郡北中城村字ライカム1番地 イオンモール沖縄ライカム4F",
+  "prefecture": "沖縄県",
+  "lat": 26.314575,
+  "lng": 127.796043,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-58bb05a8c2",
+  "level": "fixable",
+  "name": "ドリームカプセル イオンモール沖縄ライカム",
+  "chain": "ドリームカプセル",
+  "address": "沖縄県中頭郡北中城村アワセ土地区画整理事業地内4街区",
+  "prefecture": "沖縄県",
+  "lat": 26.3152901463994,
+  "lng": 127.794926313972,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-300d49bf6d",
+  "level": "fixable",
+  "name": "＃C-pla 2nd イオンモール大和店",
+  "chain": "#C-pla",
+  "address": "神奈川県大和市下鶴間1丁目2-1",
+  "prefecture": "神奈川県",
+  "lat": 35.488842,
+  "lng": 139.457626,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-54de1fdabc",
+  "level": "fixable",
+  "name": "カプセル楽局元住吉店",
+  "chain": "カプセル楽局",
+  "address": "神奈川県川崎市中原区木月1丁目22番5号 ｾｷﾓﾄﾋﾞﾙ",
+  "prefecture": "神奈川県",
+  "lat": 35.565353,
+  "lng": 139.653702,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "address_notation",
+    "detail": "住所に改行・半角カナ・連続空白（NFKC 正規化で整える）"
+   },
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b3eb8d5db2",
+  "level": "fixable",
+  "name": "カプセル楽局武蔵新城あいもーる店",
+  "chain": "カプセル楽局",
+  "address": "神奈川県川崎市中原区新城3丁目17番1号 TSビル1F",
+  "prefecture": "神奈川県",
+  "lat": 35.584259,
+  "lng": 139.630554,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-b448c42119",
+  "level": "fixable",
+  "name": "JR登戸駅改札内NewDays横",
+  "chain": null,
+  "address": "神奈川県川崎市多摩区登戸3435",
+  "prefecture": "神奈川県",
+  "lat": 35.6208471,
+  "lng": 139.5697396,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-713e4fc894",
+  "level": "fixable",
+  "name": "JR川崎駅北側改札内",
+  "chain": null,
+  "address": "神奈川県川崎市川崎区駅前本町26-1",
+  "prefecture": "神奈川県",
+  "lat": 35.5312049,
+  "lng": 139.6978959,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-0955969b66",
+  "level": "fixable",
+  "name": "カプセル楽局弘明寺店",
+  "chain": "カプセル楽局",
+  "address": "神奈川県横浜市南区大岡２丁目２番１９号",
+  "prefecture": "神奈川県",
+  "lat": 35.423153,
+  "lng": 139.60112,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "株式会社ゲオ／ウェアハウス"
+   }
+  ]
+ },
+ {
+  "id": "loc-98f3ba8b51",
+  "level": "fixable",
+  "name": "アピタ戸塚",
+  "chain": null,
+  "address": "神奈川県横浜市戸塚区上倉田町７６９－１",
+  "prefecture": "神奈川県",
+  "lat": 35.3989605,
+  "lng": 139.5374664,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-f631f0bde0",
+  "level": "fixable",
+  "name": "ヤマダ電機 ＬＡＢＩ上大岡",
+  "chain": null,
+  "address": "神奈川県横浜市港南区上大岡西１－１８－５",
+  "prefecture": "神奈川県",
+  "lat": 35.4073205,
+  "lng": 139.5949019,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-19c440754a",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア京急上大岡",
+  "chain": null,
+  "address": "神奈川県横浜市港南区上大岡西１－６－１",
+  "prefecture": "神奈川県",
+  "lat": 35.4090678,
+  "lng": 139.596581,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-bc51731a3e",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア横浜",
+  "chain": null,
+  "address": "神奈川県横浜市西区北幸１－２－７",
+  "prefecture": "神奈川県",
+  "lat": 35.4676804,
+  "lng": 139.620381,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-e2ad018d41",
+  "level": "fixable",
+  "name": "NewDays KIOSK橋本店",
+  "chain": null,
+  "address": "神奈川県相模原市緑区橋本6-1-25 橋本駅改札内",
+  "prefecture": "神奈川県",
+  "lat": 35.5948411,
+  "lng": 139.346505,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "大日本印刷（株）"
+   }
+  ]
+ },
+ {
+  "id": "loc-fd9ca6275e",
+  "level": "fixable",
+  "name": "ガシャポンのデパートPLANT-3 清水店",
+  "chain": "ガシャポンのデパート",
+  "address": "福井県福井市三留町21-4",
+  "prefecture": "福井県",
+  "lat": 36.030617,
+  "lng": 136.148132,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-29087ab37f",
+  "level": "fixable",
+  "name": "ガシャポンのデパートPLANT-3 清水店",
+  "chain": "ガシャポンのデパート",
+  "address": "福井県福井市三留町21号4番地",
+  "prefecture": "福井県",
+  "lat": 36.0302725,
+  "lng": 136.1476741,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a162ff7879",
+  "level": "fixable",
+  "name": "イオン笹丘",
+  "chain": null,
+  "address": "福岡県福岡市中央区笹丘１－２８－７４",
+  "prefecture": "福岡県",
+  "lat": 33.5649827,
+  "lng": 130.3768418,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-c4a57c1227",
+  "level": "fixable",
+  "name": "＃C-pla 福岡天神西通り",
+  "chain": "#C-pla",
+  "address": "福岡県福岡市中央区天神2丁目12番1号天神ビル",
+  "prefecture": "福岡県",
+  "lat": 33.5918461,
+  "lng": 130.3982933,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-9fb4cfcba0",
+  "level": "fixable",
+  "name": "＃C-plaマークイズももち",
+  "chain": "#C-pla",
+  "address": "福岡県福岡市中央区地行浜2丁目2-1",
+  "prefecture": "福岡県",
+  "lat": 33.592648,
+  "lng": 130.3646934,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-22bd23140b",
+  "level": "fixable",
+  "name": "Pon!ららぽーと福岡店",
+  "chain": "ガチャガチャの森",
+  "address": "福岡県福岡市博多区那珂6丁目23-1 三井ショッピングパークららぽーと福岡1F",
+  "prefecture": "福岡県",
+  "lat": 33.5646527981083,
+  "lng": 130.439999713743,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-f66554ce2b",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア博多",
+  "chain": null,
+  "address": "福岡県福岡市博多区博多駅中央街６－１２",
+  "prefecture": "福岡県",
+  "lat": 33.5880931,
+  "lng": 130.4218009,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-9ebd5a9211",
+  "level": "fixable",
+  "name": "ガチャガチャの森西新店",
+  "chain": "ガチャガチャの森",
+  "address": "福岡県福岡市早良区西新4丁目 9番16号",
+  "prefecture": "福岡県",
+  "lat": 33.582867,
+  "lng": 130.359497,
+  "coordinatePrecision": "street",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a32b0895a7",
+  "level": "fixable",
+  "name": "ガチャガチャの森西新店",
+  "chain": "ガチャガチャの森",
+  "address": "福岡県福岡市早良区西新4-9-16 CREST西新1F",
+  "prefecture": "福岡県",
+  "lat": 33.58293345607973,
+  "lng": 130.35890979665777,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-9f2e039e17",
+  "level": "fixable",
+  "name": "ヨドバシカメラ マルチメディア郡山",
+  "chain": null,
+  "address": "福島県郡山市駅前１－１６－７",
+  "prefecture": "福島県",
+  "lat": 37.3969102,
+  "lng": 140.3874808,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-5d220fb0a5",
+  "level": "fixable",
+  "name": "#C-pla トナリエつくばスクエア店",
+  "chain": "#C-pla",
+  "address": "茨城県つくば市吾妻1丁目7-1",
+  "prefecture": "茨城県",
+  "lat": 36.0805071,
+  "lng": 140.1117159,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-1000b19b6f",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップ リブロイオンタウン守谷店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "茨城県守谷市百合ケ丘３丁目２４９－１ イオンタウン守谷本館 2F",
+  "prefecture": "茨城県",
+  "lat": 35.9448157,
+  "lng": 139.990594,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-18b44aae7b",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップリブロイオンタウン守谷店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "茨城県守谷市百合ヶ丘3-249-1 イオンタウン守谷本館 2F 201区画",
+  "prefecture": "茨城県",
+  "lat": 35.945404,
+  "lng": 139.992081,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a233f5a0f3",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップ軽井沢・プリンスショッピングプラザ店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "長野県北佐久郡軽井沢町軽井沢 軽井沢・プリンスショッピングプラザ内プリンスボウル1F(NW78-A)",
+  "prefecture": "長野県",
+  "lat": 36.34215579103561,
+  "lng": 138.6312697827886,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-a16b43b52c",
+  "level": "fixable",
+  "name": "＃C-plaイオンモール下田",
+  "chain": "#C-pla",
+  "address": "青森県川上郡おいらせ町中野平40-1 2階",
+  "prefecture": "青森県",
+  "lat": 40.6023584,
+  "lng": 141.4169012,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-0009200f39",
+  "level": "fixable",
+  "name": "gashacoco サントムーン柿田川",
+  "chain": "gashacoco",
+  "address": "静岡県駿東郡 清水町伏見５２−１",
+  "prefecture": "静岡県",
+  "lat": 35.1094887,
+  "lng": 138.9008755,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "missing_city",
+    "detail": "静岡県駿東郡 清水町伏見５２−１"
+   }
+  ]
+ },
+ {
+  "id": "loc-a6532790cd",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップ富士川楽座店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "静岡県富士市岩渕1488-1 4F",
+  "prefecture": "静岡県",
+  "lat": 35.160828,
+  "lng": 138.617203,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-e6044caaef",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップ富士川楽座店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "静岡県富士市岩淵1488-1",
+  "prefecture": "静岡県",
+  "lat": 35.16185650758127,
+  "lng": 138.61844416582863,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-c08b92788b",
+  "level": "fixable",
+  "name": "アピタ島田",
+  "chain": null,
+  "address": "静岡県島田市宝来町８－２",
+  "prefecture": "静岡県",
+  "lat": 34.8293175,
+  "lng": 138.1888579,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-937a1e9678",
+  "level": "fixable",
+  "name": "＃C-pla浜松駅メイワン",
+  "chain": "#C-pla",
+  "address": "静岡県浜松市中区砂山町6",
+  "prefecture": "静岡県",
+  "lat": 34.7033826,
+  "lng": 137.7348554,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "name_notation",
+    "detail": "＃・♯・全角空白・連続空白の表記ゆれ"
+   }
+  ]
+ },
+ {
+  "id": "loc-9a49ee1614",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップザザ中央館店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "静岡県浜松市中央区鍛冶町100-1",
+  "prefecture": "静岡県",
+  "lat": 34.70477493488753,
+  "lng": 137.72936295992807,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-305018c7b1",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップ未来屋書店浜松市野店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "静岡県浜松市中央区天王町字諏訪1981-3 イオンモール浜松市野 2F",
+  "prefecture": "静岡県",
+  "lat": 34.738644,
+  "lng": 137.763733,
+  "coordinatePrecision": "block",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-224b600f90",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップ未来屋書店浜松市野店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "静岡県浜松市中央区天王町諏訪1981-3 イオンモール浜松市野2F",
+  "prefecture": "静岡県",
+  "lat": 34.74014033510001,
+  "lng": 137.7627989441009,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-2b8f06c6f4",
+  "level": "fixable",
+  "name": "アピタ静岡",
+  "chain": null,
+  "address": "静岡県静岡市駿河区石田１－５－１",
+  "prefecture": "静岡県",
+  "lat": 34.9594709,
+  "lng": 138.4016259,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "operator_notation",
+    "detail": "（株）ハピネット・ベンディングサービス"
+   }
+  ]
+ },
+ {
+  "id": "loc-94a00615ba",
+  "level": "fixable",
+  "name": "ガシャポンのデパートイオンモール鳥取北店",
+  "chain": "ガシャポンのデパート",
+  "address": "鳥取県鳥取市晩稲(おくて)348",
+  "prefecture": "鳥取県",
+  "lat": 35.524691199950055,
+  "lng": 134.2015493936938,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ },
+ {
+  "id": "loc-8bb6627f15",
+  "level": "fixable",
+  "name": "ガシャポンバンダイオフィシャルショップイオンモール鳥取北店",
+  "chain": "ガシャポンバンダイオフィシャルショップ",
+  "address": "鳥取県鳥取市晩稲(おくて)348",
+  "prefecture": "鳥取県",
+  "lat": 35.524691199950055,
+  "lng": 134.2015493936938,
+  "coordinatePrecision": "official",
+  "statusNote": null,
+  "issues": [
+   {
+    "severity": "fixable",
+    "code": "duplicate_candidate",
+    "detail": "同名・同じ市区町村（統合推奨）"
+   }
+  ]
+ }
+]

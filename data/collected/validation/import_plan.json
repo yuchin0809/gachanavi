@@ -1,0 +1,68 @@
+{
+ "note": "ドライラン（Firestore には接続していない）",
+ "ids": {
+  "products": {
+   "total": 23464,
+   "collisions": 0,
+   "bySource": {
+    "JAN（gashapon.jp の jan_code）": 9534,
+    "公式URLのスラッグ": 5929,
+    "メーカー商品コード": 6974,
+    "JAN": 138,
+    "公式URLのハッシュ（スラッグが日本語など）": 889
+   },
+   "examples": [
+    "bandai-4582770068238000",
+    "bandai-4570118186362000",
+    "bushi-10145"
+   ]
+  },
+  "locations": {
+   "total": 1796,
+   "collisions": 0,
+   "collisionIds": {},
+   "bySource": {
+    "ガシャポン公式の店舗コード": 1284,
+    "住所＋店舗名のハッシュ": 384,
+    "ドリームカプセルの店舗番号": 62,
+    "バンダイナムコの店舗コード": 32,
+    "gashacoco の店舗番号": 34
+   }
+  }
+ },
+ "readyToImport": {
+  "products": 23333,
+  "productsOnHold": 131,
+  "locations": 1576,
+  "locationsOnHold": 220
+ },
+ "docSizeBytes": {
+  "productsAvg": 1155,
+  "productsMax": 6036,
+  "productsTotalMB": 26.9,
+  "locationsAvg": 1050,
+  "locationsMax": 1632
+ },
+ "writes": {
+  "total": 24909,
+  "dailyLimit": 20000,
+  "dailyBudget": 15000,
+  "batchSize": 400,
+  "days": [
+   {
+    "day": 1,
+    "locations": 1576,
+    "products": 13424,
+    "productsRange": "2027-02 〜 2021-05",
+    "batches": 38
+   },
+   {
+    "day": 2,
+    "locations": 0,
+    "products": 9909,
+    "productsRange": "2021-05 〜 2000-02",
+    "batches": 25
+   }
+  ]
+ }
+}
