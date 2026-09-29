@@ -5,6 +5,8 @@ import type { ID } from "@/types";
  * 在庫報告の保存時に、影響する商品・場所のタグだけを無効化する。
  */
 export const cacheTags = {
+  /** カタログ索引（catalogIndex）。投入スクリプトで索引を更新したときに無効化する */
+  catalog: "catalog",
   products: "products",
   product: (id: ID) => `product:${id}`,
   locations: "locations",

@@ -12,22 +12,49 @@
 export type ID = string;
 export type ISODateString = string;
 
-/** ガチャ商品（シリーズ内の1商品ラインナップ単位） */
-export interface GachaProduct {
+/**
+ * 発売状況（保存せず、表示時に発売月・再発売月から求める。src/lib/release.ts）
+ * - upcoming: 発売予定 / current: 現在の商品（発売から一定期間内）/ past: 過去の商品 / unknown: 発売時期不明
+ */
+export type ReleaseStatus = "upcoming" | "current" | "past" | "unknown";
+
+/**
+ * 商品一覧・検索に使う軽量な商品情報（カタログ索引の1件）。
+ * 商品説明や出典など、詳細ページでしか使わない項目は含めない。
+ */
+export interface CatalogProduct {
   id: ID;
   name: string;
+  /** 公式にシリーズ名が無い場合は空文字 */
   series: string;
   maker: string;
-  /** 1回あたりの価格（円） */
-  price: number;
-  /** 発売時期（"YYYY-MM"） */
-  releaseMonth: string;
+  /** 1回あたりの価格（円）。公式に記載が無い場合は null */
+  price: number | null;
+  /** 価格が税込か（true）税抜か（false）。不明は null */
+  priceTaxIncluded: boolean | null;
+  /** 発売時期（"YYYY-MM"）。不明は null */
+  releaseMonth: string | null;
+  /** 再発売の時期（"YYYY-MM"）。無ければ null */
+  resaleMonth: string | null;
+  /** 画像 URL。表示してよいかは src/lib/images.ts の判定に従う */
   imageUrl: string | null;
-  description: string;
   /** 検索対象となるキャラクター名 */
   characters: string[];
-  /** 検索補助用のタグ（ジャンル・別名など） */
+  /** 検索補助用のタグ（ジャンル・別名・【再販】などの区分） */
   tags: string[];
+}
+
+/** ガチャ商品（シリーズ内の1商品ラインナップ単位） */
+export interface GachaProduct extends CatalogProduct {
+  description: string;
+  /** メーカー公式の商品ページ */
+  officialUrl: string | null;
+  /** 情報源（収集元）の URL */
+  sourceUrl: string | null;
+  /** 情報源から取得した日時（ISO 8601） */
+  fetchedAt: string | null;
+  /** 種類数（例: 全5種） */
+  lineupCount: string | null;
 }
 
 /** 設置場所（ガチャ専門店・商業施設内のコーナーなど） */
@@ -37,10 +64,14 @@ export interface Location {
   address: string;
   /** 最寄り駅・エリア名などの短い表示用ラベル */
   area: string;
-  lat: number;
-  lng: number;
+  /** 緯度・経度。不明な場合は null（0 として扱わない。距離計算・地図の対象外） */
+  lat: number | null;
+  lng: number | null;
   openingHours: string | null;
 }
+
+/** 座標が分かっている設置場所 */
+export type LocatedLocation = Location & GeoPoint;
 
 /** 商品と設置場所の関連（1つの商品が複数の場所に設置される） */
 export interface Placement {
@@ -96,7 +127,8 @@ export interface PlacementWithStock {
 
 /** 商品一覧・検索結果用の集計付き商品 */
 export interface GachaProductSummary {
-  product: GachaProduct;
+  product: CatalogProduct;
+  releaseStatus: ReleaseStatus;
   /** 設置が確認されている店舗数 */
   locationCount: number;
   /** 最新報告が「在庫あり」または「残りわずか」の店舗数 */
@@ -113,20 +145,24 @@ export interface ProductLocationEntry {
 
 /** 設置場所詳細ページ用：商品 + その場所での在庫状態 */
 export interface LocationProductEntry {
-  product: GachaProduct;
+  product: CatalogProduct;
   stock: StockSnapshot;
 }
 
-/** 近くで見つかったガチャ */
+/** 近くで見つかったガチャ（座標が分かっている場所のみ） */
 export interface NearbyFind {
-  product: GachaProduct;
-  location: Location;
+  product: CatalogProduct;
+  location: LocatedLocation;
   stock: StockSnapshot;
   distanceMeters: number;
 }
 
 /** 近くで見つかったガチャの候補（距離は現在地が分かるブラウザ側で計算する） */
-export type NearbyFindCandidate = Omit<NearbyFind, "distanceMeters">;
+export interface NearbyFindCandidate {
+  product: CatalogProduct;
+  location: Location;
+  stock: StockSnapshot;
+}
 
 export interface GeoPoint {
   lat: number;

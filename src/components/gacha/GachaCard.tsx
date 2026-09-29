@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { formatPrice } from "@/lib/format";
+import { RELEASE_STATUS_LABEL } from "@/lib/release";
 import type { GachaProductSummary } from "@/types";
 import { GachaImage } from "./GachaImage";
 
 /** トップページの横スクロール用カード */
 export function GachaCard({ summary, badge }: { summary: GachaProductSummary; badge?: string }) {
-  const { product, locationCount, availableLocationCount } = summary;
+  const { product, releaseStatus, locationCount, availableLocationCount } = summary;
   return (
     <Link
       href={`/gacha/${product.id}`}
@@ -20,10 +21,16 @@ export function GachaCard({ summary, badge }: { summary: GachaProductSummary; ba
         )}
       </div>
       <div className="p-3">
-        <p className="truncate text-[11px] text-muted">{product.series}</p>
+        <p className="truncate text-[11px] text-muted">
+          {releaseStatus === "upcoming" ? (
+            <span className="font-bold text-brand-ink">{RELEASE_STATUS_LABEL.upcoming}</span>
+          ) : (
+            product.series || product.maker
+          )}
+        </p>
         <p className="mt-0.5 line-clamp-2 min-h-[2.5em] text-sm font-bold leading-tight">{product.name}</p>
         <div className="mt-2 flex items-center justify-between text-xs">
-          <span className="font-bold">{formatPrice(product.price)}</span>
+          <span className="font-bold">{formatPrice(product.price, product.priceTaxIncluded)}</span>
           <span className={availableLocationCount > 0 ? "font-bold text-stock-in-ink" : "text-muted"}>
             在庫 {availableLocationCount}/{locationCount}店
           </span>

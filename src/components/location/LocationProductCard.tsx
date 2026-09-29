@@ -30,11 +30,11 @@ export function LocationProductCard({
           <GachaImage product={product} sizes="96px" className={`rounded-xl ${highlighted ? "w-24" : "w-18"}`} />
         </Link>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[11px] text-muted">{product.series}</p>
+          <p className="truncate text-[11px] text-muted">{product.series || product.maker}</p>
           <Link href={`/gacha/${product.id}`} className="line-clamp-2 text-sm font-bold leading-snug hover:underline">
             {product.name}
           </Link>
-          <p className="text-xs text-muted">{formatPrice(product.price)}</p>
+          <p className="text-xs text-muted">{formatPrice(product.price, product.priceTaxIncluded)}</p>
           <div className="mt-2">
             <LiveStockStatus
               productId={product.id}

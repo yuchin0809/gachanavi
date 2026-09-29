@@ -18,7 +18,13 @@ import type {
   User,
 } from "@/types";
 
-export const mockProducts: GachaProduct[] = [
+/** モック（架空）の商品。実データの項目のうち、モックに無いものは既定値で補う */
+type MockProductSeed = Omit<
+  GachaProduct,
+  "priceTaxIncluded" | "resaleMonth" | "officialUrl" | "sourceUrl" | "fetchedAt" | "lineupCount"
+>;
+
+const mockProductSeeds: MockProductSeed[] = [
   {
     id: "p-001",
     name: "ねこだんご ミニフィギュア",
@@ -143,6 +149,16 @@ export const mockProducts: GachaProduct[] = [
     tags: ["アルパカ", "ぬいぐるみ", "動物", "ふわふわ"],
   },
 ];
+
+export const mockProducts: GachaProduct[] = mockProductSeeds.map((p) => ({
+  ...p,
+  priceTaxIncluded: true,
+  resaleMonth: null,
+  officialUrl: null,
+  sourceUrl: null,
+  fetchedAt: null,
+  lineupCount: null,
+}));
 
 export const mockLocations: Location[] = [
   {

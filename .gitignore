@@ -57,3 +57,6 @@ __pycache__/
 # 収集の作業ファイル（生データは raw/*.jsonl.gz をコミット）
 /data/collected/raw/*.jsonl
 /data/collected/logs/
+
+# カタログ索引のローカル出力（npm run catalog:build）
+/.catalog-build/

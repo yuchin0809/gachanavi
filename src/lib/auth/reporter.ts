@@ -22,7 +22,8 @@ export class ReporterAuthError extends Error {
  * 報告者の識別はこの関数に集約しているため、将来メール等のログインを追加しても Server Action 側は変わらない。
  */
 export async function getReporterId(idToken: string | null): Promise<ID> {
-  if (getDataSourceKind() === "mock") return mockCurrentUserId;
+  // mock / local（Firebase を使わないローカル確認）は開発用の仮ユーザー
+  if (getDataSourceKind() !== "firestore") return mockCurrentUserId;
   if (!idToken) throw new ReporterAuthError("ID token is missing");
 
   // 設定不備（FirebaseConfigError）は認証エラーではなくサーバーエラーとして扱うため、try の外で取得する

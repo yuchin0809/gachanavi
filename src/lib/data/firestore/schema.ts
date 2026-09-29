@@ -1,8 +1,10 @@
 /**
  * Firestore のコレクション構造と、ドメイン型との変換。
  *
- *   products/{productId}          GachaProduct
+ *   products/{productId}          GachaProduct（詳細ページで 1 件ずつ読む。一覧・検索では読まない）
  *   locations/{locationId}        Location
+ *   catalogIndex/{meta|products-NNN|locations-NNN}
+ *                                 一覧・検索用の軽量な索引（src/lib/catalog/index-format.ts）
  *   placements/{productId__locationId}
  *                                 Placement + latestStock（最新在庫状態のキャッシュ）
  *   stockReports/{autoId}         StockReport（履歴。削除・更新しない。userId = 報告者の Firebase Auth uid）
@@ -14,7 +16,9 @@
  * 日時は Firestore では Timestamp、ドメイン型では ISO 文字列で扱う。
  */
 import { Timestamp, type DocumentSnapshot } from "firebase-admin/firestore";
+import { isValidMonth } from "@/lib/release";
 import type {
+  CatalogProduct,
   GachaProduct,
   Location,
   Placement,
@@ -38,9 +42,15 @@ export const COLLECTIONS = {
  * 保存形式
  * ------------------------------------------------------------------ */
 
-export type ProductDoc = Omit<GachaProduct, "id">;
+export type ProductDoc = Omit<GachaProduct, "id"> & {
+  /** 架空のサンプルデータ（true の商品は一覧・検索に出さない） */
+  isSample?: boolean;
+};
 
-export type LocationDoc = Omit<Location, "id">;
+export type LocationDoc = Omit<Location, "id"> & {
+  /** 架空のサンプルデータ（true の場所は一覧に出さない） */
+  isSample?: boolean;
+};
 
 /** placements.latestStock：その「商品×場所」の最新の在庫報告 */
 export interface LatestStockDoc {
@@ -87,8 +97,20 @@ function str(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value : fallback;
 }
 
-function num(value: unknown, fallback = 0): number {
-  return typeof value === "number" && Number.isFinite(value) ? value : fallback;
+function numOrNull(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function strOrNull(value: unknown): string | null {
+  return typeof value === "string" && value ? value : null;
+}
+
+function boolOrNull(value: unknown): boolean | null {
+  return typeof value === "boolean" ? value : null;
+}
+
+function monthOrNull(value: unknown): string | null {
+  return isValidMonth(value) ? value : null;
 }
 
 function strArray(value: unknown): string[] {
@@ -105,33 +127,53 @@ function status(value: unknown): ReportableStockStatus | null {
   return typeof value === "string" && REPORTABLE.includes(value) ? (value as ReportableStockStatus) : null;
 }
 
-export function productFromDoc(snap: DocumentSnapshot): GachaProduct {
-  const d = snap.data() ?? {};
+/** 一覧・検索用の軽量な商品（products ドキュメント・カタログ索引の両方から作る） */
+export function catalogProductFromData(id: string, d: Record<string, unknown>): CatalogProduct {
   return {
-    id: snap.id,
+    id,
     name: str(d.name),
     series: str(d.series),
     maker: str(d.maker),
-    price: num(d.price),
-    releaseMonth: str(d.releaseMonth),
-    imageUrl: typeof d.imageUrl === "string" && d.imageUrl ? d.imageUrl : null,
-    description: str(d.description),
+    // 価格・発売時期が無い場合は 0 や空文字にせず null のまま扱う
+    price: numOrNull(d.price),
+    priceTaxIncluded: boolOrNull(d.priceTaxIncluded),
+    releaseMonth: monthOrNull(d.releaseMonth),
+    resaleMonth: monthOrNull(d.resaleMonth),
+    imageUrl: strOrNull(d.imageUrl),
     characters: strArray(d.characters),
     tags: strArray(d.tags),
   };
 }
 
-export function locationFromDoc(snap: DocumentSnapshot): Location {
+export function productFromDoc(snap: DocumentSnapshot): GachaProduct {
   const d = snap.data() ?? {};
   return {
-    id: snap.id,
+    ...catalogProductFromData(snap.id, d),
+    description: str(d.description),
+    officialUrl: strOrNull(d.officialUrl),
+    sourceUrl: strOrNull(d.sourceUrl),
+    fetchedAt: toIso(d.fetchedAt),
+    lineupCount: strOrNull(d.lineupCount),
+  };
+}
+
+export function locationFromData(id: string, d: Record<string, unknown>): Location {
+  const lat = numOrNull(d.lat);
+  const lng = numOrNull(d.lng);
+  return {
+    id,
     name: str(d.name),
     address: str(d.address),
     area: str(d.area),
-    lat: num(d.lat),
-    lng: num(d.lng),
-    openingHours: typeof d.openingHours === "string" && d.openingHours ? d.openingHours : null,
+    // 座標が無い（片方だけ・数値でない）場合は 0 にせず null
+    lat: lat !== null && lng !== null ? lat : null,
+    lng: lat !== null && lng !== null ? lng : null,
+    openingHours: strOrNull(d.openingHours),
   };
+}
+
+export function locationFromDoc(snap: DocumentSnapshot): Location {
+  return locationFromData(snap.id, snap.data() ?? {});
 }
 
 export function placementFromDoc(snap: DocumentSnapshot): { placement: Placement; stock: StockSnapshot } {

@@ -53,11 +53,12 @@ async function main() {
   const writes: Array<(batch: WriteBatch) => void> = [];
 
   for (const { id, ...product } of data.products) {
-    const doc: ProductDoc = product;
+    // モックは架空のデータ。isSample を付け、実データ投入後に一覧・検索へ混ざらないようにする
+    const doc: ProductDoc = { ...product, isSample: true };
     writes.push((b) => b.set(db.collection(COLLECTIONS.products).doc(id), doc));
   }
   for (const { id, ...location } of data.locations) {
-    const doc: LocationDoc = location;
+    const doc: LocationDoc = { ...location, isSample: true };
     writes.push((b) => b.set(db.collection(COLLECTIONS.locations).doc(id), doc));
   }
   for (const user of data.users) {

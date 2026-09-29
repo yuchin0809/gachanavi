@@ -23,14 +23,15 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const dataSource = getDataSourceKind();
   return (
     <html lang="ja" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
-        <StockReportsProvider persistent={getDataSourceKind() === "firestore"}>
+        <StockReportsProvider persistent={dataSource === "firestore"}>
           <CurrentPositionProvider fallback={getFallbackPosition()}>
             <SiteHeader />
             <main className="flex-1">{children}</main>
-            <SiteFooter />
+            <SiteFooter dataSource={dataSource} />
           </CurrentPositionProvider>
         </StockReportsProvider>
       </body>

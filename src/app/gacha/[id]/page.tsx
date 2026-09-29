@@ -6,6 +6,7 @@ import { BackLink } from "@/components/layout/BackLink";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { ProductLocationsView } from "@/components/location/ProductLocationsView";
 import { getProductDetail } from "@/lib/data";
+import { formatDateTime } from "@/lib/format";
 import { isAvailable } from "@/lib/stock";
 
 export async function generateMetadata({ params }: PageProps<"/gacha/[id]">): Promise<Metadata> {
@@ -35,7 +36,7 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
         />
 
         <div className="mt-4 sm:mt-0">
-          <p className="text-sm font-bold text-brand-ink">{product.series}</p>
+          {product.series && <p className="text-sm font-bold text-brand-ink">{product.series}</p>}
           <h1 className="mt-1 text-2xl font-extrabold leading-snug">{product.name}</h1>
 
           <div className="mt-3 flex gap-2">
@@ -58,7 +59,45 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
           <div className="mt-3">
             <ProductFacts product={product} />
           </div>
-          <p className="mt-3 text-sm leading-relaxed text-muted">{product.description}</p>
+          {product.description && (
+            <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-muted">{product.description}</p>
+          )}
+
+          {product.tags.length > 0 && (
+            <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="タグ">
+              {product.tags.map((tag) => (
+                <li key={tag} className="rounded-full bg-canvas px-2 py-0.5 text-[11px] font-bold text-muted ring-1 ring-line">
+                  #{tag}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {(product.officialUrl || product.sourceUrl) && (
+            <div className="mt-4 space-y-1 text-xs text-muted">
+              {product.officialUrl && (
+                <a
+                  href={product.officialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex font-bold text-ink underline"
+                >
+                  メーカー公式の商品ページを見る
+                </a>
+              )}
+              <p>
+                出典:{" "}
+                {product.sourceUrl ? (
+                  <a href={product.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
+                    {hostnameOf(product.sourceUrl)}
+                  </a>
+                ) : (
+                  "情報なし"
+                )}
+                {product.fetchedAt && `（${formatDateTime(product.fetchedAt)} 時点の情報）`}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -73,4 +112,12 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
       </section>
     </PageContainer>
   );
+}
+
+function hostnameOf(url: string): string {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
 }

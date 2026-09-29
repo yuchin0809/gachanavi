@@ -24,17 +24,22 @@ export function formatDateTime(iso: string): string {
   }).format(new Date(iso));
 }
 
-/** "2026-09" → "2026年9月" */
-export function formatReleaseMonth(releaseMonth: string): string {
+/** "2026-09" → "2026年9月"。不明な場合は「発売時期不明」 */
+export function formatReleaseMonth(releaseMonth: string | null | undefined): string {
+  if (!releaseMonth || !/^\d{4}-\d{2}$/.test(releaseMonth)) return "発売時期不明";
   const [year, month] = releaseMonth.split("-");
   return `${year}年${Number(month)}月`;
 }
 
-export function formatPrice(price: number): string {
-  return `${price.toLocaleString("ja-JP")}円`;
+/** 「300円」「273円（税抜）」。価格が不明な場合は「価格情報なし」 */
+export function formatPrice(price: number | null | undefined, taxIncluded: boolean | null = null): string {
+  if (price === null || price === undefined || !Number.isFinite(price)) return "価格情報なし";
+  return `${price.toLocaleString("ja-JP")}円${taxIncluded === false ? "（税抜）" : ""}`;
 }
 
-export function formatDistance(meters: number): string {
+/** 距離。座標が不明で計算できない場合は「距離情報なし」 */
+export function formatDistance(meters: number | null | undefined): string {
+  if (meters === null || meters === undefined || !Number.isFinite(meters)) return "距離情報なし";
   if (meters < 1000) return `${Math.round(meters / 10) * 10}m`;
   return `${(meters / 1000).toFixed(1)}km`;
 }

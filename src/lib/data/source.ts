@@ -1,4 +1,5 @@
 import type {
+  CatalogProduct,
   GachaProduct,
   ID,
   Location,
@@ -34,7 +35,12 @@ export interface NewStockReport {
  * データ取得・保存の抽象インターフェース。
  *
  * - mock      : src/data/mock.ts のダミーデータ（mockSource.ts）
+ * - local     : 収集した実データ data/collected/*.json を読むローカル確認用（localSource.ts。Firestore にアクセスしない）
  * - firestore : Cloud Firestore（firestoreSource.ts）
+ *
+ * 商品が数万件になっても動くよう、products を全件読む API は持たない。
+ * 一覧・検索はカタログ索引（軽量な商品情報。src/lib/catalog/index-format.ts）で行い、
+ * 詳細は getProduct で 1 件だけ取得する。
  *
  * どちらを使うかは環境変数 DATA_SOURCE で切り替える（src/lib/data/config.ts）。
  * 画面側はこのインターフェースを直接使わず、index.ts のクエリ関数を経由する。
@@ -43,8 +49,15 @@ export interface DataSource {
   /** 報告などの書き込みが永続化されるか（モックでは false） */
   readonly persistent: boolean;
 
-  listProducts(): Promise<GachaProduct[]>;
+  /**
+   * 一覧・検索用の軽量な商品一覧（カタログ索引）。
+   * Firestore では catalogIndex の数ドキュメントだけを読み、products コレクションは読まない。
+   * 索引に載っていない商品（既存のモックデータなど）は含まれない。
+   */
+  listCatalogProducts(): Promise<CatalogProduct[]>;
+  /** 商品詳細（1 件だけ取得する） */
   getProduct(id: ID): Promise<GachaProduct | null>;
+  /** 設置場所の一覧（索引。座標が不明な場所も含む） */
   listLocations(): Promise<Location[]>;
   getLocation(id: ID): Promise<Location | null>;
 
@@ -67,13 +80,17 @@ export interface DataSource {
    * 在庫報告を履歴として追加し、placements.latestStock を更新する。
    * latestStock は、既存の最新報告より新しい報告の場合のみ上書きする。
    *
+   * その「商品×場所」の設置情報（placement）がまだ無い場合は、商品と設置場所の両方が存在すれば
+   * 設置情報を作成してから報告を登録する（「この店舗でこの商品を見つけた」という報告を兼ねる）。
+   * どちらかが存在しない場合は PlacementNotFoundError。
+   *
    * - 同じユーザーが同じ「商品×場所」に REPORT_COOLDOWN_MS 以内に再度報告した場合は ReportRateLimitedError
    * - 報告者の users ドキュメントが無ければ作成する（匿名ユーザーの初回報告時など）
    */
   addStockReport(input: NewStockReport): Promise<StockReport>;
 }
 
-/** 報告対象の「商品×場所」の設置情報が存在しない */
+/** 報告対象の商品または設置場所が存在しない（設置情報を作れない） */
 export class PlacementNotFoundError extends Error {
   constructor(productId: ID, locationId: ID) {
     super(`Placement not found: ${productId} × ${locationId}`);

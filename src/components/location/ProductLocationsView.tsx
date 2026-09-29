@@ -11,7 +11,7 @@ import { StockLegend } from "@/components/stock/StockLegend";
 import { useStockResolver } from "@/components/stock/StockReportsProvider";
 import { ChevronRightIcon } from "@/components/ui/Icons";
 import { formatDistance } from "@/lib/format";
-import { distanceMeters } from "@/lib/geo";
+import { distanceOrNull, hasCoordinates } from "@/lib/geo";
 import { STOCK_STATUS_ORDER } from "@/lib/stock";
 import type { ID, ProductLocationEntry } from "@/types";
 
@@ -34,17 +34,19 @@ export function ProductLocationsView({
     .map((e) => ({
       ...e,
       stock: resolve(productId, e.location.id, e.stock),
-      distance: distanceMeters(currentPosition, e.location),
+      distance: distanceOrNull(currentPosition, e.location),
     }))
-    .sort((a, b) => STOCK_STATUS_ORDER[a.stock.status] - STOCK_STATUS_ORDER[b.stock.status] || a.distance - b.distance);
+    .sort(
+      (a, b) =>
+        STOCK_STATUS_ORDER[a.stock.status] - STOCK_STATUS_ORDER[b.stock.status] ||
+        (a.distance ?? Infinity) - (b.distance ?? Infinity),
+    );
 
-  const markers: MapMarker[] = resolved.map((e) => ({
-    id: e.location.id,
-    label: e.location.name,
-    lat: e.location.lat,
-    lng: e.location.lng,
-    status: e.stock.status,
-  }));
+  const markers: MapMarker[] = resolved.flatMap((e) =>
+    hasCoordinates(e.location)
+      ? [{ id: e.location.id, label: e.location.name, lat: e.location.lat, lng: e.location.lng, status: e.stock.status }]
+      : [],
+  );
 
   if (entries.length === 0) {
     return (
@@ -105,7 +107,8 @@ export function ProductLocationsView({
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-2 text-sm font-bold leading-snug">{location.name}</p>
                   <p className="mt-0.5 text-xs text-muted">
-                    {location.area}・{positionLabel}から{formatDistance(distance)}
+                    {location.area ? `${location.area}・` : ""}
+                    {distance === null ? "距離情報なし" : `${positionLabel}から${formatDistance(distance)}`}
                   </p>
                   <LastChecked at={stock.lastCheckedAt} className="mt-1" />
                 </div>

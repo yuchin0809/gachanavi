@@ -5,8 +5,9 @@ import { NearbyFindsSection } from "@/components/geo/NearbyFindsSection";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { KeywordChips } from "@/components/search/KeywordChips";
 import { SearchBar } from "@/components/search/SearchBar";
-import { getAvailableFinds, getNewProducts, getTrendingProducts } from "@/lib/data";
+import { getAvailableFinds, getNewProducts, getTrendingProducts, getUpcomingProducts } from "@/lib/data";
 import { formatReleaseMonth } from "@/lib/format";
+import { latestMonth } from "@/lib/release";
 
 // 在庫・報告時刻は常に最新を表示したいため、リクエストごとに描画する
 export const dynamic = "force-dynamic";
@@ -14,9 +15,10 @@ export const dynamic = "force-dynamic";
 const POPULAR_KEYWORDS = ["ねこ", "ミニチュア", "恐竜", "ペンギン", "ぬいぐるみ", "深海"];
 
 export default async function HomePage() {
-  const [trending, newest, nearbyCandidates] = await Promise.all([
+  const [trending, newest, upcoming, nearbyCandidates] = await Promise.all([
     getTrendingProducts(),
     getNewProducts(),
+    getUpcomingProducts(),
     getAvailableFinds(),
   ]);
 
@@ -48,13 +50,24 @@ export default async function HomePage() {
         </section>
 
         <section>
-          <SectionHeader icon="🆕" title="新着ガチャ" description="発売されたばかりのガチャ" moreHref="/search" />
+          <SectionHeader icon="🆕" title="新着ガチャ" description="発売中の新しいガチャ（再発売を含む）" moreHref="/search" />
           <HorizontalScroller>
             {newest.map((s) => (
-              <GachaCard key={s.product.id} summary={s} badge={formatReleaseMonth(s.product.releaseMonth)} />
+              <GachaCard key={s.product.id} summary={s} badge={formatReleaseMonth(latestMonth(s.product))} />
             ))}
           </HorizontalScroller>
         </section>
+
+        {upcoming.length > 0 && (
+          <section>
+            <SectionHeader icon="🗓" title="発売予定のガチャ" description="これから発売されるガチャ" moreHref="/search" />
+            <HorizontalScroller>
+              {upcoming.map((s) => (
+                <GachaCard key={s.product.id} summary={s} badge={formatReleaseMonth(latestMonth(s.product))} />
+              ))}
+            </HorizontalScroller>
+          </section>
+        )}
 
         <NearbyFindsSection candidates={nearbyCandidates} />
       </PageContainer>

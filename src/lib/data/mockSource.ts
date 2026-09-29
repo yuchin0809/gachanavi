@@ -1,12 +1,11 @@
 import { createMockDatabase } from "@/data/mock";
+import { toCatalogProduct } from "@/lib/catalog/index-format";
 import { latestSnapshot } from "@/lib/stock";
+import { checkMemoryThrottle } from "./memoryThrottle";
 import type { DataSource } from "./source";
-import { PlacementNotFoundError, REPORT_COOLDOWN_MS, ReportRateLimitedError, placementIdOf } from "./source";
+import { PlacementNotFoundError } from "./source";
 
 const HOUR = 60 * 60 * 1000;
-
-/** 連投制限の確認用：「ユーザー × 商品×場所」ごとの最後の報告時刻（サーバーのメモリ上のみ） */
-const lastReportedAtByKey = new Map<string, number>();
 
 /**
  * src/data/mock.ts のモックデータを返す DataSource 実装。
@@ -20,8 +19,8 @@ export function createMockDataSource(): DataSource {
   return {
     persistent: false,
 
-    async listProducts() {
-      return db().products;
+    async listCatalogProducts() {
+      return db().products.map(toCatalogProduct);
     },
     async getProduct(id) {
       return db().products.find((p) => p.id === id) ?? null;
@@ -69,18 +68,13 @@ export function createMockDataSource(): DataSource {
       return db().users.find((u) => u.id === id) ?? null;
     },
     async addStockReport(input) {
-      const exists = db().placements.some(
-        (pl) => pl.productId === input.productId && pl.locationId === input.locationId,
-      );
+      // 設置情報が無くても、商品と設置場所が存在すれば報告できる（Firestore 版と同じ条件）
+      const { products, locations } = db();
+      const exists =
+        products.some((p) => p.id === input.productId) && locations.some((l) => l.id === input.locationId);
       if (!exists) throw new PlacementNotFoundError(input.productId, input.locationId);
 
-      const now = input.reportedAt ? Date.parse(input.reportedAt) : Date.now();
-      const key = `${input.userId}:${placementIdOf(input.productId, input.locationId)}`;
-      const last = lastReportedAtByKey.get(key);
-      if (last !== undefined && now - last < REPORT_COOLDOWN_MS) {
-        throw new ReportRateLimitedError(REPORT_COOLDOWN_MS - (now - last));
-      }
-      lastReportedAtByKey.set(key, now);
+      checkMemoryThrottle(input);
 
       return {
         id: `local-${Date.now()}`,

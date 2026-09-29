@@ -1,13 +1,18 @@
 /**
  * 画面から利用するデータ取得関数群（Server Component / Server Action から呼び出す）。
  * 集計・検索ロジックはここにまとめ、生データの取得は DataSource に委譲する。
+ *
+ * 商品が数万件でも動くよう、商品の一覧・検索はカタログ索引（軽量な商品情報）だけで行い、
+ * products を全件読むことはしない。商品詳細は 1 件だけ取得する。
  */
 import "server-only";
 import { cache } from "react";
 import { mockCurrentPosition } from "@/data/mock";
+import { RELEASE_STATUS_ORDER, latestMonth, releaseStatusOf } from "@/lib/release";
 import { matchesQuery } from "@/lib/search";
 import { STOCK_STATUS_ORDER, isAvailable } from "@/lib/stock";
 import type {
+  CatalogProduct,
   GachaProduct,
   GachaProductSummary,
   GeoPoint,
@@ -17,6 +22,7 @@ import type {
   NearbyFindCandidate,
   PlacementWithStock,
   ProductLocationEntry,
+  ReleaseStatus,
   StockSnapshot,
 } from "@/types";
 import { getDataSourceKind } from "./config";
@@ -31,9 +37,14 @@ let dataSourcePromise: Promise<DataSource> | null = null;
  */
 export function getDataSource(): Promise<DataSource> {
   dataSourcePromise ??= (async () => {
-    if (getDataSourceKind() === "firestore") {
+    const kind = getDataSourceKind();
+    if (kind === "firestore") {
       const { createFirestoreDataSource } = await import("./firestoreSource");
       return createFirestoreDataSource();
+    }
+    if (kind === "local") {
+      const { createLocalDataSource } = await import("./localSource");
+      return createLocalDataSource();
     }
     return createMockDataSource();
   })();
@@ -41,22 +52,27 @@ export function getDataSource(): Promise<DataSource> {
 }
 
 const RECENT_WINDOW_HOURS = 24;
+/** 検索結果 1 ページの件数（数千件を一度に描画しない） */
+export const SEARCH_PAGE_SIZE = 40;
 
 /*
  * 同じリクエスト内で複数のセクションが同じデータを必要とする場合（トップページなど）に
  * データソースへの問い合わせを1回にまとめる（React の cache はリクエスト単位）。
  */
-const loadProducts = cache(async () => (await getDataSource()).listProducts());
+const loadCatalog = cache(async () => (await getDataSource()).listCatalogProducts());
+const loadCatalogMap = cache(async () => new Map((await loadCatalog()).map((p) => [p.id, p])));
 const loadLocations = cache(async () => (await getDataSource()).listLocations());
+const loadLocationMap = cache(async () => new Map((await loadLocations()).map((l) => [l.id, l])));
 const loadAllPlacements = cache(async () => (await getDataSource()).listPlacementsWithStock());
 const loadRecentReportCounts = cache(async () =>
   (await getDataSource()).countRecentReportsByProduct(RECENT_WINDOW_HOURS),
 );
 
 function summarize(
-  products: GachaProduct[],
+  products: CatalogProduct[],
   placements: PlacementWithStock[],
   recentCounts: Record<ID, number>,
+  now: Date,
 ): GachaProductSummary[] {
   const counts = new Map<ID, { total: number; available: number }>();
   for (const { placement, stock } of placements) {
@@ -67,6 +83,7 @@ function summarize(
   }
   return products.map((product) => ({
     product,
+    releaseStatus: releaseStatusOf(product, now),
     locationCount: counts.get(product.id)?.total ?? 0,
     availableLocationCount: counts.get(product.id)?.available ?? 0,
     recentReportCount: recentCounts[product.id] ?? 0,
@@ -75,31 +92,74 @@ function summarize(
 
 const loadSummaries = cache(async (): Promise<GachaProductSummary[]> => {
   const [products, placements, recentCounts] = await Promise.all([
-    loadProducts(),
+    loadCatalog(),
     loadAllPlacements(),
     loadRecentReportCounts(),
   ]);
-  return summarize(products, placements, recentCounts);
+  return summarize(products, placements, recentCounts, new Date());
 });
+
+/** 新しい順（発売月・再発売月の新しい方。不明は最後） */
+function byLatestMonthDesc(a: GachaProductSummary, b: GachaProductSummary): number {
+  return (latestMonth(b.product) ?? "").localeCompare(latestMonth(a.product) ?? "");
+}
 
 export interface SearchOptions {
   /** 在庫あり（残りわずか含む）の店舗がある商品のみ */
   availableOnly?: boolean;
+  /**
+   * 過去の商品を含めるか。
+   * 省略時: キーワードありは含める（後ろに並ぶ）、キーワードなし（一覧）は含めない
+   */
+  includePast?: boolean;
+  /** 1 始まりのページ番号 */
+  page?: number;
+  pageSize?: number;
 }
 
-export async function searchProducts(
-  query: string,
-  options: SearchOptions = {},
-): Promise<GachaProductSummary[]> {
+export interface SearchResult {
+  items: GachaProductSummary[];
+  /** 条件に合う全件数 */
+  total: number;
+  /** includePast=false のために除外した過去の商品の件数（「過去の商品も表示」の案内用） */
+  hiddenPastCount: number;
+  page: number;
+  pageCount: number;
+  includePast: boolean;
+}
+
+/**
+ * 検索・一覧。並び順は
+ * 1) 発売状況（現在の商品 → 発売予定 → 発売時期不明 → 過去の商品）
+ * 2) 在庫ありの店舗数 3) 直近の報告数 4) 新しい順
+ */
+export async function searchProducts(query: string, options: SearchOptions = {}): Promise<SearchResult> {
+  const includePast = options.includePast ?? query.trim() !== "";
+  const pageSize = options.pageSize ?? SEARCH_PAGE_SIZE;
   const summaries = await loadSummaries();
-  return summaries
+
+  const matched = summaries
     .filter((s) => matchesQuery(s.product, query))
-    .filter((s) => !options.availableOnly || s.availableLocationCount > 0)
-    .sort(
-      (a, b) =>
-        b.availableLocationCount - a.availableLocationCount ||
-        b.recentReportCount - a.recentReportCount,
-    );
+    .filter((s) => !options.availableOnly || s.availableLocationCount > 0);
+  const visible = includePast ? matched : matched.filter((s) => s.releaseStatus !== "past");
+  visible.sort(
+    (a, b) =>
+      RELEASE_STATUS_ORDER[a.releaseStatus] - RELEASE_STATUS_ORDER[b.releaseStatus] ||
+      b.availableLocationCount - a.availableLocationCount ||
+      b.recentReportCount - a.recentReportCount ||
+      byLatestMonthDesc(a, b),
+  );
+
+  const pageCount = Math.max(1, Math.ceil(visible.length / pageSize));
+  const page = Math.min(Math.max(1, Math.floor(options.page ?? 1)), pageCount);
+  return {
+    items: visible.slice((page - 1) * pageSize, page * pageSize),
+    total: visible.length,
+    hiddenPastCount: matched.length - visible.length,
+    page,
+    pageCount,
+    includePast,
+  };
 }
 
 /** 🔥 話題のガチャ：直近24時間の報告が多い順 */
@@ -111,11 +171,25 @@ export async function getTrendingProducts(limit = 6): Promise<GachaProductSummar
     .slice(0, limit);
 }
 
-/** 🆕 新着ガチャ：発売時期が新しい順 */
+/** 🆕 新着ガチャ：発売中（current）の商品を新しい順に。過去の商品・発売予定は含めない */
 export async function getNewProducts(limit = 6): Promise<GachaProductSummary[]> {
+  return listByStatus("current", limit, byLatestMonthDesc);
+}
+
+/** 🗓 発売予定：発売が近い順 */
+export async function getUpcomingProducts(limit = 6): Promise<GachaProductSummary[]> {
+  return listByStatus("upcoming", limit, (a, b) => -byLatestMonthDesc(a, b));
+}
+
+async function listByStatus(
+  status: ReleaseStatus,
+  limit: number,
+  compare: (a: GachaProductSummary, b: GachaProductSummary) => number,
+): Promise<GachaProductSummary[]> {
   const summaries = await loadSummaries();
-  return [...summaries]
-    .sort((a, b) => b.product.releaseMonth.localeCompare(a.product.releaseMonth))
+  return summaries
+    .filter((s) => s.releaseStatus === status)
+    .sort((a, b) => compare(a, b) || b.availableLocationCount - a.availableLocationCount)
     .slice(0, limit);
 }
 
@@ -128,24 +202,23 @@ export function getFallbackPosition(): GeoPoint & { label: string } {
 }
 
 /**
- * 📍 近くで見つかったガチャの候補：在庫ありと報告された「商品×設置場所」をすべて返す。
+ * 📍 近くで見つかったガチャの候補：在庫ありと報告された「商品×設置場所」を返す。
  * 現在地をサーバーに送らないため、距離の計算と絞り込みはブラウザ側（pickNearbyFinds）で行う。
+ * カタログ索引に無い商品（サンプルなど）と、座標が不明な場所は除く。
  */
 export async function getAvailableFinds(): Promise<NearbyFindCandidate[]> {
-  const [products, locations, placements] = await Promise.all([
-    loadProducts(),
-    loadLocations(),
+  const [productMap, locationMap, placements] = await Promise.all([
+    loadCatalogMap(),
+    loadLocationMap(),
     loadAllPlacements(),
   ]);
-  const productMap = new Map(products.map((p) => [p.id, p]));
-  const locationMap = new Map(locations.map((l) => [l.id, l]));
 
   const candidates: NearbyFindCandidate[] = [];
   for (const { placement, stock } of placements) {
+    if (!isAvailable(stock.status)) continue;
     const product = productMap.get(placement.productId);
     const location = locationMap.get(placement.locationId);
-    if (!product || !location) continue;
-    if (!isAvailable(stock.status)) continue;
+    if (!product || !location || location.lat === null || location.lng === null) continue;
     candidates.push({ product, location, stock });
   }
   return candidates;
@@ -157,17 +230,18 @@ export const getProductDetail = cache(
     const ds = await getDataSource();
     const product = await ds.getProduct(productId);
     if (!product) return null;
-    const [locations, placements] = await Promise.all([
-      loadLocations(),
-      ds.listPlacementsWithStock({ productId }),
-    ]);
-    const locationMap = new Map(locations.map((l) => [l.id, l]));
+    const placements = await ds.listPlacementsWithStock({ productId });
+    const locationMap = placements.length > 0 ? await loadLocationMap() : new Map<ID, Location>();
 
-    const entries = placements
-      .map(({ placement, stock }) => {
-        const location = locationMap.get(placement.locationId);
-        return location ? { location, stock } : null;
-      })
+    const entries = (
+      await Promise.all(
+        placements.map(async ({ placement, stock }) => {
+          // 索引に無い場所（索引の更新前に登録された場所など）は 1 件だけ読む
+          const location = locationMap.get(placement.locationId) ?? (await ds.getLocation(placement.locationId));
+          return location ? { location, stock } : null;
+        }),
+      )
+    )
       .filter((e): e is ProductLocationEntry => e !== null)
       .sort(compareByStock);
 
@@ -180,11 +254,9 @@ export const getLocationDetail = cache(
     const ds = await getDataSource();
     const location = await ds.getLocation(locationId);
     if (!location) return null;
-    const [products, placements] = await Promise.all([
-      loadProducts(),
-      ds.listPlacementsWithStock({ locationId }),
-    ]);
-    const productMap = new Map(products.map((p) => [p.id, p]));
+    const placements = await ds.listPlacementsWithStock({ locationId });
+    // この場所に設置されている商品だけを索引から引く（products は読まない）
+    const productMap = placements.length > 0 ? await loadCatalogMap() : new Map<ID, CatalogProduct>();
 
     const entries = placements
       .map(({ placement, stock }) => {
@@ -198,10 +270,9 @@ export const getLocationDetail = cache(
   },
 );
 
-/** 在庫あり → 残りわずか → 未確認 → 売り切れ、同じ状態なら確認が新しい順 */
 function compareByStock(a: { stock: StockSnapshot }, b: { stock: StockSnapshot }): number {
-  return (
-    STOCK_STATUS_ORDER[a.stock.status] - STOCK_STATUS_ORDER[b.stock.status] ||
-    (b.stock.lastCheckedAt ?? "").localeCompare(a.stock.lastCheckedAt ?? "")
-  );
+  const byStatus = STOCK_STATUS_ORDER[a.stock.status] - STOCK_STATUS_ORDER[b.stock.status];
+  if (byStatus !== 0) return byStatus;
+  // 同じ状態なら最近確認されたものを上に
+  return (b.stock.lastCheckedAt ?? "").localeCompare(a.stock.lastCheckedAt ?? "");
 }
