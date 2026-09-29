@@ -38,14 +38,23 @@ MAKER_SLUG = {
     "スタンド・ストーンズ": "stand-stones", "Qualia": "qualia",
 }
 PREF_RE = re.compile(r"^(北海道|東京都|京都府|大阪府|[^\s]{2,3}県)")
-CITY_RE = re.compile(r"^((?:[^\s]+?郡)?[^\s]+?[町村](?=[^\s])|[^\s]+?市[^\s]+?区|[^\s]+?[市区町村])")
+DESIGNATED_CITIES = ("札幌市", "仙台市", "さいたま市", "千葉市", "横浜市", "川崎市", "相模原市", "新潟市", "静岡市", "浜松市",
+                     "名古屋市", "京都市", "大阪市", "堺市", "神戸市", "岡山市", "広島市", "北九州市", "福岡市", "熊本市")
+SPECIAL_CITIES = ("四日市市", "廿日市市", "野々市市", "市川市", "市原市", "大町市", "町田市", "十日町市", "村山市", "東村山市",
+                  "武蔵村山市", "羽村市", "田村市", "大村市", "村上市", "玉村町")
+CITY_RE = re.compile(r"^([^\s]+?郡[^\s]+?[町村]|[^\s]+?市|[^\s]+?区|[^\s]+?[町村])")
 
 
 # ---------------------------------------------------------------- 共通
 def load(pattern: str) -> list[dict]:
+    """raw/*.jsonl（無ければ圧縮版 raw/*.jsonl.gz）を読む"""
+    import gzip
     rows = []
-    for p in sorted(RAW_DIR.glob(pattern)):
-        for line in p.read_text(encoding="utf-8").splitlines():
+    paths = {p.name: p for p in RAW_DIR.glob(pattern + ".gz")}
+    paths.update({p.name + ".gz": p for p in RAW_DIR.glob(pattern)})
+    for _, p in sorted(paths.items()):
+        text = gzip.decompress(p.read_bytes()).decode("utf-8") if p.suffix == ".gz" else p.read_text(encoding="utf-8")
+        for line in text.splitlines():
             if line.strip():
                 rows.append(json.loads(line))
     return rows
@@ -57,7 +66,7 @@ def nfkc(s: str | None) -> str:
 
 def norm_name(s: str | None) -> str:
     s = nfkc(s).lower()
-    s = re.sub(r"[\s・･\-‐ー―~〜～!！?？「」『』【】()（）\[\]＜＞<>\"'’“”.,、。:：/／#＃&＆]", "", s)
+    s = re.sub(r"[\s・･\-‐ー―~〜～!！?？「」『』【】()（）\[\]＜＞<>\"'’“”.,、。:：/／#＃♯&＆]", "", s)
     return s
 
 
@@ -70,11 +79,25 @@ def filled(rec: dict) -> int:
 
 
 # ---------------------------------------------------------------- 商品
+# 商品名の先頭に公式が付けている区分のうち、カプセル自販機での販売ではないもの
+OUT_OF_SCOPE_PREFIX = r"^\s*[【\[](箱売|物販商品|店頭販売商品|BOX限定商品|BOX限定カラー|ガシャポンボックス|ジャンボカードダス)[】\]]"
+
+
+def lineup_from_text(text: str | None) -> str | None:
+    """公式の説明文に「全○種」とある場合はそれを種類数とする（説明文に無ければ null）"""
+    m = re.search(r"全\s*([0-9０-９]+)\s*種", text or "")
+    return f"全{nfkc(m.group(1))}種" if m else None
+
+
 def build_products() -> tuple[list[dict], list[dict], dict]:
     raw = load("products_*.jsonl")
     log(f"商品（生データ）: {len(raw)} 件")
     excluded: list[dict] = []
     stats = Counter()
+    # 収集段階で詳細を取得できなかった商品（年齢確認ページなど）
+    for s in load("skipped_*.jsonl"):
+        excluded.append(s)
+        stats["excluded_insufficient"] += 1
 
     ok = []
     for r in raw:
@@ -84,8 +107,10 @@ def build_products() -> tuple[list[dict], list[dict], dict]:
             reason = "商品名が取得できない"
         elif not r.get("sourceUrl"):
             reason = "情報源URLがない"
-        elif name.startswith("【箱売】"):
-            reason = "対象外（箱売り商品。ガチャの筐体で販売される商品ではない）"
+        elif re.match(OUT_OF_SCOPE_PREFIX, nfkc(name)):
+            reason = "対象外（箱売り・物販・店頭販売など、ガチャの筐体で販売される商品ではない）"
+        elif r.get("price") == 0:
+            reason = "対象外（価格0円の景品・非売品）"
         elif not r.get("price") and not r.get("releaseYearMonth"):
             reason = "価格・発売時期のどちらも確認できない"
         if reason:
@@ -132,8 +157,8 @@ def build_products() -> tuple[list[dict], list[dict], dict]:
             "releaseText": (r.get("releaseText") or "").replace("\n", " ") or None,
             "price": r.get("price"),
             "priceText": (r.get("priceText") or "").replace("\n", " ") or None,
-            "priceTaxIncluded": r.get("priceTaxIncluded"),
-            "lineupCount": r.get("lineupCount"),
+            "priceTaxIncluded": False if re.search(r"税抜|本体価格", r.get("priceText") or "") else r.get("priceTaxIncluded"),
+            "lineupCount": r.get("lineupCount") or lineup_from_text(r.get("description")),
             "size": r.get("size"),
             "targetAge": r.get("targetAge"),
             "description": r.get("description"),
@@ -180,10 +205,23 @@ def kanji_to_int(k: str) -> str:
 
 
 def addr_core(a: str | None) -> str:
-    """建物名・階数を除いた「都道府県〜番地」部分（比較用）"""
-    s = norm_addr(a)
-    m = re.match(r"^(.*?\d+(?:-\d+)*)", s)
-    return m.group(1) if m else s
+    """建物名・階数を除いた「都道府県〜番地」部分（比較・住所検索用）"""
+    raw = nfkc(a).strip()
+    # 建物名は多くの場合スペースの後に書かれている（スペースより前に番地の数字がある場合のみ切る）
+    head, sep, _ = raw.partition(" ")
+    if sep and re.search(r"\d", head):
+        raw = head
+    s = norm_addr(raw)
+    s = re.sub(r"(B?\d+F|\d+階|地下\d+階)", "", s).replace("-の", "-")
+    # 「丁目-番地-号」の数字の並びまで（その後ろの建物名などは含めない）
+    m = re.match(r"^(.*?\d+(?:-\d+)+|.*?\d+)", s)
+    return (m.group(1) if m else s).rstrip("-")
+
+
+def addr_key(a: str | None) -> str:
+    """重複判定用の住所キー（都道府県を省略した表記とも一致させるため、都道府県を除く）"""
+    core = addr_core(a)
+    return PREF_RE.sub("", core, count=1)
 
 
 def split_region(addr: str | None) -> tuple[str | None, str | None]:
@@ -191,7 +229,14 @@ def split_region(addr: str | None) -> tuple[str | None, str | None]:
     m = PREF_RE.match(a)
     if not m:
         return None, None
-    rest = a[m.end():]
+    rest = re.sub(r"^\s+", "", a[m.end():])
+    for city in DESIGNATED_CITIES:
+        if rest.startswith(city):
+            ward = re.match(r"^([^\s]+?区)", rest[len(city):])
+            return m.group(1), city + (ward.group(1) if ward else "")
+    for city in SPECIAL_CITIES:
+        if rest.startswith(city):
+            return m.group(1), city
     c = CITY_RE.match(rest)
     return m.group(1), c.group(1) if c else None
 
@@ -233,12 +278,20 @@ class Geocoder:
         title = top["properties"]["title"]
         lng, lat = top["geometry"]["coordinates"]
         # 一致した住所が問い合わせた住所のどこまで一致しているか
+        # 番地まで含めて数字が全て一致した場合のみ "street"。それ以外（町・丁目止まり）は "town"
         t = norm_addr(title)
         qn = norm_addr(q)
         pref_q = PREF_RE.match(qn)
         if pref_q and not t.startswith(pref_q.group(1)):
             return None
-        precision = "street" if re.search(r"\d+-\d+$|\d+-$|番地?$|号$", t) or re.search(r"\d+-\d+", t) else "town"
+        nums_q = re.findall(r"\d+", qn)
+        nums_t = re.findall(r"\d+", t)
+        if nums_q and nums_q == nums_t:
+            precision = "street"   # 番地・号まで一致
+        elif nums_t and len(nums_q) >= 2 and nums_q[:len(nums_t)] == nums_t and len(nums_t) >= len(nums_q) - 1:
+            precision = "block"    # 番地まで一致（枝番・号のみ未一致）
+        else:
+            precision = "town"     # 町・丁目・条までしか一致しない（座標には使わない）
         return {"lat": lat, "lng": lng, "matchedAddress": title, "precision": precision, "fetchedAt": self.cache[q]["fetchedAt"]}
 
     def save(self):
@@ -284,7 +337,7 @@ BRANDS = [
     ("depart", r"ガシャポンのデパート"), ("namco", r"namco|ナムコ"),
 ]
 # 店舗名にこれらの語の違いがあれば別店舗（号店・サブブランド・別フロアなど）
-DIFF_WORDS = (r"(\d|2nd|3rd|ii|号|別館|新館|本館|南館|北館|東館|西館|スピンオフ|プラス|\+|アネックス|annex|mini|ミニ|キッズ|kids"
+DIFF_WORDS = (r"(\d|2nd|3rd|ii|号|別館|新館|本館|南館|北館|東館|西館|スピンオフ|プラス|\+|アネックス|annex|キッズ|kids|east|west|north|south|plus|プラス"
               r"|branche|ブランシュ|oshi-?pla|pictale|okawari|labo|produced|ガシャポンshop|オフィシャルショップ|デパート)")
 
 
@@ -317,7 +370,12 @@ def same_store_name(a: str, b: str, phone_match: bool = False) -> bool:
     if short in long_:
         diff = long_.replace(short, "", 1)
         # 電話番号・住所とも一致している場合は、地名などの付け足しの違いを許容する
-        return phone_match or diff in ("", "ショップ", "shop", "店舗")
+        if phone_match or diff in ("", "ショップ", "shop", "店舗", "mini", "ミニ"):
+            return True
+    # 同じチェーンで住所（番地まで）が同じ場合は、表記ゆれ（「イオン名寄」と「イオンモール名寄」など）を類似度で判定する
+    if ba and ba == bb:
+        from difflib import SequenceMatcher
+        return SequenceMatcher(None, ca.replace("mini", ""), cb.replace("mini", "")).ratio() >= 0.6
     return False
 
 
@@ -357,6 +415,9 @@ def build_locations(geocode: bool = True) -> tuple[list[dict], list[dict], dict]
             excluded.append({"kind": "location", "reason": "店舗名または住所がない", "name": r.get("name"), "sourceUrl": r.get("sourceUrl")})
             continue
         rec = store_record(r)
+        # 店舗名に休業・閉店の記載がある場合は、その記載を残す（営業状況の判断は投入前の確認で行う）
+        m = re.search(r"[（(]?(営業休止中|休業中|閉店[^）)]*|一時休業[^）)]*)[）)]?", rec["name"] or "")
+        rec["statusNote"] = m.group(1) if m else None
         if not rec["chain"]:
             rec["chain"] = infer_chain_from_name(rec["name"], rec["operator"])
         recs.append(rec)
@@ -368,8 +429,8 @@ def build_locations(geocode: bool = True) -> tuple[list[dict], list[dict], dict]
     by_addr: dict[str, list[dict]] = defaultdict(list)
     for rec in recs:
         ph = norm_phone(rec["phone"])
-        core = addr_core(rec["address"])
-        target = next((c for c in by_phone.get(ph, []) if addr_core(c["address"]) == core
+        core = addr_key(rec["address"])
+        target = next((c for c in by_phone.get(ph, []) if addr_key(c["address"]) == core
                        and same_store_name(c["name"], rec["name"], phone_match=True)), None)
         target = target or next((c for c in by_addr.get(core, []) if same_store_name(c["name"], rec["name"])), None)
         if target:
@@ -388,6 +449,21 @@ def build_locations(geocode: bool = True) -> tuple[list[dict], list[dict], dict]
             by_phone[ph].append(rec)
         by_addr[core].append(rec)
 
+    # メーカー（トイズキャビン）の取扱店舗一覧だけに載っている専門店チェーンの店舗は、
+    # チェーン公式の一覧・ガシャポン公式で確認できないため除外する（閉店・改称の可能性）
+    OFFICIAL_LIST_CHAINS = {"#C-pla", "ガチャガチャの森", "ドリームカプセル", "gashacoco", "カプセル楽局",
+                            "ガシャポンバンダイオフィシャルショップ", "ガシャポンのデパート"}
+    kept = []
+    for rec in merged:
+        only_maker_list = all("トイズキャビン" in (s["name"] or "") for s in rec["sources"])
+        if only_maker_list and rec["chain"] in OFFICIAL_LIST_CHAINS:
+            stats["excluded_unconfirmed"] += 1
+            excluded.append({"kind": "location", "reason": "チェーン公式の店舗一覧で確認できない（メーカーの取扱店舗一覧のみに掲載。閉店・改称の可能性）",
+                             "name": rec["name"], "sourceUrl": rec["sources"][0]["url"]})
+            continue
+        kept.append(rec)
+    merged = kept
+
     geo = Geocoder() if geocode else None
     for rec in merged:
         pref, city = split_region(rec["address"])
@@ -398,7 +474,8 @@ def build_locations(geocode: bool = True) -> tuple[list[dict], list[dict], dict]
             g = geo.lookup(rec["address"])
             if g:
                 rec["geocode"] = g
-                if rec["lat"] is None:
+                # 町・丁目レベルの一致では数 km ずれることがあるため、座標としては採用しない（参考情報として geocode に残す）
+                if rec["lat"] is None and g["precision"] in ("street", "block"):
                     rec["lat"], rec["lng"] = g["lat"], g["lng"]
                     rec["coordinateSource"] = "国土地理院 住所検索API（住所から算出）"
                     rec["coordinatePrecision"] = g["precision"]
@@ -420,9 +497,34 @@ def build_locations(geocode: bool = True) -> tuple[list[dict], list[dict], dict]
     out.sort(key=lambda x: (x["prefecture"] or "", x["city"] or "", x["name"]))
     stats["locations"] = len(out)
     stats["with_official_coordinates"] = sum(1 for r in out if r["coordinatePrecision"] == "official")
-    stats["with_geocoded_coordinates"] = sum(1 for r in out if r["coordinatePrecision"] in ("street", "town"))
+    stats["with_geocoded_coordinates"] = sum(1 for r in out if r["coordinatePrecision"] in ("street", "block"))
     stats["without_coordinates"] = sum(1 for r in out if r["lat"] is None)
     return out, excluded, dict(stats)
+
+
+SOURCES = [
+    {"name": "ガシャポン公式サイト（バンダイ）", "url": "https://gashapon.jp/products/", "type": "official", "use": "商品"},
+    {"name": "タカラトミーアーツ ガチャ™発売カレンダー", "url": "https://www.takaratomy-arts.co.jp/items/gacha/calendar/", "type": "official", "use": "商品"},
+    {"name": "キタンクラブ公式サイト", "url": "https://kitan.jp/", "type": "official", "use": "商品"},
+    {"name": "アイピーフォー カプセルトイ", "url": "https://www.ip4.co.jp/cupsuletoy_top/", "type": "official", "use": "商品"},
+    {"name": "ブシカプ！（ブシロードクリエイティブ）", "url": "https://capsule.bushiroad-creative.com/product/", "type": "official", "use": "商品"},
+    {"name": "Qualia 公式サイト", "url": "https://www.qualia-45.jp/", "type": "official", "use": "商品"},
+    {"name": "スタンド・ストーンズ公式サイト", "url": "https://stasto.co.jp/", "type": "official", "use": "商品"},
+    {"name": "SO-TA（スタジオソータ）公式サイト", "url": "https://www.so-ta.com/products/capsuletoy/", "type": "official", "use": "商品"},
+    {"name": "トイズキャビン公式サイト", "url": "https://toyscabin.com/product/", "type": "official", "use": "商品・店舗（取扱店舗様一覧）"},
+    {"name": "トイズスピリッツ公式サイト", "url": "http://www.toysp.co.jp/", "type": "official", "use": "商品"},
+    {"name": "Jドリーム公式サイト", "url": "https://e-jdream.co.jp/product/", "type": "official", "use": "商品"},
+    {"name": "ガシャポン公式「ガシャポンどこ？」店舗検索", "url": "https://gashapon.jp/shop/gplus_list.php", "type": "official", "use": "店舗（公式座標）"},
+    {"name": "バンダイナムコアミューズメント 店舗ページ（ガシャポンバンダイオフィシャルショップ・ガシャポンのデパート）", "url": "https://bandainamco-am.co.jp/others/gashapon-bandai-officialshop/", "type": "official", "use": "店舗"},
+    {"name": "#C-pla（トーシン）店舗紹介", "url": "https://toshin.jpn.com/shop/", "type": "official", "use": "店舗"},
+    {"name": "ガチャガチャの森 店舗一覧", "url": "https://www.gachagachanomori.com/shoplist/", "type": "official", "use": "店舗"},
+    {"name": "gashacoco 店舗一覧", "url": "https://gashacoco.jp/shop-list", "type": "official", "use": "店舗（公式地図マーカー座標）"},
+    {"name": "ドリームカプセル 運営店舗", "url": "https://www.dreamcapsule.co.jp/shop/", "type": "official", "use": "店舗"},
+    {"name": "カプセル楽局 店舗一覧", "url": "https://www.warehousenet.jp/capsule/", "type": "official", "use": "店舗"},
+    {"name": "ガチャ王国 店舗一覧", "url": "https://gachaoukoku.com/shop/", "type": "official", "use": "店舗"},
+    {"name": "がちゃ処（プレステージ）", "url": "https://www.prestage.co.jp/gachadokoro/gachadokoro.html", "type": "official", "use": "店舗"},
+    {"name": "国土地理院 住所検索API", "url": "https://msearch.gsi.go.jp/address-search/AddressSearch", "type": "government", "use": "住所からの座標算出"},
+]
 
 
 def main() -> None:
@@ -437,6 +539,7 @@ def main() -> None:
     fetched = [p["fetchedAt"] for p in products if p.get("fetchedAt")] + [l["fetchedAt"] for l in locations if l.get("fetchedAt")]
     report = {
         "generatedAt": now_iso(),
+        "sources": SOURCES,
         "fetchedFrom": min(fetched) if fetched else None,
         "fetchedTo": max(fetched) if fetched else None,
         "products": {
@@ -458,6 +561,7 @@ def main() -> None:
         "excluded": {
             "duplicates": st_p.get("duplicates_removed", 0) + st_l.get("duplicates_removed", 0),
             "insufficient": st_p.get("excluded_insufficient", 0) + st_l.get("excluded_insufficient", 0),
+            "unconfirmed": st_l.get("excluded_unconfirmed", 0),
             "outOfScope": st_p.get("excluded_out_of_scope", 0),
         },
     }

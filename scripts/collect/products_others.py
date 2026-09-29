@@ -22,7 +22,7 @@ from common import JsonlWriter, abs_url, clean, fetch, log, parse_full_date, par
 LABELS = {
     "name": ["商品名"],
     "release": ["発売日", "発売月", "発売予定月", "発売時期", "発売予定"],
-    "price": ["価格（税込）", "価格(税込)", "価格"],
+    "price": ["価格（税込）", "価格(税込)", "価格", "希望小売価格", "販売価格"],
     "lineup": ["種類", "種類数"],
     "jan": ["JANコード", "JAN"],
     "age": ["対象年齢"],
@@ -375,18 +375,21 @@ def toyscabin(writer: JsonlWriter) -> None:
         lines = [clean(x) for x in a.get_text("\n").split("\n") if clean(x)]
         if len(lines) < 2 or u in writer.seen:
             continue
-        # 1 行目「商品名　価格」、2 行目「発売月　JAN CODE:…」
-        m = re.match(r"^(.*?)[\s　]+([0-9,]+円.*)$", lines[0])
-        name, price_text = (m.group(1), m.group(2)) if m else (lines[0], None)
-        jan = re.search(r"JAN\s*CODE\s*[:：]\s*(\d+)", lines[1])
         b, fetched = fetch(u)
         dsoup = BeautifulSoup(b or "", "lxml")
-        desc_el = dsoup.select_one(".textFrame h3 + p:not([id])") or (dsoup.select(".textFrame > p")[-1] if dsoup.select(".textFrame > p") else None)
+        # 一覧では長い商品名が「…」で省略されるため、詳細ページの「Project：商品名 価格」「Client：発売月 JAN CODE」を使う
+        tb, rb = dsoup.select_one("#titleBase"), dsoup.select_one("#releaseBase")
+        title_line = clean(re.sub(r"^Project[：:]", "", tb.get_text(" ").strip())) if tb else lines[0]
+        release_line = clean(re.sub(r"^Client[：:]", "", rb.get_text(" ").strip())) if rb else lines[1]
+        m = re.match(r"^(.*?)[\s　]*([0-9,]+円.*)$", title_line or "")
+        name, price_text = (clean(m.group(1)), m.group(2)) if m else (title_line, None)
+        jan = re.search(r"JAN\s*CODE\s*[:：]\s*(\d+)", release_line or "")
+        desc_el = dsoup.select(".textFrame > p")[-1] if dsoup.select(".textFrame > p") else None
         imgs = uniq([abs_url(u, i.get("src")) for i in dsoup.select(".imgFrame img")])
         writer.write(make_record(source="toyscabin.com", maker="トイズキャビン", url=u, list_url=lst, fetched=fetched,
                                  name=name, spec={"JANコード": jan.group(1)} if jan else {}, images=imgs,
-                                 description=clean(desc_el.get_text("\n")) if desc_el and "JAN" not in desc_el.get_text() else None,
-                                 release_text=re.sub(r"[\s　]*JAN.*$", "", lines[1]), price_text=price_text))
+                                 description=clean(desc_el.get_text("\n")) if desc_el and desc_el.get("id") is None else None,
+                                 release_text=re.sub(r"[\s　]*JAN.*$", "", release_line or ""), price_text=price_text))
         n += 1
     log(f"トイズキャビン: {n} 件")
 

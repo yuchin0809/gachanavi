@@ -282,6 +282,83 @@ def collect_gachadokoro(writer: JsonlWriter) -> None:
     log(f"がちゃ処: {n} 件")
 
 
+# ---------------------------------------------------------------- バンダイナムコアミューズメント
+def collect_bnam(writer: JsonlWriter) -> None:
+    """
+    ガシャポンバンダイオフィシャルショップ・同社のカプセルトイストアの店舗ページ（サイトマップから取得）。
+    「店舗情報」欄（住所・営業時間・電話番号・設置数）だけを読み、ページ内の取扱アイテム・在庫欄は使わない。
+    """
+    sm = "https://bandainamco-am.co.jp/sitemap_others.xml"
+    body, _ = fetch(sm, use_cache=False)
+    urls = sorted(set(re.findall(r"<loc>(https://bandainamco-am\.co\.jp/others/(?:gashapon-bandai-officialshop|capsule-toy-store)/store/[^/<]+/)</loc>", body or "")))
+    log(f"バンダイナムコアミューズメント: 店舗ページ {len(urls)} 件")
+    for u in urls:
+        b, fetched = fetch(u)
+        if not b:
+            continue
+        soup = BeautifulSoup(b, "lxml")
+        text = soup.get_text("\n")
+        lines = [clean(x) for x in text.split("\n")]
+        lines = [x for x in lines if x]
+        def after(label: str, n: int = 1) -> list[str]:
+            for i, x in enumerate(lines):
+                if x == label:
+                    return lines[i + 1:i + 1 + n]
+            return []
+        addr_lines = after("住所", 2)
+        if not addr_lines:
+            continue
+        postal = re.sub(r"[〒\s]", "", addr_lines[0]) if addr_lines[0].startswith("〒") else None
+        address = addr_lines[1] if postal else addr_lines[0]
+        if not PREF_RE.match(address or ""):
+            continue
+        hours = after("営業時間", 1)
+        phone = after("電話番号", 1)
+        count = after("設置数", 2)
+        title = soup.select_one("title")
+        name = clean(title.get_text().split("|")[0]) if title else None
+        chain = "ガシャポンバンダイオフィシャルショップ" if "gashapon-bandai-officialshop" in u else None
+        rec = base(chain or "バンダイナムコ カプセルトイストア", "株式会社バンダイナムコアミューズメント", u, sm, fetched)
+        rec.update({
+            "chain": chain, "sourceName": "バンダイナムコアミューズメント 公式店舗ページ",
+            "name": name, "storeType": None, "postalCode": postal, "address": address, "prefecture": pref_of(address),
+            "phone": phone[0] if phone and re.search(r"\d", phone[0]) else None,
+            "openingHours": hours[0] if hours else None,
+            "machineCount": "".join(count) if count and re.match(r"\d", count[0]) else None,
+        })
+        writer.write(rec)
+    log("バンダイナムコアミューズメント: 完了")
+
+
+# ---------------------------------------------------------------- カプセル楽局（ゲオグループ）
+def collect_rakkyoku(writer: JsonlWriter) -> None:
+    url = "https://www.warehousenet.jp/capsule/"
+    body, fetched = fetch(url, use_cache=False)
+    soup = BeautifulSoup(body or "", "lxml")
+    n = 0
+    for card in soup.select("div.card[id^=shop]"):
+        name_el = card.select_one(".storename")
+        if not name_el:
+            continue
+        ps = [clean(p.get_text(" ")) for p in name_el.find_parent("div").select("p")]
+        ps = [p for p in ps if p]
+        postal = next((p for p in ps if re.fullmatch(r"\d{3}-\d{4}", p)), None)
+        address = next((p for p in ps if PREF_RE.match(p)), None)
+        phone = next((p for p in ps if re.fullmatch(r"[0-9\-]{10,13}", p)), None)
+        hours = next((p for p in ps if re.search(r"\d{1,2}[:：]\d{2}", p)), None)
+        if not address:
+            continue
+        rec = base("カプセル楽局", "株式会社ゲオ／ウェアハウス", url, url, fetched)
+        rec.update({
+            "name": clean(name_el.get_text()), "storeType": None, "postalCode": postal, "address": address,
+            "prefecture": pref_of(address), "phone": phone, "openingHours": hours, "machineCount": None,
+            "sourceUrl": f"{url}#{card.get('id')}",
+        })
+        writer.write(rec)
+        n += 1
+    log(f"カプセル楽局: {n} 件")
+
+
 # ---------------------------------------------------------------- トイズキャビン 取扱店舗様一覧
 def collect_toyscabin_shops(writer: JsonlWriter) -> None:
     """
@@ -325,7 +402,7 @@ def main() -> None:
     targets = sys.argv[1:] or ["mori", "gashacoco", "dream", "cpla", "oukoku", "gachadokoro"]
     for t in targets:
         {"mori": collect_mori, "cpla": collect_cpla, "dream": collect_dream, "gashacoco": collect_gashacoco,
-         "oukoku": collect_oukoku, "gachadokoro": collect_gachadokoro, "toyscabin": collect_toyscabin_shops}[t](writer)
+         "oukoku": collect_oukoku, "gachadokoro": collect_gachadokoro, "toyscabin": collect_toyscabin_shops, "rakkyoku": collect_rakkyoku, "bnam": collect_bnam}[t](writer)
     log("完了:", len(writer.seen), "件")
 
 

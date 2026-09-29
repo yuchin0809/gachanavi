@@ -53,3 +53,7 @@ next-env.d.ts
 # データ収集のキャッシュ（scripts/collect）
 /.collect-cache/
 __pycache__/
+
+# 収集の作業ファイル（生データは raw/*.jsonl.gz をコミット）
+/data/collected/raw/*.jsonl
+/data/collected/logs/
