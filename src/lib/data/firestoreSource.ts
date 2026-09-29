@@ -52,6 +52,12 @@ const db = (): Firestore => getAdminFirestore();
  * Timestamp はここでドメイン型（ISO 文字列）に変換しておく。
  * ------------------------------------------------------------------ */
 
+/**
+ * キャッシュキーに接続先（プロジェクト・エミュレータか）を含める。
+ * Next.js のデータキャッシュはビルドをまたいで残るため、接続先を変えたときに別プロジェクトの結果を返さないようにする。
+ */
+const CACHE_SCOPE = `${process.env.FIREBASE_PROJECT_ID?.trim() ?? ""}${process.env.FIRESTORE_EMULATOR_HOST ? "@emulator" : ""}`;
+
 /* ---------------- カタログ索引 ---------------- */
 
 /** 索引がまだ無い（実データ投入前）場合に products / locations を直接読む件数の上限（無料枠の安全弁） */
@@ -71,7 +77,7 @@ const cachedCatalogMeta = unstable_cache(
       updatedAt: String(d.updatedAt ?? ""),
     };
   },
-  ["fs:catalogMeta"],
+  [CACHE_SCOPE, "fs:catalogMeta"],
   { tags: [cacheTags.catalog], revalidate: cacheSeconds.catalog },
 );
 
@@ -83,7 +89,7 @@ const cachedShardItems = (version: string, shardId: string) =>
       const items = snap.get("items");
       return Array.isArray(items) ? (items as Record<string, unknown>[]) : [];
     },
-    ["fs:catalogShard", version, shardId],
+    [CACHE_SCOPE, "fs:catalogShard", version, shardId],
     { tags: [cacheTags.catalog], revalidate: cacheSeconds.catalog },
   )();
 
@@ -104,7 +110,7 @@ const cachedLegacyProducts = unstable_cache(
       // isSample: true を付けたサンプル（架空）データは一覧・検索に出さない
       .filter((d) => d.get("isSample") !== true)
       .map((d) => catalogProductFromData(d.id, d.data())),
-  ["fs:legacyProducts"],
+  [CACHE_SCOPE, "fs:legacyProducts"],
   { tags: [cacheTags.products], revalidate: cacheSeconds.catalog },
 );
 
@@ -113,7 +119,7 @@ const cachedLegacyLocations = unstable_cache(
     (await db().collection(COLLECTIONS.locations).limit(LEGACY_LIST_LIMIT).get()).docs
       .filter((d) => d.get("isSample") !== true)
       .map((d) => locationFromData(d.id, d.data())),
-  ["fs:legacyLocations"],
+  [CACHE_SCOPE, "fs:legacyLocations"],
   { tags: [cacheTags.locations], revalidate: cacheSeconds.catalog },
 );
 
@@ -142,9 +148,10 @@ const cachedGetProduct = (id: ID) =>
   unstable_cache(
     async () => {
       const snap = await db().collection(COLLECTIONS.products).doc(id).get();
-      return snap.exists ? productFromDoc(snap) : null;
+      // isSample: true のサンプル（架空）データは詳細も表示しない（一覧・在庫報告と同じ扱い）
+      return snap.exists && snap.get("isSample") !== true ? productFromDoc(snap) : null;
     },
-    ["fs:product", id],
+    [CACHE_SCOPE, "fs:product", id],
     { tags: [cacheTags.products, cacheTags.product(id)], revalidate: cacheSeconds.catalog },
   )();
 
@@ -152,9 +159,9 @@ const cachedGetLocation = (id: ID) =>
   unstable_cache(
     async () => {
       const snap = await db().collection(COLLECTIONS.locations).doc(id).get();
-      return snap.exists ? locationFromDoc(snap) : null;
+      return snap.exists && snap.get("isSample") !== true ? locationFromDoc(snap) : null;
     },
-    ["fs:location", id],
+    [CACHE_SCOPE, "fs:location", id],
     { tags: [cacheTags.locations, cacheTags.location(id)], revalidate: cacheSeconds.catalog },
   )();
 
@@ -173,7 +180,7 @@ const cachedListPlacements = (filter: PlacementFilter) =>
       if (filter.locationId) query = query.where("locationId", "==", filter.locationId);
       return (await query.get()).docs.map(placementFromDoc);
     },
-    ["fs:placements", filter.productId ?? "*", filter.locationId ?? "*"],
+    [CACHE_SCOPE, "fs:placements", filter.productId ?? "*", filter.locationId ?? "*"],
     { tags: placementTags(filter), revalidate: cacheSeconds.placements },
   )();
 
@@ -194,7 +201,7 @@ const cachedCountRecentReports = (windowHours: number) =>
       }
       return counts;
     },
-    ["fs:recentReportCounts", String(windowHours)],
+    [CACHE_SCOPE, "fs:recentReportCounts", String(windowHours)],
     { tags: [cacheTags.recentReports], revalidate: cacheSeconds.recentReports },
   )();
 

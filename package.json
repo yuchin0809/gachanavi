@@ -12,7 +12,11 @@
     "catalog:build": "tsx scripts/build-catalog-index.ts",
     "firestore:check": "tsx scripts/check-firestore.ts",
     "seed:firestore": "tsx scripts/seed-firestore.ts",
-    "auth:check": "tsx scripts/check-anonymous-auth.ts"
+    "auth:check": "tsx scripts/check-anonymous-auth.ts",
+    "emulators": "npx -y firebase-tools@15 emulators:start --only firestore,auth --project demo-gachanavi",
+    "import:emulator": "tsx scripts/import-collected.ts",
+    "test:emulator": "npx -y firebase-tools@15 emulators:exec --only firestore,auth --project demo-gachanavi \"tsx --conditions=react-server --test tests/emulator/import.test.ts\"",
+    "test:emulator:app": "tsx --test tests/emulator/app-pages.test.ts"
   },
   "dependencies": {
     "firebase": "^12.19.0",

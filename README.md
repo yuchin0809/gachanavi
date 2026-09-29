@@ -278,6 +278,37 @@ npx firebase-tools emulators:start --only auth,firestore --project demo-gachanav
 `NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099`、`NEXT_PUBLIC_FIREBASE_PROJECT_ID=demo-gachanavi`、
 `NEXT_PUBLIC_FIREBASE_API_KEY` と `NEXT_PUBLIC_FIREBASE_APP_ID`（エミュレータでは任意の文字列で可）も設定します。
 
+### Firestore Emulator での投入テスト（実データ）
+
+収集データ（`data/collected`）の投入処理は、本番に投入する前に Firestore Emulator で確認します。
+本番 Firestore には接続しません（`scripts/lib/emulatorGuard.ts` が、`FIRESTORE_EMULATOR_HOST` がローカルであること・
+プロジェクト ID が `demo-` で始まることを確認し、本番用の認証情報の環境変数をプロセス内で消去します）。
+
+```bash
+# 投入処理の統合テスト（エミュレータを起動 → テスト → 停止。Java が必要）
+npm run test:emulator
+
+# 手動で試す場合
+npm run emulators                                                   # 別ターミナル
+FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 npm run import:emulator -- --dry-run
+FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 npm run import:emulator -- --max-writes=15000
+```
+
+- 書き込み順は locations → products → catalogIndex のシャード → `catalogIndex/meta`（最後）。meta が書かれるまでアプリは新しい索引を使いません
+- ID は公式の識別子から決まるため、再実行しても二重登録になりません。チェックポイント（`.catalog-build/`）で、変わっていないドキュメントは書き直しません
+- `--max-writes` で 1 回の書き込み件数を制限できます（無料枠 20,000 件/日。上限で止まったら翌日に同じコマンドで続きから）
+
+画面の確認は、本番用の認証情報を外してエミュレータに向けたアプリを起動し、`test:emulator:app` を実行します
+（投入テスト後のデータが前提のため、`npm run emulators` で起動したエミュレータに対して投入テストを実行しておく）。
+
+```bash
+FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 \
+  npx tsx --conditions=react-server --test tests/emulator/import.test.ts
+env -u FIREBASE_PRIVATE_KEY -u FIREBASE_CLIENT_EMAIL DATA_SOURCE=firestore FIREBASE_PROJECT_ID=demo-gachanavi \
+  FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 sh -c 'npm run build && npx next start -p 3100'
+GACHANAVI_APP_URL=http://127.0.0.1:3100 npm run test:emulator:app
+```
+
 ### デプロイ先について
 
 Next.js のサーバー機能（Server Action・キャッシュ）を使うため、サーバーを実行できる環境が必要です。

@@ -135,6 +135,13 @@ function normalizeUrl(url: string | null | undefined, { placeholderToNull = fals
   }
 }
 
+/** 日時を ISO 8601（UTC, ミリ秒付き）にそろえる。Firestore から読み戻した値と同じ形式になる */
+function toIsoOrNull(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const t = Date.parse(value);
+  return Number.isNaN(t) ? null : new Date(t).toISOString();
+}
+
 function cleanText(s: string | null | undefined): string {
   return (s ?? "").replace(/[ 　]+/g, " ").trim();
 }
@@ -160,7 +167,7 @@ export function toGachaProduct(p: CollectedProduct): GachaProduct {
     tags: [...tags],
     officialUrl: normalizeUrl(p.officialUrl),
     sourceUrl: normalizeUrl(p.sourceUrl),
-    fetchedAt: p.fetchedAt ?? null,
+    fetchedAt: toIsoOrNull(p.fetchedAt),
     lineupCount: p.lineupCount ?? null,
   };
 }

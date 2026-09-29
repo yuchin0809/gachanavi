@@ -88,6 +88,12 @@ function createAdminApp(): App {
   if (process.env.FIRESTORE_EMULATOR_HOST) {
     return initializeApp({ projectId }, APP_NAME);
   }
+  // demo- プロジェクトはエミュレータ専用。エミュレータ未設定のまま本番用の鍵で接続しない
+  if (projectId.startsWith("demo-")) {
+    throw new FirebaseConfigError(
+      `プロジェクト ID "${projectId}" はエミュレータ専用です。FIRESTORE_EMULATOR_HOST を設定してください。`,
+    );
+  }
 
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
   const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
