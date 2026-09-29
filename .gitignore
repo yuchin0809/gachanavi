@@ -49,3 +49,7 @@ ui-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# データ収集のキャッシュ（scripts/collect）
+/.collect-cache/
+__pycache__/
