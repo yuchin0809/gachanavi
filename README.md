@@ -253,6 +253,12 @@ Next.js のサーバー機能（Server Action・キャッシュ）を使うた�
 Firebase App Hosting は Blaze プランが必要なため、Spark プランのうちは Vercel（Hobby プラン）などを想定しています。
 デプロイ先の環境変数に `.env.local` と同じ値を設定してください。
 
+`firebase-admin` は 13 系に固定しています。14 系が依存する `jwks-rsa@4` は ESM 専用の `jose@6` を
+`require()` で読み込むため、`require(esm)` に対応していない Node.js で実行すると
+`ERR_REQUIRE_ESM`（`Failed to load external module firebase-admin/auth`）となり全ページが 500 になります
+（Vercel 本番環境で発生）。14 系に上げる場合は、実行環境の Node.js が `require(esm)` に対応しているか
+（`node --no-experimental-require-module` で起動して再現しないか）を確認してください。
+
 ## 今後の予定（未実装）
 
 - **ログイン**：現在は匿名認証のみです。ブラウザのデータを消すと別のユーザーになります。
