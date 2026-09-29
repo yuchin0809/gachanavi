@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "firestore:check": "tsx scripts/check-firestore.ts",
-    "seed:firestore": "tsx scripts/seed-firestore.ts"
+    "seed:firestore": "tsx scripts/seed-firestore.ts",
+    "auth:check": "tsx scripts/check-anonymous-auth.ts"
   },
   "dependencies": {
     "firebase": "^12.19.0",

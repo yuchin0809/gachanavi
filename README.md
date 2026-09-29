@@ -30,6 +30,7 @@ npm run build           # 本番ビルド
 npm run start           # 本番ビルドの起動
 npm run lint            # ESLint
 npm run firestore:check # Firestore への接続確認（読み取りのみ）
+npm run auth:check      # 匿名ログインの動作確認（確認用の匿名ユーザーは自動で削除）
 npm run seed:firestore  # モックデータを Firestore に投入（Firebase 設定後）
 ```
 
@@ -212,6 +213,7 @@ FIREBASE_PRIVATE_KEY="（JSON の private_key。\n を含む1行のまま "" で
 
 ```bash
 npm run firestore:check  # 接続確認（各コレクションの件数を表示。書き込みはしない）
+npm run auth:check       # 匿名ログイン → サーバーでの ID トークン検証まで確認
 npm run seed:firestore   # モックデータ（約80件）を Firestore に書き込み
 npm run dev
 ```
