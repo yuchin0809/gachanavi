@@ -4,8 +4,8 @@ const NOTICE: Record<DataSourceKind, string> = {
   mock: "※ 開発版：表示している商品・店舗・在庫情報はすべてダミーデータです。",
   local:
     "※ ローカル確認版：商品・店舗はメーカー・運営会社の公式サイトから収集した情報です（取得時点の情報）。在庫報告は保存されません。",
-  // 本番の Firestore には現在モックデータが入っているため、実データ投入時にこの文言も更新する
-  firestore: "※ 開発版：表示している商品・店舗・在庫情報はすべてダミーデータです。",
+  firestore:
+    "※ 商品・店舗はメーカー・運営会社の公式サイトに掲載された情報です（取得時点の情報）。在庫はユーザーの報告にもとづく目安のため、最新の状況は店舗でご確認ください。",
 };
 
 export function SiteFooter({ dataSource }: { dataSource: DataSourceKind }) {

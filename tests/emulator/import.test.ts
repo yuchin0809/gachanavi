@@ -34,7 +34,7 @@ before(async () => {
   rawProducts = JSON.parse(await readFile(path.join(ROOT, "data/collected/products.json"), "utf8"));
   rawLocations = JSON.parse(await readFile(path.join(ROOT, "data/collected/locations.json"), "utf8"));
 
-  // 現在の本番と同じ状態を再現：isSample の付いていないモック（products 10 / locations 8 / placements 34 / stockReports 27 / users 3）
+  // 現在の本番と同じ状態を再現：isSample の付いていないモック（products 10 / locations 8 / placements / stockReports / users）
   const mock = createMockDatabase(new Date());
   const ts = (iso: string) => Timestamp.fromDate(new Date(iso));
   const batch = db.batch();
@@ -77,6 +77,9 @@ test("ドライラン：書き込みを行わない", async () => {
   assert.equal(r.planned, 23464 + 1796 + 13 + 1);
   assert.equal(await count("products"), 10);
   assert.equal(await count("locations"), 8);
+  assert.equal(r.samples.candidates, 18);
+  assert.equal(r.samples.marked, 0);
+  assert.equal((await db.collection("products").doc("p-001").get()).get("isSample"), undefined);
 });
 
 test("4. バッチ投入（400 件）：1 日の上限（15,000 件）で止まり、索引の meta はまだ書かれない", async () => {
@@ -87,6 +90,17 @@ test("4. バッチ投入（400 件）：1 日の上限（15,000 件）で止ま�
   assert.equal(r.stoppedByWriteLimit, true);
   assert.equal(r.metaWritten, false);
   assert.equal((await db.collection("catalogIndex").doc("meta").get()).exists, false);
+
+  // 既存のモックは削除せず isSample: true を付ける（ほかの項目は変えない）
+  assert.deepEqual(r.samples, { candidates: 18, marked: 18, alreadyMarked: 0, missing: 0 });
+  const mock = createMockDatabase(new Date());
+  for (const [collection, items] of [["products", mock.products], ["locations", mock.locations]] as const) {
+    for (const item of items) {
+      const snap = await db.collection(collection).doc(item.id).get();
+      assert.equal(snap.get("isSample"), true, `${collection}/${item.id}`);
+      assert.equal(snap.get("name"), item.name);
+    }
+  }
   console.log(`  1回目: ${r.written} 件 / ${r.batches} バッチ / ${(r.durationMs / 1000).toFixed(1)} 秒`);
 });
 
@@ -94,6 +108,7 @@ test("4. 翌日分の再開：残りと索引を書き、最後に meta を書�
   const r = await runImport({ batchSize: 400, maxWrites: 15000, checkpointPath: CHECKPOINT, retryBaseMs: 50, log: quiet });
   assert.equal(r.failures.length, 0);
   assert.equal(r.skippedUnchanged, 15000);
+  assert.deepEqual(r.samples, { candidates: 18, marked: 0, alreadyMarked: 18, missing: 0 });
   assert.equal(r.written, 25274 - 15000);
   assert.equal(r.metaWritten, true);
   assert.equal(await count("products"), 23464 + 10);
@@ -197,7 +212,7 @@ test("9-10. 在庫報告：既存モックの設置情報・実データの「�
   // 連投制限・存在しない商品・サンプル商品
   await assert.rejects(ds.addStockReport({ productId, locationId, userId: "uid-a", status: "sold_out" }), ReportRateLimitedError);
   await assert.rejects(ds.addStockReport({ productId: "bandai-0", locationId, userId: "uid-a", status: "low" }), PlacementNotFoundError);
-  await db.collection("products").doc("p-002").update({ isSample: true });
+  assert.equal((await db.collection("products").doc("p-002").get()).get("isSample"), true); // 投入時に付与済み
   await assert.rejects(ds.addStockReport({ productId: "p-002", locationId, userId: "uid-a", status: "low" }), PlacementNotFoundError);
 
   assert.equal(await count("placements"), beforePlacements + 2);

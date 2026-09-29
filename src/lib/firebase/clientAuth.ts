@@ -7,7 +7,14 @@
  *
  * Firebase コンソールで「Authentication > ログイン方法 > 匿名」を有効にしておく必要がある。
  */
-import { connectAuthEmulator, getAuth, signInAnonymously, type Auth } from "firebase/auth";
+import {
+  browserLocalPersistence,
+  connectAuthEmulator,
+  indexedDBLocalPersistence,
+  initializeAuth,
+  signInAnonymously,
+  type Auth,
+} from "firebase/auth";
 import { getFirebaseClientApp } from "./client";
 
 /** Firebase の Web 設定が無い、または匿名ログインに失敗した */
@@ -18,16 +25,17 @@ export class AnonymousAuthError extends Error {
   }
 }
 
-let emulatorConnected = false;
+let clientAuth: Auth | null = null;
 
 function getClientAuth(app: NonNullable<ReturnType<typeof getFirebaseClientApp>>): Auth {
-  const auth = getAuth(app);
+  if (clientAuth) return clientAuth;
+  // getAuth() はポップアップ／リダイレクトログイン用に apis.google.com のスクリプトを読み込むが、
+  // 匿名認証には不要なため、ログイン状態の保存先だけを指定して初期化する
+  const auth = initializeAuth(app, { persistence: [indexedDBLocalPersistence, browserLocalPersistence] });
   // ローカル開発で Auth エミュレータを使う場合（例: 127.0.0.1:9099）
   const emulatorHost = process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST;
-  if (emulatorHost && !emulatorConnected) {
-    connectAuthEmulator(auth, `http://${emulatorHost}`, { disableWarnings: true });
-    emulatorConnected = true;
-  }
+  if (emulatorHost) connectAuthEmulator(auth, `http://${emulatorHost}`, { disableWarnings: true });
+  clientAuth = auth;
   return auth;
 }
 

@@ -9,7 +9,7 @@ import "server-only";
 import { cache } from "react";
 import { mockCurrentPosition } from "@/data/mock";
 import { RELEASE_STATUS_ORDER, latestMonth, releaseStatusOf } from "@/lib/release";
-import { matchesQuery } from "@/lib/search";
+import { matchesLocationQuery, matchesQuery, normalizeForSearch, searchTerms } from "@/lib/search";
 import { STOCK_STATUS_ORDER, isAvailable } from "@/lib/stock";
 import type {
   CatalogProduct,
@@ -222,6 +222,26 @@ export async function getAvailableFinds(): Promise<NearbyFindCandidate[]> {
     candidates.push({ product, location, stock });
   }
   return candidates;
+}
+
+/** 店舗検索の最大件数（候補を選ぶための一覧なので多くは返さない） */
+export const LOCATION_SEARCH_LIMIT = 20;
+
+/**
+ * 店舗の検索（「この店で見つけた」報告で店舗を選ぶため）。店舗名・住所・エリアの AND 検索。
+ * 店舗の索引（Firestore では catalogIndex の店舗シャード。キャッシュ済み）だけを使い、locations は読まない。
+ */
+export async function searchLocations(
+  query: string,
+  limit = LOCATION_SEARCH_LIMIT,
+): Promise<{ items: Location[]; total: number }> {
+  const terms = searchTerms(query);
+  if (terms.length === 0) return { items: [], total: 0 };
+  const matched = (await loadLocations()).filter((l) => matchesLocationQuery(l, terms));
+  // 店舗名に含まれるものを先に（住所だけの一致は後ろ）、同順位は名前順
+  const nameHit = (l: Location) => terms.every((t) => normalizeForSearch(l.name).includes(t));
+  matched.sort((a, b) => Number(nameHit(b)) - Number(nameHit(a)) || a.name.localeCompare(b.name, "ja"));
+  return { items: matched.slice(0, limit), total: matched.length };
 }
 
 /** generateMetadata とページ本体で同じ詳細を2回読まないよう、リクエスト内でキャッシュする */

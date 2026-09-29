@@ -74,7 +74,17 @@ test("商品詳細：実商品・在庫報告のあった店舗・価格なし�
   assert.match(upcoming.text, /発売予定/);
 
   assert.equal((await page("/gacha/bandai-0000000000000")).status, 404);
-  assert.equal((await page("/gacha/p-002")).status, 404); // isSample: true（import.test.ts で付与）
+  // 既存のモックは投入時に isSample: true が付くため、詳細も表示しない
+  assert.equal((await page("/gacha/p-001")).status, 404);
+  assert.equal((await page("/gacha/p-002")).status, 404);
+});
+
+test("商品説明文は権利確認が済むまで表示しない。フッターは実データ用の文言", { skip }, async () => {
+  const { text } = await page("/gacha/bandai-4570118187086000");
+  assert.doesNotMatch(text, /2弾が登場です/); // 収集データの description の一部
+  assert.match(text, /この店で見つけた/);
+  assert.match(text, /公式サイトに掲載された情報です/);
+  assert.doesNotMatch(text, /ダミーデータ/);
 });
 
 test("店舗詳細：住所・営業時間・報告済み商品、座標なしの店舗、404", { skip }, async () => {
@@ -89,4 +99,5 @@ test("店舗詳細：住所・営業時間・報告済み商品、座標なし�
   assert.match(noCoord.text, /ドリームカプセル 津チャム/);
 
   assert.equal((await page("/locations/gp-XXXX")).status, 404);
+  assert.equal((await page("/locations/l-001")).status, 404); // isSample: true のモック店舗
 });

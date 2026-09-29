@@ -1,4 +1,4 @@
-import type { CatalogProduct } from "@/types";
+import type { CatalogProduct, Location } from "@/types";
 
 /**
  * 検索用の文字列正規化。
@@ -41,4 +41,24 @@ export function matchesQuery(product: CatalogProduct, query: string): boolean {
   if (terms.length === 0) return true;
   const haystack = searchableText(product);
   return terms.every((term) => haystack.includes(term));
+}
+
+/** 検索語をスペースで区切り、正規化した語の配列にする */
+export function searchTerms(query: string): string[] {
+  return query
+    .split(/[\s　]+/)
+    .map(normalizeForSearch)
+    .filter(Boolean);
+}
+
+const locationTextCache = new WeakMap<Location, string>();
+
+/** 店舗名・住所・エリアのすべてに対して AND 検索（例: 「渋谷 ガシャポン」「枚方市 くずは」） */
+export function matchesLocationQuery(location: Location, terms: string[]): boolean {
+  let text = locationTextCache.get(location);
+  if (text === undefined) {
+    text = normalizeForSearch([location.name, location.address, location.area].join(" "));
+    locationTextCache.set(location, text);
+  }
+  return terms.every((term) => text.includes(term));
 }

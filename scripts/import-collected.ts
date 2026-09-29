@@ -13,8 +13,11 @@
  * - チェックポイント（書き込んだ内容のハッシュ）で、変わっていないドキュメントは書き直さない（書き込み件数を節約）
  * - --max-writes で 1 回の書き込み件数の上限（無料枠 20,000 件/日に合わせて分割投入）。上限に達したら停止し、次回続きから
  * - 一時的なエラー（UNAVAILABLE 等）は指数バックオフで再試行。RESOURCE_EXHAUSTED（上限超過）は即停止
+ * - 最初に、既存の架空のモックデータ（src/data/mock.ts の ID の products / locations）に isSample: true を付ける。
+ *   削除はしない。ID を指定して読むだけ（最大 18 読み取り）で、全件は読まない。isSample が付いたドキュメントは
+ *   一覧・検索・詳細・「この店で見つけた」の対象外になる
  *
- * オプション: --dry-run / --batch-size=400 / --max-writes=15000 / --no-checkpoint / --reset-checkpoint
+ * オプション: --dry-run / --batch-size=400 / --max-writes=15000 / --no-checkpoint / --reset-checkpoint / --no-mark-samples
  */
 import { readFile, mkdir, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -28,6 +31,8 @@ export interface ImportOptions {
   resetCheckpoint?: boolean;
   dataDir?: string;
   checkpointPath?: string;
+  /** 既存のモックデータに isSample: true を付ける（既定 true） */
+  markSamples?: boolean;
   /** 再試行の初回待ち時間（ミリ秒）。テストで短くするため */
   retryBaseMs?: number;
   log?: (message: string) => void;
@@ -46,6 +51,8 @@ export interface ImportResult {
   failures: { batch: number; error: string }[];
   stoppedByWriteLimit: boolean;
   metaWritten: boolean;
+  /** isSample を付ける対象のモック ID の数 / 実際に付けた件数（既に付いている・存在しないものは書かない） */
+  samples: { candidates: number; marked: number; alreadyMarked: number; missing: number };
   durationMs: number;
 }
 
@@ -111,14 +118,32 @@ export async function runImport(options: ImportOptions = {}): Promise<ImportResu
     failures: [],
     stoppedByWriteLimit: false,
     metaWritten: false,
+    samples: { candidates: 0, marked: 0, alreadyMarked: 0, missing: 0 },
     durationMs: 0,
   };
+
+  // 既存のモックデータの ID（本番の products / locations に入っている架空のデータ）
+  const markSamples = options.markSamples ?? true;
+  const sampleRefs: { collection: string; id: string }[] = [];
+  if (markSamples) {
+    const { createMockDatabase } = await import("../src/data/mock");
+    const mock = createMockDatabase(new Date());
+    sampleRefs.push(
+      ...mock.products.map((p) => ({ collection: "products", id: p.id })),
+      ...mock.locations.map((l) => ({ collection: "locations", id: l.id })),
+    );
+    const realIds = new Set(docs.map(keyOf));
+    const clash = sampleRefs.filter((r) => realIds.has(keyOf(r)));
+    if (clash.length) throw new Error(`モックの ID が実データの ID と重複しています: ${clash.map(keyOf).join(", ")}`);
+    result.samples.candidates = sampleRefs.length;
+  }
 
   log(
     `[${guard.projectId} @ ${guard.firestoreHost}] 変換: 商品 ${converted.products.length} / 店舗 ${converted.locations.length} / ` +
       `索引シャード ${converted.indexShardDocs.length}。書き込み予定 ${pending.length} 件（変更なしでスキップ ${result.skippedUnchanged} 件）`,
   );
   if (options.dryRun) {
+    if (markSamples) log(`モックデータへの isSample 付与: 最大 ${sampleRefs.length} 件（読み取り ${sampleRefs.length} 件）`);
     result.batches = Math.ceil(Math.min(pending.length, maxWrites) / batchSize);
     result.stoppedByWriteLimit = pending.length > maxWrites;
     result.durationMs = Date.now() - started;
@@ -170,6 +195,24 @@ export async function runImport(options: ImportOptions = {}): Promise<ImportResu
     return true;
   };
 
+  // 実データより先に、既存のモックデータを isSample: true にする（削除しない）
+  if (sampleRefs.length) {
+    const snaps = await db.getAll(...sampleRefs.map((r) => db.collection(r.collection).doc(r.id)));
+    const batch = db.batch();
+    for (const snap of snaps) {
+      if (!snap.exists) result.samples.missing += 1;
+      else if (snap.get("isSample") === true) result.samples.alreadyMarked += 1;
+      else {
+        batch.update(snap.ref, { isSample: true });
+        result.samples.marked += 1;
+      }
+    }
+    if (result.samples.marked > 0) await batch.commit();
+    log(
+      `モックデータに isSample を付与: ${result.samples.marked} 件（付与済み ${result.samples.alreadyMarked} / 存在しない ${result.samples.missing}）`,
+    );
+  }
+
   const isMeta = (d: { collection: string; id: string }) => d.collection === "catalogIndex" && d.id === "meta";
   const body = pending.filter((d) => !isMeta(d));
   const meta = pending.find(isMeta);
@@ -210,6 +253,7 @@ function parseArgs(argv: string[]): ImportOptions {
     if (a === "--dry-run") opt.dryRun = true;
     else if (a === "--no-checkpoint") opt.useCheckpoint = false;
     else if (a === "--reset-checkpoint") opt.resetCheckpoint = true;
+    else if (a === "--no-mark-samples") opt.markSamples = false;
     else if (a.startsWith("--batch-size=")) opt.batchSize = Number(a.split("=")[1]);
     else if (a.startsWith("--max-writes=")) opt.maxWrites = Number(a.split("=")[1]);
     else throw new Error(`不明なオプション: ${a}`);

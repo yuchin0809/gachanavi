@@ -5,6 +5,7 @@ import { ProductFacts } from "@/components/gacha/ProductFacts";
 import { BackLink } from "@/components/layout/BackLink";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { ProductLocationsView } from "@/components/location/ProductLocationsView";
+import { FoundAtStoreReport } from "@/components/stock/FoundAtStoreReport";
 import { getProductDetail } from "@/lib/data";
 import { formatDateTime } from "@/lib/format";
 import { isAvailable } from "@/lib/stock";
@@ -59,9 +60,7 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
           <div className="mt-3">
             <ProductFacts product={product} />
           </div>
-          {product.description && (
-            <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-muted">{product.description}</p>
-          )}
+          {/* 商品説明文は掲載の許諾（権利確認）が済むまで表示しない。データには保存している */}
 
           {product.tags.length > 0 && (
             <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="タグ">
@@ -108,6 +107,15 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
           </span>
           このガチャが見つかった場所
         </h2>
+        <div className="mb-4">
+          <FoundAtStoreReport
+            product={{ id: product.id, name: product.name, maker: product.maker }}
+            knownLocations={locations
+              .slice(0, 5)
+              .map(({ location: { id, name, address, area } }) => ({ id, name, address, area }))}
+          />
+          <p className="mt-1.5 text-center text-xs text-muted">お店でこのガチャを見かけたら、在庫の状態を教えてください</p>
+        </div>
         <ProductLocationsView productId={product.id} entries={locations} />
       </section>
     </PageContainer>
