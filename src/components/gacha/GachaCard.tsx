@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { formatPrice } from "@/lib/format";
 import { RELEASE_STATUS_LABEL } from "@/lib/release";
 import type { GachaProductSummary } from "@/types";
 import { GachaImage } from "./GachaImage";
@@ -13,28 +12,25 @@ export function GachaCard({ summary, badge }: { summary: GachaProductSummary; ba
       className="group block w-40 shrink-0 overflow-hidden rounded-2xl bg-surface shadow-card ring-1 ring-line transition hover:-translate-y-0.5 sm:w-44"
     >
       <div className="relative">
-        <GachaImage product={product} sizes="176px" className="transition group-hover:scale-[1.03]" />
+        {/* 商品名・メーカー・価格・発売月は画像の下部に表示される */}
+        <GachaImage product={product} sizes="176px" variant="full" />
         {badge && (
           <span className="absolute left-2 top-2 rounded-full bg-ink/85 px-2 py-0.5 text-[11px] font-bold text-white">
             {badge}
           </span>
         )}
       </div>
-      <div className="p-3">
-        <p className="truncate text-[11px] text-muted">
+      <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2 text-xs">
+        <span className="min-w-0 truncate text-[11px] text-muted">
           {releaseStatus === "upcoming" ? (
             <span className="font-bold text-brand-ink">{RELEASE_STATUS_LABEL.upcoming}</span>
           ) : (
-            product.series || product.maker
+            product.series
           )}
-        </p>
-        <p className="mt-0.5 line-clamp-2 min-h-[2.5em] text-sm font-bold leading-tight">{product.name}</p>
-        <div className="mt-2 flex items-center justify-between text-xs">
-          <span className="font-bold">{formatPrice(product.price, product.priceTaxIncluded)}</span>
-          <span className={availableLocationCount > 0 ? "font-bold text-stock-in-ink" : "text-muted"}>
-            在庫 {availableLocationCount}/{locationCount}店
-          </span>
-        </div>
+        </span>
+        <span className={`shrink-0 ${availableLocationCount > 0 ? "font-bold text-stock-in-ink" : "text-muted"}`}>
+          在庫 {availableLocationCount}/{locationCount}店
+        </span>
       </div>
     </Link>
   );
