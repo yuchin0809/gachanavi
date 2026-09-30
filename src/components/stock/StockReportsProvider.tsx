@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import { submitStockReport, type StockReportInput } from "@/lib/data/reports";
+import type { AddedStockReport } from "@/lib/data/source";
 import type { ID, StockReport, StockSnapshot } from "@/types";
 
 /**
@@ -12,7 +13,7 @@ import type { ID, StockReport, StockSnapshot } from "@/types";
  */
 interface StockReportsContextValue {
   localReports: Record<string, StockReport>;
-  report: (input: StockReportInput) => Promise<StockReport>;
+  report: (input: StockReportInput) => Promise<AddedStockReport>;
   /** 報告が保存されるか（モック環境では false） */
   persistent: boolean;
 }

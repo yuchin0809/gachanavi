@@ -31,6 +31,26 @@ export function googleMapsUrl(location: Pick<Location, "lat" | "lng"> & { name?:
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
+/**
+ * 外部の地図アプリ・サイトでルートを開く URL（API キー不要。GachaNavi のサーバーには何も送らない）。
+ * - origin（現在地）がある場合：現在地 → 店舗のルート
+ * - origin が無い場合：店舗の座標を目的地として開く（出発地は地図アプリ側の現在地・入力）
+ * Apple マップは iPhone / Mac では地図アプリ、それ以外ではブラウザ版で開く。
+ */
+export function routeUrls(destination: GeoPoint, origin: GeoPoint | null): { google: string; apple: string } {
+  const dest = `${destination.lat.toFixed(6)},${destination.lng.toFixed(6)}`;
+  // 現在地は数 m 程度の精度に丸める（ルート案内には十分）
+  const from = origin ? `${origin.lat.toFixed(5)},${origin.lng.toFixed(5)}` : null;
+  const google = new URLSearchParams({ api: "1", destination: dest });
+  if (from) google.set("origin", from);
+  const apple = new URLSearchParams({ daddr: dest });
+  if (from) apple.set("saddr", from);
+  return {
+    google: `https://www.google.com/maps/dir/?${google.toString()}`,
+    apple: `https://maps.apple.com/?${apple.toString()}`,
+  };
+}
+
 /** 候補を現在地から近い順に並べ、同じ商品は最寄りの1件だけ残して上位 limit 件を返す（座標不明の場所は除く） */
 export function pickNearbyFinds(candidates: NearbyFindCandidate[], origin: GeoPoint, limit = 6): NearbyFind[] {
   const seen = new Set<ID>();

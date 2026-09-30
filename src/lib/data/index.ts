@@ -10,9 +10,12 @@ import { cache } from "react";
 import { mockCurrentPosition } from "@/data/mock";
 import { RELEASE_STATUS_ORDER, latestMonth, releaseStatusOf } from "@/lib/release";
 import { matchesLocationQuery, matchesQuery, normalizeForSearch, searchTerms } from "@/lib/search";
+import { findStockAlerts } from "@/lib/favorites";
 import { STOCK_STATUS_ORDER, isAvailable } from "@/lib/stock";
 import type {
   CatalogProduct,
+  Favorite,
+  FavoriteView,
   GachaProduct,
   GachaProductSummary,
   GeoPoint,
@@ -23,6 +26,7 @@ import type {
   PlacementWithStock,
   ProductLocationEntry,
   ReleaseStatus,
+  StockAlert,
   StockSnapshot,
   StoreMapEntry,
 } from "@/types";
@@ -229,7 +233,7 @@ export async function getAvailableFinds(): Promise<NearbyFindCandidate[]> {
 export const LOCATION_SEARCH_LIMIT = 20;
 
 /**
- * 店舗の検索（「この店で見つけた」報告で店舗を選ぶため）。店舗名・住所・エリアの AND 検索。
+ * 店舗の検索（「この店舗で見つけた」報告で店舗を選ぶため）。店舗名・住所・エリアの AND 検索。
  * 店舗の索引（Firestore では catalogIndex の店舗シャード。キャッシュ済み）だけを使い、locations は読まない。
  */
 export async function searchLocations(
@@ -327,4 +331,80 @@ function compareByStock(a: { stock: StockSnapshot }, b: { stock: StockSnapshot }
   if (byStatus !== 0) return byStatus;
   // 同じ状態なら最近確認されたものを上に
   return (b.stock.lastCheckedAt ?? "").localeCompare(a.stock.lastCheckedAt ?? "");
+}
+
+/* ------------------------------------------------------------------
+ * お気に入り・在庫通知（userId はサーバーで検証済みの uid。本人の分だけを読む）
+ * ------------------------------------------------------------------ */
+
+/** お気に入りにできる商品か（商品詳細と同じキャッシュ済みの 1 件取得。サンプル商品は対象外） */
+async function favoritableProduct(productId: ID): Promise<boolean> {
+  return (await (await getDataSource()).getProduct(productId)) !== null;
+}
+
+/**
+ * お気に入り一覧（商品情報はカタログ索引、在庫の集計は placements のキャッシュから。
+ * Firestore の読み取りは本人のお気に入りの件数分だけ）
+ */
+export async function getFavoriteViews(userId: ID): Promise<FavoriteView[]> {
+  const ds = await getDataSource();
+  const [favorites, catalog, placements] = await Promise.all([
+    ds.listFavorites(userId),
+    loadCatalogMap(),
+    loadAllPlacements(),
+  ]);
+  const counts = new Map<ID, { total: number; available: number }>();
+  for (const { placement, stock } of placements) {
+    const c = counts.get(placement.productId) ?? { total: 0, available: 0 };
+    c.total += 1;
+    if (isAvailable(stock.status)) c.available += 1;
+    counts.set(placement.productId, c);
+  }
+  return favorites.flatMap((favorite) => {
+    const product = catalog.get(favorite.productId);
+    if (!product) return []; // 索引に無い（削除された・サンプル）商品は表示しない
+    const c = counts.get(favorite.productId);
+    return [{ favorite, product, locationCount: c?.total ?? 0, availableLocationCount: c?.available ?? 0 }];
+  });
+}
+
+export async function setFavorite(userId: ID, productId: ID, favorite: boolean): Promise<Favorite | null> {
+  if (favorite && !(await favoritableProduct(productId))) throw new ProductNotFoundError(productId);
+  return (await getDataSource()).setFavorite(userId, productId, favorite);
+}
+
+export async function setStockAlert(userId: ID, productId: ID, enabled: boolean): Promise<Favorite | null> {
+  if (enabled && !(await favoritableProduct(productId))) throw new ProductNotFoundError(productId);
+  return (await getDataSource()).setStockAlert(userId, productId, enabled);
+}
+
+/**
+ * 在庫通知の確認：通知 ON のお気に入りについて、新しい「在庫あり」「残りわずか」の報告を探す。
+ * 見つかったものは lastNotifiedAt を更新し、同じ報告で再び通知しない。
+ * 読み取り：通知 ON のお気に入りの件数分 + キャッシュが切れた商品の設置情報。書き込み：通知した商品の件数分
+ */
+export async function takeStockAlerts(userId: ID): Promise<StockAlert[]> {
+  const ds = await getDataSource();
+  const favorites = await ds.listFavorites(userId, { notifyOnly: true });
+  if (!favorites.length) return [];
+  // 商品ごとの設置情報（報告のたびに無効化されるキャッシュ。全ユーザーで共有）で最新の報告を見る
+  const [catalog, locations, placements] = await Promise.all([
+    loadCatalogMap(),
+    loadLocationMap(),
+    Promise.all(favorites.map((f) => ds.listPlacementsWithStock({ productId: f.productId }))).then((r) => r.flat()),
+  ]);
+  const alerts = findStockAlerts(favorites, placements, {
+    product: (id) => catalog.get(id)?.name,
+    location: (id) => locations.get(id),
+  });
+  if (alerts.length) await ds.markStockAlertsNotified(userId, alerts.map((a) => a.productId));
+  return alerts;
+}
+
+/** お気に入りにできない商品（存在しない・サンプル） */
+export class ProductNotFoundError extends Error {
+  constructor(productId: ID) {
+    super(`Product not found: ${productId}`);
+    this.name = "ProductNotFoundError";
+  }
 }

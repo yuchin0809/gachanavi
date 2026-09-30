@@ -11,6 +11,9 @@
  *   users/{uid}                   User（ドキュメントID = Firebase Auth の uid。匿名ユーザーは初回報告時に作成）
  *   users/{uid}/reportThrottles/{placementId}
  *                                 連投対策用：その「商品×場所」に最後に報告した日時
+ *   users/{uid}/favorites/{productId}
+ *                                 お気に入り（productId・登録日時・在庫通知の設定だけ。商品情報は複製しない）。
+ *                                 ドキュメント ID = productId のため同じ商品は 1 件しか作られない
  *
  * GachaProduct 1 ── * Placement * ── 1 Location の関係を placements で表す。
  * 日時は Firestore では Timestamp、ドメイン型では ISO 文字列で扱う。
@@ -19,6 +22,7 @@ import { Timestamp, type DocumentSnapshot } from "firebase-admin/firestore";
 import { isValidMonth } from "@/lib/release";
 import type {
   CatalogProduct,
+  Favorite,
   GachaProduct,
   Location,
   Placement,
@@ -36,6 +40,7 @@ export const COLLECTIONS = {
   users: "users",
   /** users/{uid} のサブコレクション */
   reportThrottles: "reportThrottles",
+  favorites: "favorites",
 } as const;
 
 /* ------------------------------------------------------------------
@@ -65,6 +70,11 @@ export interface PlacementDoc {
   firstSeenAt: Timestamp;
   /** 報告がまだ無い場合は null（= 未確認） */
   latestStock: LatestStockDoc | null;
+  /**
+   * 設置情報の出典（docs/placement-sources.md）。ユーザーの「この店舗で見つけた」報告で作成したものは "user_report"。
+   * 既存のドキュメントには無い（任意項目）
+   */
+  source?: "user_report" | "official_licensed" | "operator" | "open_data";
 }
 
 export interface StockReportDoc {
@@ -80,6 +90,15 @@ export interface StockReportDoc {
 export interface UserDoc {
   displayName: string;
   createdAt: Timestamp;
+}
+
+/** users/{uid}/favorites/{productId} */
+export interface FavoriteDoc {
+  productId: string;
+  createdAt: Timestamp;
+  notifyInStock: boolean;
+  notifyEnabledAt: Timestamp | null;
+  lastNotifiedAt: Timestamp | null;
 }
 
 /** users/{uid}/reportThrottles/{placementId} */
@@ -169,8 +188,8 @@ export function locationFromData(id: string, d: Record<string, unknown>): Locati
     lat: lat !== null && lng !== null ? lat : null,
     lng: lat !== null && lng !== null ? lng : null,
     openingHours: strOrNull(d.openingHours),
-    // 公式サイトはデータにある場合だけ（https のみ）
-    officialUrl: typeof d.officialUrl === "string" && /^https:\/\//.test(d.officialUrl) ? d.officialUrl : null,
+    // 公式サイトはデータにある場合だけ（https のみ。無い場合は項目自体を持たない）
+    ...(typeof d.officialUrl === "string" && /^https:\/\//.test(d.officialUrl) ? { officialUrl: d.officialUrl } : {}),
   };
 }
 
@@ -218,5 +237,16 @@ export function userFromDoc(snap: DocumentSnapshot): User {
     id: snap.id,
     displayName: str(d.displayName, "ゲスト"),
     createdAt: toIso(d.createdAt) ?? new Date(0).toISOString(),
+  };
+}
+
+export function favoriteFromDoc(snap: DocumentSnapshot): Favorite {
+  const d = snap.data() ?? {};
+  return {
+    productId: str(d.productId, snap.id),
+    createdAt: toIso(d.createdAt) ?? new Date(0).toISOString(),
+    notifyInStock: d.notifyInStock === true,
+    notifyEnabledAt: toIso(d.notifyEnabledAt),
+    lastNotifiedAt: toIso(d.lastNotifiedAt),
   };
 }

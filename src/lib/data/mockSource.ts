@@ -1,6 +1,7 @@
 import { createMockDatabase } from "@/data/mock";
 import { toCatalogProduct } from "@/lib/catalog/index-format";
 import { latestSnapshot } from "@/lib/stock";
+import { memoryFavorites } from "./memoryFavorites";
 import { checkMemoryThrottle } from "./memoryThrottle";
 import type { DataSource } from "./source";
 import { PlacementNotFoundError } from "./source";
@@ -69,7 +70,7 @@ export function createMockDataSource(): DataSource {
     },
     async addStockReport(input) {
       // 設置情報が無くても、商品と設置場所が存在すれば報告できる（Firestore 版と同じ条件）
-      const { products, locations } = db();
+      const { products, locations, placements } = db();
       const exists =
         products.some((p) => p.id === input.productId) && locations.some((l) => l.id === input.locationId);
       if (!exists) throw new PlacementNotFoundError(input.productId, input.locationId);
@@ -77,6 +78,7 @@ export function createMockDataSource(): DataSource {
       checkMemoryThrottle(input);
 
       return {
+        placementCreated: !placements.some((pl) => pl.productId === input.productId && pl.locationId === input.locationId),
         id: `local-${Date.now()}`,
         productId: input.productId,
         locationId: input.locationId,
@@ -85,5 +87,6 @@ export function createMockDataSource(): DataSource {
         reportedAt: input.reportedAt ?? new Date().toISOString(),
       };
     },
+    ...memoryFavorites,
   };
 }

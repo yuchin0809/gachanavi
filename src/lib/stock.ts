@@ -51,6 +51,18 @@ export const STOCK_STATUS_ORDER: Record<StockStatus, number> = {
   sold_out: 3,
 };
 
+/**
+ * 在庫情報の鮮度。最終確認からこの時間が経った報告は「情報が古い可能性があります」と表示する。
+ * 状態（在庫あり・売り切れなど）は変えない（勝手に売り切れ・未確認にしない）。
+ * ガチャの在庫は 1 日で入れ替わることが多く、報告もまだ少ないため 24 時間とする。
+ */
+export const STOCK_STALE_AFTER_MS = 24 * 60 * 60 * 1000;
+
+/** 最終確認が古い（報告が無い「未確認」は対象外） */
+export function isStockStale(lastCheckedAt: string | null, now: number = Date.now()): boolean {
+  return lastCheckedAt !== null && now - Date.parse(lastCheckedAt) >= STOCK_STALE_AFTER_MS;
+}
+
 export function isAvailable(status: StockStatus): boolean {
   return status === "in_stock" || status === "low";
 }

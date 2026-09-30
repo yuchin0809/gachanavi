@@ -68,3 +68,15 @@ export async function getAnonymousIdToken(): Promise<string> {
   if (!user) throw new AnonymousAuthError("匿名ログインに失敗しました");
   return user.getIdToken();
 }
+
+/**
+ * すでに匿名ログイン済みなら ID トークンを返す。未ログインなら null（新しく匿名ログインはしない）。
+ * お気に入り一覧・在庫通知の確認など、閲覧だけの画面で使う
+ */
+export async function getExistingIdToken(): Promise<string | null> {
+  const app = getFirebaseClientApp();
+  if (!app) return null;
+  const auth = getClientAuth(app);
+  await auth.authStateReady();
+  return auth.currentUser ? auth.currentUser.getIdToken() : null;
+}

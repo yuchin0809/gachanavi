@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { CurrentPositionProvider } from "@/components/geo/CurrentPositionProvider";
+import { StockAlertWatcher } from "@/components/favorites/StockAlertWatcher";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { StockReportsProvider } from "@/components/stock/StockReportsProvider";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <SiteHeader />
             <main className="flex-1">{children}</main>
             <SiteFooter dataSource={dataSource} />
+            <StockAlertWatcher />
           </CurrentPositionProvider>
         </StockReportsProvider>
       </body>

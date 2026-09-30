@@ -1,5 +1,6 @@
 import type {
   CatalogProduct,
+  Favorite,
   GachaProduct,
   ID,
   Location,
@@ -30,6 +31,9 @@ export interface NewStockReport {
   /** 報告日時。省略時はサーバーの現在時刻 */
   reportedAt?: string;
 }
+
+/** 在庫報告の登録結果。placementCreated = この報告で設置情報（placement）を新しく作成した */
+export type AddedStockReport = StockReport & { placementCreated: boolean };
 
 /**
  * データ取得・保存の抽象インターフェース。
@@ -87,7 +91,24 @@ export interface DataSource {
    * - 同じユーザーが同じ「商品×場所」に REPORT_COOLDOWN_MS 以内に再度報告した場合は ReportRateLimitedError
    * - 報告者の users ドキュメントが無ければ作成する（匿名ユーザーの初回報告時など）
    */
-  addStockReport(input: NewStockReport): Promise<StockReport>;
+  addStockReport(input: NewStockReport): Promise<AddedStockReport>;
+
+  /*
+   * お気に入り（ユーザー本人の分だけを読み書きする。他のユーザーのお気に入りは読まない）。
+   * 商品の存在確認は呼び出し側（index.ts）で行う。
+   */
+
+  /** お気に入り一覧（新しい順・FAVORITES_LIMIT 件まで）。notifyOnly なら通知 ON のものだけ */
+  listFavorites(userId: ID, options?: { notifyOnly?: boolean }): Promise<Favorite[]>;
+  /** お気に入りの登録（true）・解除（false）。冪等（何度呼んでも 1 件だけ・解除済みなら何もしない） */
+  setFavorite(userId: ID, productId: ID, favorite: boolean): Promise<Favorite | null>;
+  /**
+   * 在庫通知の ON / OFF。冪等。ON にするとお気に入りでなければお気に入りにも登録する。
+   * お気に入りでない商品の OFF は何もしない（null）
+   */
+  setStockAlert(userId: ID, productId: ID, enabled: boolean): Promise<Favorite | null>;
+  /** 通知したお気に入りの lastNotifiedAt をサーバーの現在時刻にする（解除済みのものは無視） */
+  markStockAlertsNotified(userId: ID, productIds: ID[]): Promise<void>;
 }
 
 /** 報告対象の商品または設置場所が存在しない（設置情報を作れない） */

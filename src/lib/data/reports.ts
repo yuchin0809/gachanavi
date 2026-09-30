@@ -1,5 +1,6 @@
 import { reportStockAction } from "@/app/actions/stockReports";
-import type { ID, ReportableStockStatus, StockReport } from "@/types";
+import type { AddedStockReport } from "@/lib/data/source";
+import type { ID, ReportableStockStatus } from "@/types";
 
 export interface StockReportInput {
   productId: ID;
@@ -35,7 +36,7 @@ export class StockReportError extends Error {
 export async function submitStockReport(
   input: StockReportInput,
   { requireAuth }: { requireAuth: boolean },
-): Promise<StockReport> {
+): Promise<AddedStockReport> {
   let idToken: string | null = null;
   if (requireAuth) {
     try {

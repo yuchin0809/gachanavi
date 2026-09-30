@@ -13,17 +13,18 @@ import { StockDot } from "./StockBadge";
 import { useReportStock, useReportsPersistent } from "./StockReportsProvider";
 
 /**
- * 「この店で見つけた」報告：商品詳細から、店舗を検索・選択 → 在庫状態を選択 → 確認 → 送信。
+ * 「この店舗で見つけた」報告：商品詳細から、店舗を検索・選択 → 「この店舗で見つけたガチャ」として確認 → 在庫状態を選んで送信。
  *
  * 保存は既存の在庫報告（Server Action reportStockAction → DataSource.addStockReport）を使う。
- * 設置情報（placement）が無い「商品×店舗」は、報告と同時に作成される。
+ * - Placement（設置情報）＝その商品がその店舗に設置・取扱いされている。無ければこの報告で作成し、あれば再利用する
+ * - StockReport（在庫報告）＝その時点の在庫状態。報告のたびに履歴として追加する（日時はサーバーの時刻）
  * 同じ商品×店舗への 10 分以内の再報告はサーバー側で拒否され、待ち時間を表示する。
  */
 
-type Step = "store" | "status" | "confirm" | "submitting" | "result";
+type Step = "store" | "confirm" | "status" | "submitting" | "result";
 
 type Outcome =
-  | { kind: "success"; status: ReportableStockStatus }
+  | { kind: "success"; status: ReportableStockStatus; placementCreated: boolean }
   | { kind: "rate_limited"; until: number }
   | { kind: "error"; message: string; retryable: boolean };
 
@@ -33,12 +34,12 @@ interface ProductSummary {
   maker: string;
 }
 
-const STEP_LABELS: Record<"store" | "status" | "confirm", string> = {
+const STEP_LABELS: Record<"store" | "confirm" | "status", string> = {
   store: "店舗を選ぶ",
-  status: "在庫を選ぶ",
   confirm: "確認",
+  status: "在庫を選ぶ",
 };
-const STEP_ORDER = ["store", "status", "confirm"] as const;
+const STEP_ORDER = ["store", "confirm", "status"] as const;
 
 /* ---------------- 連投制限の表示用（サーバーの判定が正。ここは待ち時間の案内だけ） ---------------- */
 
@@ -120,10 +121,13 @@ function errorOutcome(error: unknown): Outcome {
 export function FoundAtStoreReport({
   product,
   knownLocations,
+  placedLocationIds,
 }: {
   product: ProductSummary;
   /** このガチャがすでに報告されている店舗（検索しなくても選べるよう候補に出す） */
   knownLocations: LocationCandidate[];
+  /** このガチャの設置情報（placement）がある店舗の ID（確認画面で「新しく登録」か「登録済み」かを示す） */
+  placedLocationIds: ID[];
 }) {
   const [open, setOpen] = useState(false);
 
@@ -135,9 +139,16 @@ export function FoundAtStoreReport({
         className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-brand px-4 text-base font-extrabold text-white shadow-card transition active:scale-[0.98]"
       >
         <StoreIcon className="h-5 w-5" />
-        この店で見つけた
+        この店舗で見つけた
       </button>
-      {open && <ReportSheet product={product} knownLocations={knownLocations} onClose={() => setOpen(false)} />}
+      {open && (
+        <ReportSheet
+          product={product}
+          knownLocations={knownLocations}
+          placedLocationIds={placedLocationIds}
+          onClose={() => setOpen(false)}
+        />
+      )}
     </>
   );
 }
@@ -145,10 +156,12 @@ export function FoundAtStoreReport({
 function ReportSheet({
   product,
   knownLocations,
+  placedLocationIds,
   onClose,
 }: {
   product: ProductSummary;
   knownLocations: LocationCandidate[];
+  placedLocationIds: ID[];
   onClose: () => void;
 }) {
   const router = useRouter();
@@ -162,7 +175,9 @@ function ReportSheet({
   const [outcome, setOutcome] = useState<Outcome | null>(null);
 
   const localUntil = store ? cooldownUntil(product.id, store.id) : null;
-  const waitUntil = outcome?.kind === "rate_limited" ? outcome.until : step === "confirm" ? localUntil : null;
+  const waitUntil =
+    outcome?.kind === "rate_limited" ? outcome.until : step === "confirm" || step === "status" ? localUntil : null;
+  const alreadyPlaced = store ? placedLocationIds.includes(store.id) : false;
   const now = useNow(waitUntil !== null);
   const waitMs = waitUntil !== null ? waitUntil - now : 0;
   const waiting = waitMs > 0;
@@ -185,9 +200,9 @@ function ReportSheet({
     if (!store || !status) return;
     setStep("submitting");
     try {
-      await report({ productId: product.id, locationId: store.id, status });
+      const created = await report({ productId: product.id, locationId: store.id, status });
       rememberReported(product.id, store.id, Date.now());
-      setOutcome({ kind: "success", status });
+      setOutcome({ kind: "success", status, placementCreated: created.placementCreated });
       // 新しく作られた設置情報・在庫状態を商品詳細に反映する
       router.refresh();
     } catch (error) {
@@ -206,8 +221,8 @@ function ReportSheet({
   }
 
   const back = () => {
-    if (step === "status") setStep("store");
-    else if (step === "confirm") setStep("status");
+    if (step === "confirm") setStep("store");
+    else if (step === "status") setStep("confirm");
   };
 
   return (
@@ -239,7 +254,7 @@ function ReportSheet({
           )}
           <div className="min-w-0 flex-1">
             <h2 id={titleId} className="text-base font-extrabold">
-              この店で見つけた
+              この店舗で見つけた
             </h2>
             <p className="truncate text-xs text-muted">{product.name}</p>
           </div>
@@ -276,68 +291,67 @@ function ReportSheet({
               selectedId={store?.id ?? null}
               onSelect={(s) => {
                 setStore(s);
-                setStep("status");
+                setStatus(null);
+                setStep("confirm");
               }}
             />
           )}
 
-          {step === "status" && store && (
+          {step === "confirm" && store && (
+            <div>
+              <p className="text-sm font-bold">この店舗で見つけたガチャとして報告します</p>
+              <div className="mt-3 rounded-2xl bg-canvas p-3">
+                <p className="text-[11px] font-bold text-muted">見つけたガチャ</p>
+                <p className="font-bold leading-snug">{product.name}</p>
+                <p className="text-xs text-muted">{product.maker}</p>
+                <div className="my-2.5 border-t border-line" />
+                <p className="text-[11px] font-bold text-muted">見つけた店舗</p>
+                <SelectedStore store={store} plain />
+              </div>
+              <p
+                className={`mt-3 rounded-2xl p-3 text-xs leading-relaxed ${
+                  alreadyPlaced ? "bg-stock-in-soft text-stock-in-ink" : "bg-accent-soft text-ink"
+                }`}
+                data-placement={alreadyPlaced ? "existing" : "new"}
+              >
+                {alreadyPlaced
+                  ? "この店舗では、このガチャの設置がすでに確認されています。今回の報告で在庫の状態を更新します。"
+                  : "この店舗でこのガチャが見つかったのは初めてです。報告すると、この店舗のガチャとして登録されます。"}
+              </p>
+              {waiting && <WaitNotice waitMs={waitMs} lead="この店舗には少し前に報告済みです。" />}
+            </div>
+          )}
+
+          {(step === "status" || step === "submitting") && store && (
             <div>
               <SelectedStore store={store} />
               <p className="mt-4 text-sm font-bold">今の在庫はどうでしたか？</p>
-              <div className="mt-2 grid gap-2">
+              <div className="mt-2 grid gap-2" role="radiogroup" aria-label="在庫の状態">
                 {REPORTABLE_STATUSES.map((s) => {
                   const meta = STOCK_STATUS_META[s];
                   return (
                     <button
                       key={s}
                       type="button"
-                      onClick={() => {
-                        setStatus(s);
-                        setStep("confirm");
-                      }}
-                      aria-pressed={status === s}
+                      role="radio"
+                      aria-checked={status === s}
+                      disabled={step === "submitting"}
+                      onClick={() => setStatus(s)}
                       className={`flex h-14 items-center gap-3 rounded-2xl border-2 bg-surface px-4 text-base font-bold transition active:scale-[0.98] ${meta.buttonClass} ${
                         status === s ? "ring-2 ring-current ring-offset-1" : ""
                       }`}
                     >
                       <StockDot status={s} className="h-3.5 w-3.5" />
                       {meta.reportLabel}
+                      {status === s && <CheckIcon className="ml-auto h-5 w-5" />}
                     </button>
                   );
                 })}
               </div>
-            </div>
-          )}
-
-          {(step === "confirm" || step === "submitting") && store && status && (
-            <div>
-              <p className="text-sm font-bold">この内容で報告します。よろしいですか？</p>
-              <dl className="mt-3 divide-y divide-line rounded-2xl bg-canvas px-3 text-sm">
-                <div className="py-2.5">
-                  <dt className="text-[11px] font-bold text-muted">ガチャ</dt>
-                  <dd className="font-bold leading-snug">{product.name}</dd>
-                  <dd className="text-xs text-muted">{product.maker}</dd>
-                </div>
-                <div className="py-2.5">
-                  <dt className="text-[11px] font-bold text-muted">店舗</dt>
-                  <dd className="font-bold leading-snug">{store.name}</dd>
-                  <dd className="text-xs text-muted">{store.address}</dd>
-                </div>
-                <div className="py-2.5">
-                  <dt className="text-[11px] font-bold text-muted">在庫</dt>
-                  <dd className="mt-0.5 flex items-center gap-1.5 font-bold">
-                    <StockDot status={status} />
-                    {STOCK_STATUS_META[status].label}
-                  </dd>
-                </div>
-              </dl>
-              <p className="mt-2 text-[11px] leading-relaxed text-muted">
-                報告は匿名で送信され、ほかのユーザーに「最終確認」として表示されます。同じガチャ・同じ店舗への報告は10分に1回までです。
+              <p className="mt-3 text-[11px] leading-relaxed text-muted">
+                報告は匿名で送信され、ほかのユーザーに「最終確認」として表示されます（日時はサーバーで記録）。同じガチャ・同じ店舗への報告は10分に1回までです。
               </p>
-              {waiting && step === "confirm" && (
-                <WaitNotice waitMs={waitMs} lead="この店舗には少し前に報告済みです。" />
-              )}
+              {waiting && step === "status" && <WaitNotice waitMs={waitMs} lead="この店舗には少し前に報告済みです。" />}
             </div>
           )}
 
@@ -353,15 +367,32 @@ function ReportSheet({
         </div>
 
         {/* フッターの操作ボタン（親指で押しやすい下部に固定） */}
-        {(step === "confirm" || step === "submitting") && (
+        {step === "confirm" && (
+          <div className="border-t border-line p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+            <button
+              type="button"
+              onClick={() => setStep("status")}
+              className="h-12 w-full rounded-2xl bg-brand text-base font-extrabold text-white"
+            >
+              この店舗で見つけた
+            </button>
+          </div>
+        )}
+        {(step === "status" || step === "submitting") && (
           <div className="border-t border-line p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
             <button
               type="button"
               onClick={submit}
-              disabled={step === "submitting" || waiting}
+              disabled={step === "submitting" || waiting || !status}
               className="h-12 w-full rounded-2xl bg-brand text-base font-extrabold text-white disabled:opacity-50"
             >
-              {step === "submitting" ? "送信中…" : waiting ? `あと${formatWait(waitMs)}で報告できます` : "この内容で報告する"}
+              {step === "submitting"
+                ? "送信中…"
+                : waiting
+                  ? `あと${formatWait(waitMs)}で報告できます`
+                  : status
+                    ? "この内容で報告する"
+                    : "在庫の状態を選んでください"}
             </button>
           </div>
         )}
@@ -381,7 +412,7 @@ function ReportSheet({
                 type="button"
                 onClick={() => {
                   setOutcome(null);
-                  setStep("confirm");
+                  setStep("status");
                 }}
                 className="h-12 flex-1 rounded-2xl bg-brand text-base font-extrabold text-white"
               >
@@ -407,9 +438,9 @@ function ReportSheet({
   );
 }
 
-function SelectedStore({ store }: { store: LocationCandidate }) {
+function SelectedStore({ store, plain = false }: { store: LocationCandidate; plain?: boolean }) {
   return (
-    <div className="flex items-start gap-2 rounded-2xl bg-canvas p-3">
+    <div className={`flex items-start gap-2 ${plain ? "" : "rounded-2xl bg-canvas p-3"}`}>
       <StoreIcon className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
       <div className="min-w-0">
         <p className="text-sm font-bold leading-snug">{store.name}</p>
@@ -454,6 +485,9 @@ function ResultView({
         <p className="mt-3 text-lg font-extrabold">報告しました。ありがとうございます！</p>
         <p className="mt-1 text-sm text-muted">
           {store.name} ・ 「{STOCK_STATUS_META[outcome.status].label}」
+        </p>
+        <p className="mt-2 text-xs font-bold text-stock-in-ink" data-placement-result={outcome.placementCreated ? "created" : "existing"}>
+          {outcome.placementCreated ? "この店舗のガチャとして新しく登録しました" : "この店舗の在庫の状態を更新しました"}
         </p>
         <Link
           href={`/locations/${store.id}?product=${productId}`}

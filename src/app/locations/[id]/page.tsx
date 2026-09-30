@@ -23,7 +23,8 @@ export default async function LocationDetailPage({ params, searchParams }: PageP
   const { location, products } = detail;
   // 商品詳細から来た場合、その商品（対象ガチャ）を先頭に強調表示する
   const target = products.find((e) => e.product.id === targetProductId) ?? null;
-  const others = products.filter((e) => e !== target);
+  // 在庫あり → 残りわずか → 未確認 → 売り切れ（データ側で並べ済み）。商品詳細から来た場合はその商品を先頭に
+  const ordered = target ? [target, ...products.filter((e) => e !== target)] : products;
 
   return (
     <PageContainer>
@@ -31,29 +32,23 @@ export default async function LocationDetailPage({ params, searchParams }: PageP
 
       <LocationInfoCard location={location} />
 
-      {target && (
-        <section className="mt-6">
-          <h2 className="mb-2 text-base font-extrabold">🎯 対象のガチャ</h2>
-          <LocationProductCard locationId={location.id} entry={target} highlighted />
-        </section>
-      )}
-
+      {/* 設置情報（placement）がある商品だけを表示する。報告が無いものは「未確認」（売り切れにはしない） */}
       <section className="mt-6">
         <h2 className="mb-2 text-base font-extrabold">
-          {target ? "この場所のほかのガチャ" : "この場所で見つかったガチャ"}
-          <span className="ml-1 text-sm font-normal text-muted">{others.length}件</span>
+          この店舗のガチャ
+          <span className="ml-1 text-sm font-normal text-muted">{products.length}件</span>
         </h2>
-        {others.length > 0 ? (
+        {products.length > 0 ? (
           <ul className="space-y-2">
-            {others.map((entry) => (
+            {ordered.map((entry) => (
               <li key={entry.product.id}>
-                <LocationProductCard locationId={location.id} entry={entry} />
+                <LocationProductCard locationId={location.id} entry={entry} highlighted={entry === target} />
               </li>
             ))}
           </ul>
         ) : (
           <p className="rounded-2xl bg-surface p-6 text-center text-sm text-muted ring-1 ring-line">
-            ほかに報告されているガチャはありません。
+            この店舗で設置が確認されたガチャはまだありません。お店でガチャを見つけたら、商品ページの「この店舗で見つけた」から教えてください。
           </p>
         )}
       </section>

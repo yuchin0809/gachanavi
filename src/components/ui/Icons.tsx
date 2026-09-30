@@ -92,3 +92,20 @@ export function LocateIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function HeartIcon({ filled = false, ...props }: IconProps & { filled?: boolean }) {
+  return (
+    <svg {...base} {...props} fill={filled ? "currentColor" : "none"}>
+      <path d="M12 20s-7.5-4.6-9.2-9.3C1.7 7.5 3.8 4.5 7 4.5c2 0 3.3 1.1 5 3 1.7-1.9 3-3 5-3 3.2 0 5.3 3 4.2 6.2C19.5 15.4 12 20 12 20Z" />
+    </svg>
+  );
+}
+
+export function BellIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15L6 16Z" />
+      <path d="M10 20.5a2 2 0 0 0 4 0" />
+    </svg>
+  );
+}

@@ -185,3 +185,42 @@ export interface StoreMapEntry {
   /** 設置情報ごとの最新の在庫状態の件数（報告が無いものは unknown） */
   stockCounts: Record<StockStatus, number>;
 }
+
+/**
+ * お気に入り（Firestore: users/{uid}/favorites/{productId}）。
+ * 商品名・価格などは複製せず productId だけを持ち、表示時にカタログ索引から引く。
+ */
+export interface Favorite {
+  productId: ID;
+  createdAt: ISODateString;
+  /** 「在庫報告があったら通知」が ON か */
+  notifyInStock: boolean;
+  /** 通知を ON にした日時（これより前の報告では通知しない） */
+  notifyEnabledAt: ISODateString | null;
+  /** 最後に通知した日時（これより前の報告では再通知しない） */
+  lastNotifiedAt: ISODateString | null;
+}
+
+/** 在庫通知の対象になった報告（お気に入り商品 × 店舗） */
+export interface StockAlertLocation {
+  locationId: ID;
+  locationName: string;
+  status: "in_stock" | "low";
+  reportedAt: ISODateString;
+}
+
+export interface StockAlert {
+  productId: ID;
+  productName: string;
+  locations: StockAlertLocation[];
+}
+
+/** お気に入り一覧の 1 件（商品情報はカタログ索引から、在庫の集計は placements.latestStock から） */
+export interface FavoriteView {
+  favorite: Favorite;
+  product: CatalogProduct;
+  /** 設置が確認されている店舗数 */
+  locationCount: number;
+  /** 最新報告が「在庫あり」「残りわずか」の店舗数 */
+  availableLocationCount: number;
+}

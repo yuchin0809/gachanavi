@@ -21,16 +21,19 @@ import {
   locationShardId,
   productShardId,
 } from "@/lib/catalog/index-format";
-import type { CatalogProduct, ID, Location, PlacementWithStock, StockReport } from "@/types";
+import { FAVORITES_LIMIT } from "@/lib/favorites";
+import type { CatalogProduct, Favorite, ID, Location, PlacementWithStock, StockReport } from "@/types";
 import { cacheSeconds, cacheTags } from "./cacheTags";
 import {
   COLLECTIONS,
+  type FavoriteDoc,
   type PlacementDoc,
   type LatestStockDoc,
   type ReportThrottleDoc,
   type StockReportDoc,
   type UserDoc,
   catalogProductFromData,
+  favoriteFromDoc,
   locationFromData,
   locationFromDoc,
   placementFromDoc,
@@ -260,7 +263,9 @@ export function createFirestoreDataSource(): DataSource {
         reportedAt,
       };
 
+      let placementCreated = false;
       await firestore.runTransaction(async (tx) => {
+        placementCreated = false;
         const [placementSnap, userSnap, throttleSnap] = await tx.getAll(placementRef, userRef, throttleRef);
         if (!placementSnap.exists) {
           // 設置情報が無い場合：商品と設置場所の両方が実在し、サンプルでない場合だけ作成できる
@@ -298,8 +303,10 @@ export function createFirestoreDataSource(): DataSource {
             locationId: input.locationId,
             firstSeenAt: reportedAt,
             latestStock,
+            source: "user_report",
           };
           tx.create(placementRef, placementDoc);
+          placementCreated = true;
           return;
         }
 
@@ -318,7 +325,91 @@ export function createFirestoreDataSource(): DataSource {
         userId: input.userId,
         status: input.status,
         reportedAt: reportedAt.toDate().toISOString(),
+        placementCreated,
       };
     },
+
+    /* ---------------- お気に入り（users/{uid}/favorites/{productId}） ---------------- */
+
+    /** 読み取り：お気に入りの件数分（最大 FAVORITES_LIMIT）。0 件でも 1 */
+    async listFavorites(userId, options = {}) {
+      const col = favoritesCol(userId);
+      // 通知 ON のみの場合は単一フィールドの条件だけにして複合インデックスを不要にする（並べ替えはメモリ上）
+      const snap = options.notifyOnly
+        ? await col.where("notifyInStock", "==", true).limit(FAVORITES_LIMIT).get()
+        : await col.orderBy("createdAt", "desc").limit(FAVORITES_LIMIT).get();
+      return snap.docs.map(favoriteFromDoc).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    },
+
+    /** 登録：読み取り 1 + 書き込み（未登録の時だけ）1。解除：書き込み 1（読み取りなし） */
+    async setFavorite(userId, productId, favorite) {
+      const ref = favoritesCol(userId).doc(productId);
+      if (!favorite) {
+        await ref.delete(); // 無いドキュメントの削除はエラーにならない（冪等）
+        return null;
+      }
+      return db().runTransaction(async (tx) => {
+        const snap = await tx.get(ref);
+        if (snap.exists) return favoriteFromDoc(snap);
+        const doc: FavoriteDoc = {
+          productId,
+          createdAt: Timestamp.now(),
+          notifyInStock: false,
+          notifyEnabledAt: null,
+          lastNotifiedAt: null,
+        };
+        tx.create(ref, doc);
+        return favoriteFromData(productId, doc);
+      });
+    },
+
+    /** 読み取り 1 + 書き込み（設定が変わる時だけ）1 */
+    async setStockAlert(userId, productId, enabled) {
+      const ref = favoritesCol(userId).doc(productId);
+      return db().runTransaction(async (tx) => {
+        const snap = await tx.get(ref);
+        const now = Timestamp.now();
+        if (!snap.exists) {
+          if (!enabled) return null;
+          const doc: FavoriteDoc = { productId, createdAt: now, notifyInStock: true, notifyEnabledAt: now, lastNotifiedAt: null };
+          tx.create(ref, doc);
+          return favoriteFromData(productId, doc);
+        }
+        const current = favoriteFromDoc(snap);
+        if (current.notifyInStock === enabled) return current;
+        tx.update(ref, enabled ? { notifyInStock: true, notifyEnabledAt: now } : { notifyInStock: false });
+        return { ...current, notifyInStock: enabled, notifyEnabledAt: enabled ? now.toDate().toISOString() : current.notifyEnabledAt };
+      });
+    },
+
+    /** 書き込み：通知した商品の件数分（読み取りなし。解除済みのものは NOT_FOUND を無視） */
+    async markStockAlertsNotified(userId, productIds) {
+      const now = Timestamp.now();
+      await Promise.all(
+        productIds.map((id) =>
+          favoritesCol(userId)
+            .doc(id)
+            .update({ lastNotifiedAt: now })
+            .catch((error: { code?: number }) => {
+              if (error?.code !== 5) throw error; // 5 = NOT_FOUND
+            }),
+        ),
+      );
+    },
+  };
+}
+
+function favoritesCol(userId: string) {
+  return db().collection(COLLECTIONS.users).doc(userId).collection(COLLECTIONS.favorites);
+}
+
+function favoriteFromData(productId: string, doc: FavoriteDoc): Favorite {
+  const iso = (t: Timestamp | null) => (t ? t.toDate().toISOString() : null);
+  return {
+    productId,
+    createdAt: doc.createdAt.toDate().toISOString(),
+    notifyInStock: doc.notifyInStock,
+    notifyEnabledAt: iso(doc.notifyEnabledAt),
+    lastNotifiedAt: iso(doc.lastNotifiedAt),
   };
 }

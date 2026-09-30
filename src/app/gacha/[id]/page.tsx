@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GachaImage } from "@/components/gacha/GachaImage";
+import { FavoriteControls } from "@/components/favorites/FavoriteControls";
 import { ProductFacts } from "@/components/gacha/ProductFacts";
 import { BackLink } from "@/components/layout/BackLink";
 import { PageContainer } from "@/components/layout/PageContainer";
@@ -40,6 +41,10 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
         <div className="mt-4 sm:mt-0">
           {product.series && <p className="text-sm font-bold text-brand-ink">{product.series}</p>}
           <h1 className="mt-1 text-2xl font-extrabold leading-snug">{product.name}</h1>
+
+          <div className="mt-3">
+            <FavoriteControls productId={product.id} />
+          </div>
 
           <div className="mt-3 flex gap-2">
             <div className="flex-1 rounded-2xl bg-stock-in-soft px-3 py-2 text-stock-in-ink">
@@ -114,8 +119,9 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
             knownLocations={locations
               .slice(0, 5)
               .map(({ location: { id, name, address, area } }) => ({ id, name, address, area }))}
+            placedLocationIds={locations.map((l) => l.location.id)}
           />
-          <p className="mt-1.5 text-center text-xs text-muted">お店でこのガチャを見かけたら、在庫の状態を教えてください</p>
+          <p className="mt-1.5 text-center text-xs text-muted">お店でこのガチャを見つけたら、店舗と在庫の状態を教えてください</p>
         </div>
         <ProductLocationsView productId={product.id} entries={locations} />
       </section>

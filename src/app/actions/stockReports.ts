@@ -6,10 +6,11 @@ import { getDataSource } from "@/lib/data";
 import { cacheTags } from "@/lib/data/cacheTags";
 import { PlacementNotFoundError, ReportRateLimitedError } from "@/lib/data/source";
 import { REPORTABLE_STATUSES } from "@/lib/stock";
-import type { ReportableStockStatus, StockReport } from "@/types";
+import type { AddedStockReport } from "@/lib/data/source";
+import type { ReportableStockStatus } from "@/types";
 
 export type ReportStockResult =
-  | { ok: true; report: StockReport; persisted: boolean }
+  | { ok: true; report: AddedStockReport; persisted: boolean }
   | { ok: false; error: "invalid_input" | "placement_not_found" | "unauthenticated" | "server_error" }
   | { ok: false; error: "rate_limited"; retryAfterSeconds: number };
 

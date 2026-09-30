@@ -18,7 +18,7 @@ export type SearchLocationsResult =
 const MAX_QUERY_LENGTH = 60;
 
 /**
- * 店舗の検索（Server Action）。「この店で見つけた」報告で店舗を選ぶために使う。
+ * 店舗の検索（Server Action）。「この店舗で見つけた」報告で店舗を選ぶために使う。
  * 店舗の索引だけを検索し、Firestore の locations は読まない。
  */
 export async function searchLocationsAction(query: unknown): Promise<SearchLocationsResult> {

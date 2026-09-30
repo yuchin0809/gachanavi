@@ -2,12 +2,13 @@ const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 
-/** 「たった今」「12分前」「2時間前」「3日前」のような相対時刻表記 */
+/** 「たった今」「12分前」「2時間前」「昨日」「3日前」のような相対時刻表記 */
 export function formatRelativeTime(iso: string, now: Date = new Date()): string {
   const diff = now.getTime() - new Date(iso).getTime();
   if (diff < MINUTE) return "たった今";
   if (diff < HOUR) return `${Math.floor(diff / MINUTE)}分前`;
   if (diff < DAY) return `${Math.floor(diff / HOUR)}時間前`;
+  if (diff < 2 * DAY) return "昨日";
   if (diff < 30 * DAY) return `${Math.floor(diff / DAY)}日前`;
   return formatDateTime(iso);
 }

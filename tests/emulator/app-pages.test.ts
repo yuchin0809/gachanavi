@@ -82,7 +82,7 @@ test("商品詳細：実商品・在庫報告のあった店舗・価格なし�
 test("商品説明文は権利確認が済むまで表示しない。フッターは実データ用の文言", { skip }, async () => {
   const { text } = await page("/gacha/bandai-4570118187086000");
   assert.doesNotMatch(text, /2弾が登場です/); // 収集データの description の一部
-  assert.match(text, /この店で見つけた/);
+  assert.match(text, /この店舗で見つけた/);
   assert.match(text, /公式サイトに掲載された情報です/);
   assert.doesNotMatch(text, /ダミーデータ/);
 });

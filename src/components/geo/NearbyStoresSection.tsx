@@ -7,6 +7,7 @@ import { getStoreDetailAction, getStoreMapEntriesAction, type StoreDetailResult 
 import { GachaImage } from "@/components/gacha/GachaImage";
 import { SectionHeader } from "@/components/gacha/SectionHeader";
 import type { StorePin, ViewBounds } from "@/components/map/LeafletStoreMap";
+import { RouteButton } from "@/components/map/RouteButton";
 import { LastChecked } from "@/components/stock/LastChecked";
 import { StockBadge, StockDot } from "@/components/stock/StockBadge";
 import { useStockResolver } from "@/components/stock/StockReportsProvider";
@@ -320,6 +321,7 @@ function StorePanel({
             {location?.address && <p className="break-words text-muted">{location.address}</p>}
             {location?.openingHours && <p className="break-words text-xs text-muted">営業時間：{location.openingHours}</p>}
           </div>
+          <RouteButton location={store} className="mt-3" />
           <div className="mt-3 flex flex-wrap gap-2">
             {location?.officialUrl && (
               <a
@@ -346,7 +348,7 @@ function StorePanel({
           </h4>
           {products.length === 0 ? (
             <p className="mt-2 rounded-xl bg-canvas p-3 text-xs text-muted">
-              この店舗に設置されているガチャの情報はまだありません。お店でガチャを見つけたら、商品ページの「この店で見つけた」から教えてください。
+              この店舗に設置されているガチャの情報はまだありません。お店でガチャを見つけたら、商品ページの「この店舗で見つけた」から教えてください。
             </p>
           ) : (
             <ul className="mt-2 divide-y divide-line">

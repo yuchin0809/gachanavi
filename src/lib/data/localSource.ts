@@ -19,6 +19,7 @@ import {
 } from "@/lib/catalog/collected";
 import { toCatalogProduct } from "@/lib/catalog/index-format";
 import type { CatalogProduct, GachaProduct, ID, Location, Placement, StockReport } from "@/types";
+import { memoryFavorites } from "./memoryFavorites";
 import { checkMemoryThrottle } from "./memoryThrottle";
 import type { DataSource } from "./source";
 import { PlacementNotFoundError, placementIdOf } from "./source";
@@ -131,7 +132,8 @@ export function createLocalDataSource(): DataSource {
       const now = checkMemoryThrottle(input);
       const reportedAt = input.reportedAt ?? new Date(now).toISOString();
       const id = placementIdOf(input.productId, input.locationId);
-      if (!placements.has(id)) {
+      const placementCreated = !placements.has(id);
+      if (placementCreated) {
         placements.set(id, { id, productId: input.productId, locationId: input.locationId, firstSeenAt: reportedAt });
       }
       const report: StockReport = {
@@ -143,7 +145,8 @@ export function createLocalDataSource(): DataSource {
         reportedAt,
       };
       reports.push(report);
-      return report;
+      return { ...report, placementCreated };
     },
+    ...memoryFavorites,
   };
 }

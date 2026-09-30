@@ -1,4 +1,5 @@
 import { LocationMap } from "@/components/map/LocationMap";
+import { RouteButton } from "@/components/map/RouteButton";
 import { ClockIcon, ExternalIcon, PinIcon } from "@/components/ui/Icons";
 import { googleMapsUrl, hasCoordinates } from "@/lib/geo";
 import type { Location } from "@/types";
@@ -40,15 +41,20 @@ export function LocationInfoCard({ location }: { location: Location }) {
             </dd>
           </div>
         </dl>
-        <a
-          href={googleMapsUrl(location)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 flex h-11 items-center justify-center gap-1.5 rounded-full border-2 border-ink text-sm font-bold hover:bg-canvas"
-        >
-          Googleマップで経路を見る
-          <ExternalIcon className="h-4 w-4" />
-        </a>
+        {hasCoordinates(location) ? (
+          <RouteButton location={location} className="mt-4" />
+        ) : (
+          // 座標が無い店舗は「ここへ行く」を出さず、店舗名・住所で地図を検索するだけにする
+          <a
+            href={googleMapsUrl(location)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 flex h-11 items-center justify-center gap-1.5 rounded-full border-2 border-ink text-sm font-bold hover:bg-canvas"
+          >
+            Googleマップで店舗名・住所を検索
+            <ExternalIcon className="h-4 w-4" />
+          </a>
+        )}
       </div>
     </section>
   );
