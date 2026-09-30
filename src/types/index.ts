@@ -68,6 +68,8 @@ export interface Location {
   lat: number | null;
   lng: number | null;
   openingHours: string | null;
+  /** 店舗の公式サイト（データにある場合のみ。推測して作らない） */
+  officialUrl?: string | null;
 }
 
 /** 座標が分かっている設置場所 */
@@ -167,4 +169,19 @@ export interface NearbyFindCandidate {
 export interface GeoPoint {
   lat: number;
   lng: number;
+}
+
+/**
+ * トップの地図に表示する店舗（軽量版）。在庫の集計は placements.latestStock から求める。
+ * 設置情報（placement）の有無と在庫状態（在庫報告）は別に数える。
+ */
+export interface StoreMapEntry {
+  id: ID;
+  name: string;
+  lat: number;
+  lng: number;
+  /** この店舗の設置情報の数（設置・取扱いが確認された商品数） */
+  placementCount: number;
+  /** 設置情報ごとの最新の在庫状態の件数（報告が無いものは unknown） */
+  stockCounts: Record<StockStatus, number>;
 }

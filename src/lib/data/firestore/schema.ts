@@ -169,6 +169,8 @@ export function locationFromData(id: string, d: Record<string, unknown>): Locati
     lat: lat !== null && lng !== null ? lat : null,
     lng: lat !== null && lng !== null ? lng : null,
     openingHours: strOrNull(d.openingHours),
+    // 公式サイトはデータにある場合だけ（https のみ）
+    officialUrl: typeof d.officialUrl === "string" && /^https:\/\//.test(d.officialUrl) ? d.officialUrl : null,
   };
 }
 

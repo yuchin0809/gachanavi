@@ -57,3 +57,46 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* 地図（Leaflet）の店舗ピンと現在地（src/components/map/LeafletStoreMap.tsx） */
+.gn-pin {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--pin);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgb(29 26 43 / 0.35);
+}
+.gn-pin::after {
+  content: "";
+  position: absolute;
+  inset: 28%;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.gn-pin--empty {
+  border-color: var(--color-ink);
+}
+.gn-pin--empty::after {
+  background: var(--color-ink);
+  inset: 32%;
+}
+.gn-pin--selected {
+  border-color: var(--color-ink);
+  box-shadow: 0 0 0 4px rgb(239 69 80 / 0.35), 0 3px 10px rgb(29 26 43 / 0.45);
+}
+.gn-here {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 6px rgb(59 130 246 / 0.25);
+}
+.leaflet-container {
+  font-family: var(--font-sans);
+}

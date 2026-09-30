@@ -1,11 +1,11 @@
 import { GachaCard } from "@/components/gacha/GachaCard";
 import { HorizontalScroller } from "@/components/gacha/HorizontalScroller";
 import { SectionHeader } from "@/components/gacha/SectionHeader";
-import { NearbyFindsSection } from "@/components/geo/NearbyFindsSection";
+import { NearbyStoresSection } from "@/components/geo/NearbyStoresSection";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { KeywordChips } from "@/components/search/KeywordChips";
 import { SearchBar } from "@/components/search/SearchBar";
-import { getAvailableFinds, getNewProducts, getTrendingProducts, getUpcomingProducts } from "@/lib/data";
+import { getNewProducts, getTrendingProducts, getUpcomingProducts } from "@/lib/data";
 import { formatReleaseMonth } from "@/lib/format";
 import { latestMonth } from "@/lib/release";
 
@@ -15,12 +15,7 @@ export const dynamic = "force-dynamic";
 const POPULAR_KEYWORDS = ["ねこ", "ミニチュア", "恐竜", "ペンギン", "ぬいぐるみ", "深海"];
 
 export default async function HomePage() {
-  const [trending, newest, upcoming, nearbyCandidates] = await Promise.all([
-    getTrendingProducts(),
-    getNewProducts(),
-    getUpcomingProducts(),
-    getAvailableFinds(),
-  ]);
+  const [trending, newest, upcoming] = await Promise.all([getTrendingProducts(), getNewProducts(), getUpcomingProducts()]);
 
   return (
     <>
@@ -69,7 +64,8 @@ export default async function HomePage() {
           </section>
         )}
 
-        <NearbyFindsSection candidates={nearbyCandidates} />
+        {/* 📍 近くのガチャガチャ：地図と店舗は表示後に読み込む（現在地はサーバーに送らない） */}
+        <NearbyStoresSection />
       </PageContainer>
     </>
   );

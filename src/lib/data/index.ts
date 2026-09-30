@@ -24,6 +24,7 @@ import type {
   ProductLocationEntry,
   ReleaseStatus,
   StockSnapshot,
+  StoreMapEntry,
 } from "@/types";
 import { getDataSourceKind } from "./config";
 import { createMockDataSource } from "./mockSource";
@@ -242,6 +243,37 @@ export async function searchLocations(
   const nameHit = (l: Location) => terms.every((t) => normalizeForSearch(l.name).includes(t));
   matched.sort((a, b) => Number(nameHit(b)) - Number(nameHit(a)) || a.name.localeCompare(b.name, "ja"));
   return { items: matched.slice(0, limit), total: matched.length };
+}
+
+/**
+ * 🗺 トップの地図用の店舗一覧（座標がある店舗のみ・軽量版）。
+ * 店舗の索引（キャッシュ済み）と、トップの集計ですでに読み込んでいる設置情報から作るため、Firestore の読み取りは増えない。
+ * 現在地はサーバーに送らないため、距離の計算・近い店舗の絞り込みはブラウザ側で行う。
+ */
+export async function getStoreMapEntries(): Promise<StoreMapEntry[]> {
+  const [locations, placements] = await Promise.all([loadLocations(), loadAllPlacements()]);
+  const byLocation = new Map<ID, StoreMapEntry["stockCounts"] & { total: number }>();
+  for (const { placement, stock } of placements) {
+    const c = byLocation.get(placement.locationId) ?? { in_stock: 0, low: 0, sold_out: 0, unknown: 0, total: 0 };
+    c[stock.status] += 1;
+    c.total += 1;
+    byLocation.set(placement.locationId, c);
+  }
+  const round = (n: number) => Math.round(n * 1e5) / 1e5;
+  const entries: StoreMapEntry[] = [];
+  for (const l of locations) {
+    if (l.lat === null || l.lng === null) continue;
+    const c = byLocation.get(l.id);
+    entries.push({
+      id: l.id,
+      name: l.name,
+      lat: round(l.lat),
+      lng: round(l.lng),
+      placementCount: c?.total ?? 0,
+      stockCounts: { in_stock: c?.in_stock ?? 0, low: c?.low ?? 0, sold_out: c?.sold_out ?? 0, unknown: c?.unknown ?? 0 },
+    });
+  }
+  return entries;
 }
 
 /** generateMetadata とページ本体で同じ詳細を2回読まないよう、リクエスト内でキャッシュする */

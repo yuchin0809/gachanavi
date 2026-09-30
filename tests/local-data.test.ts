@@ -128,3 +128,28 @@ test("店舗詳細：座標なしの店舗も表示でき、座標は null の�
   assert.equal(detail.location.lat, null);
   assert.equal(detail.location.lng, null);
 });
+
+test("地図用の店舗一覧：座標のある店舗だけ・1 店舗 1 件・設置と在庫の件数つき（未確認は売り切れにしない）", async () => {
+  const { getStoreMapEntries } = await load();
+  const d = await ds();
+  const entries = await getStoreMapEntries();
+  const all = await d.listLocations();
+  const withCoords = all.filter((l) => l.lat !== null && l.lng !== null);
+  assert.equal(entries.length, withCoords.length);
+  assert.ok(entries.length > 0 && entries.length < all.length);
+  assert.equal(new Set(entries.map((e) => e.id)).size, entries.length);
+  for (const e of entries) {
+    assert.ok(Number.isFinite(e.lat) && Number.isFinite(e.lng));
+    const counted = e.stockCounts.in_stock + e.stockCounts.low + e.stockCounts.sold_out + e.stockCounts.unknown;
+    assert.equal(counted, e.placementCount);
+  }
+
+  // 報告のある設置は報告の状態、報告の無い設置は「未確認」で数える
+  const located = withCoords.find((l) => !entries.find((e) => e.id === l.id)?.placementCount)!;
+  const product = (await d.listCatalogProducts()).find((p) => p.id === "bandai-4570118187086000")!;
+  await d.addStockReport({ productId: product.id, locationId: located.id, userId: "u-map", status: "sold_out" });
+  const after = (await getStoreMapEntries()).find((e) => e.id === located.id)!;
+  assert.equal(after.placementCount, 1);
+  assert.equal(after.stockCounts.sold_out, 1);
+  assert.equal(after.stockCounts.unknown, 0);
+});

@@ -169,6 +169,8 @@ export const mockLocations: Location[] = [
     lat: 35.6604,
     lng: 139.6983,
     openingHours: "10:00〜22:00",
+    // デモ用の架空の店舗（公式サイトの表示確認用。実在しない example.com）
+    officialUrl: "https://example.com/gachanavi-demo/shibuya",
   },
   {
     id: "l-002",
