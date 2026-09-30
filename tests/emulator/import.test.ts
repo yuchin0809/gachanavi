@@ -3,7 +3,7 @@
  *
  *   npm run test:emulator   （エミュレータを起動して実行・終了後に停止）
  */
-import { guard, resetEmulator, emulatorIdToken } from "./helpers";
+import { guard, resetEmulator, emulatorIdToken, seedProductionLikeMock } from "./helpers";
 
 import assert from "node:assert/strict";
 import { readFile, rm } from "node:fs/promises";
@@ -35,28 +35,7 @@ before(async () => {
   rawLocations = JSON.parse(await readFile(path.join(ROOT, "data/collected/locations.json"), "utf8"));
 
   // 現在の本番と同じ状態を再現：isSample の付いていないモック（products 10 / locations 8 / placements / stockReports / users）
-  const mock = createMockDatabase(new Date());
-  const ts = (iso: string) => Timestamp.fromDate(new Date(iso));
-  const batch = db.batch();
-  for (const { id, ...p } of mock.products) batch.set(db.collection("products").doc(id), p);
-  for (const { id, ...l } of mock.locations) batch.set(db.collection("locations").doc(id), l);
-  for (const u of mock.users) batch.set(db.collection("users").doc(u.id), { displayName: u.displayName, createdAt: ts(u.createdAt) });
-  const latest = new Map<string, { status: string; reportedAt: Timestamp; reportId: string }>();
-  for (const r of mock.stockReports) {
-    const k = placementIdOf(r.productId, r.locationId);
-    if (!latest.has(k) || ts(r.reportedAt).toMillis() > latest.get(k)!.reportedAt.toMillis()) {
-      latest.set(k, { status: r.status, reportedAt: ts(r.reportedAt), reportId: r.id });
-    }
-    batch.set(db.collection("stockReports").doc(r.id), {
-      productId: r.productId, locationId: r.locationId, placementId: k, userId: r.userId, status: r.status, reportedAt: ts(r.reportedAt),
-    });
-  }
-  for (const pl of mock.placements) {
-    batch.set(db.collection("placements").doc(pl.id), {
-      productId: pl.productId, locationId: pl.locationId, firstSeenAt: ts(pl.firstSeenAt), latestStock: latest.get(pl.id) ?? null,
-    });
-  }
-  await batch.commit();
+  await seedProductionLikeMock(db);
 });
 
 test("1-3. 変換：23,464 商品・1,796 店舗を Firestore の形式に変換でき、ID 衝突がない", () => {
@@ -75,6 +54,11 @@ test("ドライラン：書き込みを行わない", async () => {
   const r = await runImport({ dryRun: true, checkpointPath: CHECKPOINT, log: quiet });
   assert.equal(r.written, 0);
   assert.equal(r.planned, 23464 + 1796 + 13 + 1);
+  // 1 日の上限（15,000 件）にはモックの isSample（最大 18 件）も含む
+  const limited = await runImport({ dryRun: true, maxWrites: 15000, checkpointPath: CHECKPOINT, log: quiet });
+  assert.equal(limited.pendingWrites, 18 + 25274);
+  assert.equal(limited.plannedThisRun, 15000);
+  assert.equal(limited.stoppedByWriteLimit, true);
   assert.equal(await count("products"), 10);
   assert.equal(await count("locations"), 8);
   assert.equal(r.samples.candidates, 18);
@@ -82,7 +66,7 @@ test("ドライラン：書き込みを行わない", async () => {
   assert.equal((await db.collection("products").doc("p-001").get()).get("isSample"), undefined);
 });
 
-test("4. バッチ投入（400 件）：1 日の上限（15,000 件）で止まり、索引の meta はまだ書かれない", async () => {
+test("4. バッチ投入（400 件）：1 日の上限（15,000 件。isSample の 18 件を含む）で止まり、索引の meta はまだ書かれない", async () => {
   const r = await runImport({ batchSize: 400, maxWrites: 15000, checkpointPath: CHECKPOINT, retryBaseMs: 50, log: quiet });
   assert.equal(r.failures.length, 0);
   assert.equal(r.written, 15000);
@@ -107,9 +91,10 @@ test("4. バッチ投入（400 件）：1 日の上限（15,000 件）で止ま�
 test("4. 翌日分の再開：残りと索引を書き、最後に meta を書く", async () => {
   const r = await runImport({ batchSize: 400, maxWrites: 15000, checkpointPath: CHECKPOINT, retryBaseMs: 50, log: quiet });
   assert.equal(r.failures.length, 0);
-  assert.equal(r.skippedUnchanged, 15000);
+  assert.equal(r.skippedUnchanged, 15000 - 18);
   assert.deepEqual(r.samples, { candidates: 18, marked: 0, alreadyMarked: 18, missing: 0 });
-  assert.equal(r.written, 25274 - 15000);
+  assert.equal(r.written, 25274 - (15000 - 18));
+  assert.equal(r.reads.verify > 0, true); // meta の前に件数を確認している
   assert.equal(r.metaWritten, true);
   assert.equal(await count("products"), 23464 + 10);
   assert.equal(await count("locations"), 1796 + 8);

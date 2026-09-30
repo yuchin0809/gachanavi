@@ -78,7 +78,7 @@ const cachedCatalogMeta = unstable_cache(
     };
   },
   [CACHE_SCOPE, "fs:catalogMeta"],
-  { tags: [cacheTags.catalog], revalidate: cacheSeconds.catalog },
+  { tags: [cacheTags.catalog], revalidate: cacheSeconds.catalogMeta },
 );
 
 /** 索引の 1 シャード（1 回の読み取り）。シャードごとにキャッシュする（1 件 2MB 未満） */

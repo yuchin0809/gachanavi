@@ -2,6 +2,9 @@
  * Emulator 統合テストの共通処理。必ず assertEmulatorOnly() を firebase-admin より先に呼ぶ。
  */
 import { assertEmulatorOnly } from "../../scripts/lib/emulatorGuard";
+import { type Firestore, Timestamp } from "firebase-admin/firestore";
+import { createMockDatabase } from "../../src/data/mock";
+import { placementIdOf } from "../../src/lib/data/source";
 
 export const guard = assertEmulatorOnly();
 
@@ -29,4 +32,33 @@ export async function emulatorIdToken(): Promise<{ idToken: string; uid: string 
   );
   const json = (await res.json()) as { idToken: string; localId: string };
   return { idToken: json.idToken, uid: json.localId };
+}
+
+/**
+ * 現在の本番と同じ状態を再現する：isSample の付いていないモック
+ * （products 10 / locations 8 / placements / stockReports（latestStock 付き）/ users）
+ */
+export async function seedProductionLikeMock(db: Firestore): Promise<void> {
+  const mock = createMockDatabase(new Date());
+  const ts = (iso: string) => Timestamp.fromDate(new Date(iso));
+  const batch = db.batch();
+  for (const { id, ...p } of mock.products) batch.set(db.collection("products").doc(id), p);
+  for (const { id, ...l } of mock.locations) batch.set(db.collection("locations").doc(id), l);
+  for (const u of mock.users) batch.set(db.collection("users").doc(u.id), { displayName: u.displayName, createdAt: ts(u.createdAt) });
+  const latest = new Map<string, { status: string; reportedAt: Timestamp; reportId: string }>();
+  for (const r of mock.stockReports) {
+    const k = placementIdOf(r.productId, r.locationId);
+    if (!latest.has(k) || ts(r.reportedAt).toMillis() > latest.get(k)!.reportedAt.toMillis()) {
+      latest.set(k, { status: r.status, reportedAt: ts(r.reportedAt), reportId: r.id });
+    }
+    batch.set(db.collection("stockReports").doc(r.id), {
+      productId: r.productId, locationId: r.locationId, placementId: k, userId: r.userId, status: r.status, reportedAt: ts(r.reportedAt),
+    });
+  }
+  for (const pl of mock.placements) {
+    batch.set(db.collection("placements").doc(pl.id), {
+      productId: pl.productId, locationId: pl.locationId, firstSeenAt: ts(pl.firstSeenAt), latestStock: latest.get(pl.id) ?? null,
+    });
+  }
+  await batch.commit();
 }

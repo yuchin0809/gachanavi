@@ -26,6 +26,11 @@ export const cacheTags = {
  */
 export const cacheSeconds = {
   catalog: 60 * 60,
+  /**
+   * 索引の meta（1 ドキュメント）。投入で meta が書かれたら数分で新しい索引に切り替わるよう短くする
+   * （5 分ごとに 1 読み取り = 最大 288 読み取り/日。シャードは版ごとのキーでキャッシュするため、版が変わるまで読み直さない）
+   */
+  catalogMeta: 5 * 60,
   placements: 5 * 60,
   recentReports: 30 * 60,
 } as const;

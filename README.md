@@ -342,6 +342,29 @@ env -u FIREBASE_PRIVATE_KEY -u FIREBASE_CLIENT_EMAIL DATA_SOURCE=firestore FIREB
 GACHANAVI_APP_URL=http://127.0.0.1:3100 npm run test:emulator:app
 ```
 
+### 本番 Firestore への投入（実データ）
+
+本番投入は `--target=production` で行います（エミュレータ用のガードはそのまま。本番は `scripts/lib/productionGuard.ts` で別に確認）。
+次のすべてを満たさない場合は、接続する前に停止します。
+
+- `--project=gachanavi-21ee8`（コードに固定したプロジェクト ID と完全一致）と、環境変数 `FIREBASE_PROJECT_ID` の一致
+- `FIREBASE_CLIENT_EMAIL` がこのプロジェクトのサービスアカウント、`FIREBASE_PRIVATE_KEY` が設定済み
+- `FIRESTORE_EMULATOR_HOST` などエミュレータ用の環境変数が未設定
+- `--max-writes=`（1〜20,000）の指定と、書き込み時はドライランで表示される確認コード `--confirm-plan=`
+
+```bash
+# 1) ドライラン（書き込みなし。Firestore の既存 ID を確認するため既存ドキュメント数だけ読み取り）
+npx tsx scripts/import-collected.ts --target=production --project=gachanavi-21ee8 --max-writes=15000 --dry-run
+# 2) 書き込み（1 日 1 回。上限で停止したら、翌日に同じコマンドで続きから）
+npx tsx scripts/import-collected.ts --target=production --project=gachanavi-21ee8 --max-writes=15000 --confirm-plan=<確認コード>
+```
+
+- 既存ドキュメントは上書きしません（`create()`）。再開は Firestore の既存 ID で判定し、未投入の ID だけを書きます（ローカルの記録に依存しない）
+- `--max-writes` はモックの `isSample` 更新（18 件）と meta を含む上限です
+- 全商品・全店舗・全シャードを件数で確認してから、最後に `catalogIndex/meta` を書きます。既存の索引と内容が異なる場合は何も書かずに停止します
+- placements / stockReports / users には書き込みません
+- meta を書いた後、アプリは最大 5 分（meta のキャッシュ）で新しい索引に切り替わります
+
 ### デプロイ先について
 
 Next.js のサーバー機能（Server Action・キャッシュ）を使うため、サーバーを実行できる環境が必要です。
