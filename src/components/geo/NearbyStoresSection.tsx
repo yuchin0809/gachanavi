@@ -249,7 +249,7 @@ function StockSummary({ store }: { store: StoreMapEntry }) {
   if (store.placementCount === 0) {
     return (
       <span className="inline-flex items-center gap-1 text-muted">
-        <StockDot status="unknown" className="h-2 w-2" />
+        <NoPlacementDot className="h-2 w-2 border-[1.5px]" />
         設置情報なし
       </span>
     );
@@ -373,6 +373,11 @@ function StorePanel({
   );
 }
 
+/** 設置情報が無い店舗の印（地図の白いピンと同じ。灰色の「未確認」と区別する） */
+function NoPlacementDot({ className }: { className: string }) {
+  return <span aria-hidden="true" className={`inline-block shrink-0 rounded-full border-ink bg-surface ${className}`} />;
+}
+
 function MapLegend() {
   const items: { status: StockStatus | null; label: string }[] = [
     { status: "in_stock", label: "在庫あり" },
@@ -388,7 +393,7 @@ function MapLegend() {
           {it.status ? (
             <StockDot status={it.status} className="h-2.5 w-2.5" />
           ) : (
-            <span aria-hidden="true" className="inline-block h-2.5 w-2.5 rounded-full border-2 border-ink bg-surface" />
+            <NoPlacementDot className="h-2.5 w-2.5 border-2" />
           )}
           {it.label}
         </li>
