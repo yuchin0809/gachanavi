@@ -23,14 +23,12 @@ export type GachaImageProduct = Pick<
 > & {
   /** 種類数（商品詳細のみ。一覧の索引には無い） */
   lineupCount?: string | null;
-  /** 将来：ユーザーが投稿した実物写真（確認済みのもの） */
-  userPhotoUrl?: string | null;
 };
 
 /**
  * 商品画像（正方形）。
  *
- * 表示するもの: ユーザーの実物写真 → 権利確認済みの画像 → GachaNavi オリジナルの生成ビジュアル（src/lib/visual/source.ts）。
+ * 表示するもの: 権利確認済みの画像 → GachaNavi オリジナルの生成ビジュアル（基本の商品画像。src/lib/visual/source.ts）。
  * メーカー公式画像は権利確認が済むまで表示しない。
  *
  * - variant="full"    : 上部約 65% にビジュアル、下部約 35% に商品情報（商品名・メーカー・価格・発売月・種類数）。

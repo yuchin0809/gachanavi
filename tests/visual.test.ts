@@ -118,12 +118,11 @@ test("種類数の表示：全N種にそろえ、数が読めなければ表示�
   assert.equal(lineupLabel(null), null);
 });
 
-test("表示元：メーカー公式画像は使わず生成ビジュアル。アプリ内の画像・将来のユーザー写真を優先", () => {
+test("表示元：メーカー公式画像は使わず生成ビジュアル。権利確認済み（アプリ内）の画像のみ優先", () => {
   assert.deepEqual(resolveProductImage({ imageUrl: "https://bandai-a.akamaihd.net/bc/img/model/b/1000.jpg" }), { kind: "generated" });
   assert.deepEqual(resolveProductImage({ imageUrl: null }), { kind: "generated" });
   assert.deepEqual(resolveProductImage({ imageUrl: "/images/gacha/p-001.svg" }), { kind: "licensed", url: "/images/gacha/p-001.svg" });
-  assert.deepEqual(resolveProductImage({ imageUrl: null, userPhotoUrl: "/uploads/u1.jpg" }), { kind: "user-photo", url: "/uploads/u1.jpg" });
-  assert.deepEqual(resolveProductImage({ imageUrl: null, userPhotoUrl: "https://example.com/x.jpg" }), { kind: "generated" });
+  assert.deepEqual(resolveProductImage({ imageUrl: "https://example.com/x.jpg" }), { kind: "generated" });
 });
 
 test("SVG：外部 URL・画像を参照せず、軽量で、数値が壊れていない", () => {
