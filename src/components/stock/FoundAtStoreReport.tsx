@@ -4,8 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { searchLocationsAction, type LocationCandidate } from "@/app/actions/locations";
+import { useCurrentPosition } from "@/components/geo/CurrentPositionProvider";
 import { CheckIcon, ChevronLeftIcon, ClockIcon, SearchIcon, StoreIcon } from "@/components/ui/Icons";
 import { StockReportError } from "@/lib/data/reports";
+import { formatDistance } from "@/lib/format";
+import { distanceOrNull } from "@/lib/geo";
 import { REPORT_COOLDOWN_MS, placementIdOf } from "@/lib/data/source";
 import { REPORTABLE_STATUSES, STOCK_STATUS_META } from "@/lib/stock";
 import type { ID, ReportableStockStatus } from "@/types";
@@ -19,6 +22,11 @@ import { useReportStock, useReportsPersistent } from "./StockReportsProvider";
  * - Placement（設置情報）＝その商品がその店舗に設置・取扱いされている。無ければこの報告で作成し、あれば再利用する
  * - StockReport（在庫報告）＝その時点の在庫状態。報告のたびに履歴として追加する（日時はサーバーの時刻）
  * 同じ商品×店舗への 10 分以内の再報告はサーバー側で拒否され、待ち時間を表示する。
+ *
+ * 現地確認：店舗にいなくても報告はできる（位置情報は必須にしない・距離で拒否しない）。
+ * 「実際にこの店舗で確認した情報を報告してください」と案内し、現在地が取得済みの場合だけ
+ * 選んだ店舗までの距離をブラウザ上で計算して表示する（現在地はサーバー・Firestore に送らない。
+ * 位置情報の許可はこの画面では求めない）。
  */
 
 type Step = "store" | "confirm" | "status" | "submitting" | "result";
@@ -307,7 +315,9 @@ function ReportSheet({
                 <div className="my-2.5 border-t border-line" />
                 <p className="text-[11px] font-bold text-muted">見つけた店舗</p>
                 <SelectedStore store={store} plain />
+                <StoreDistance store={store} />
               </div>
+              <OnSiteNotice />
               <p
                 className={`mt-3 rounded-2xl p-3 text-xs leading-relaxed ${
                   alreadyPlaced ? "bg-stock-in-soft text-stock-in-ink" : "bg-accent-soft text-ink"
@@ -325,6 +335,7 @@ function ReportSheet({
           {(step === "status" || step === "submitting") && store && (
             <div>
               <SelectedStore store={store} />
+              <StoreDistance store={store} />
               <p className="mt-4 text-sm font-bold">今の在庫はどうでしたか？</p>
               <div className="mt-2 grid gap-2" role="radiogroup" aria-label="在庫の状態">
                 {REPORTABLE_STATUSES.map((s) => {
@@ -349,7 +360,7 @@ function ReportSheet({
                 })}
               </div>
               <p className="mt-3 text-[11px] leading-relaxed text-muted">
-                報告は匿名で送信され、ほかのユーザーに「最終確認」として表示されます（日時はサーバーで記録）。同じガチャ・同じ店舗への報告は10分に1回までです。
+                実際にこの店舗で確認した情報を報告してください。報告は匿名で送信され、ほかのユーザーに「最終確認」として表示されます（日時はサーバーで記録）。同じガチャ・同じ店舗への報告は10分に1回までです。
               </p>
               {waiting && step === "status" && <WaitNotice waitMs={waitMs} lead="この店舗には少し前に報告済みです。" />}
             </div>
@@ -447,6 +458,32 @@ function SelectedStore({ store, plain = false }: { store: LocationCandidate; pla
         <p className="text-xs text-muted">{store.address}</p>
       </div>
     </div>
+  );
+}
+
+/** 実際に店舗で確認した情報だけを報告してもらうための注意書き */
+function OnSiteNotice() {
+  return (
+    <p role="note" className="mt-3 flex items-start gap-2 rounded-2xl bg-canvas p-3 text-xs font-bold leading-relaxed ring-1 ring-line">
+      <StoreIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+      実際にこの店舗で確認した情報を報告してください。
+    </p>
+  );
+}
+
+/**
+ * 現在地が取得済みの場合だけ、選んだ店舗までの距離を表示する（ユーザー自身が店舗を確かめるための目安）。
+ * 距離はブラウザで計算し、現在地はどこにも送らない。現在地が無い・店舗の座標が無い場合は何も表示しない
+ */
+function StoreDistance({ store }: { store: LocationCandidate }) {
+  const { position, isCurrent } = useCurrentPosition();
+  const meters = isCurrent ? distanceOrNull(position, store) : null;
+  if (meters === null) return null;
+  return (
+    <p className="mt-1.5 flex items-center gap-1 text-xs font-bold text-ink" data-testid="store-distance">
+      <span aria-hidden="true">📍</span>
+      現在地から {formatDistance(meters)}
+    </p>
   );
 }
 

@@ -9,6 +9,9 @@ export interface LocationCandidate {
   name: string;
   address: string;
   area: string;
+  /** 距離の表示用（ブラウザで現在地との距離を計算する。現在地はサーバーに送らない）。不明なら null */
+  lat: number | null;
+  lng: number | null;
 }
 
 export type SearchLocationsResult =
@@ -30,7 +33,7 @@ export async function searchLocationsAction(query: unknown): Promise<SearchLocat
     return {
       ok: true,
       total,
-      items: items.map(({ id, name, address, area }) => ({ id, name, address, area })),
+      items: items.map(({ id, name, address, area, lat, lng }) => ({ id, name, address, area, lat, lng })),
     };
   } catch (error) {
     console.error("[searchLocationsAction]", error);

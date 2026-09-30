@@ -29,7 +29,7 @@ test("Server Action：店舗検索（店舗名・地名・住所の AND 検索�
   const kuzuha = await searchLocationsAction("枚方 くずは");
   assert.ok(kuzuha.ok);
   assert.ok(kuzuha.ok && kuzuha.items.some((l) => l.id === "gp-S90000893")); // #C-pla くずはモール店
-  assert.ok(kuzuha.ok && kuzuha.items.every((l) => Object.keys(l).sort().join() === "address,area,id,name"));
+  assert.ok(kuzuha.ok && kuzuha.items.every((l) => Object.keys(l).sort().join() === "address,area,id,lat,lng,name"));
 
   // カタカナ・ひらがな、全角・半角を区別しない
   const kana = await searchLocationsAction("ｸｽﾞﾊ");

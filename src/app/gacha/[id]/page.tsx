@@ -118,7 +118,7 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
             product={{ id: product.id, name: product.name, maker: product.maker }}
             knownLocations={locations
               .slice(0, 5)
-              .map(({ location: { id, name, address, area } }) => ({ id, name, address, area }))}
+              .map(({ location: { id, name, address, area, lat, lng } }) => ({ id, name, address, area, lat, lng }))}
             placedLocationIds={locations.map((l) => l.location.id)}
           />
           <p className="mt-1.5 text-center text-xs text-muted">お店でこのガチャを見つけたら、店舗と在庫の状態を教えてください</p>
