@@ -6,6 +6,7 @@ import { useReportsPersistent } from "@/components/stock/StockReportsProvider";
 import { BellIcon, HeartIcon } from "@/components/ui/Icons";
 import { type NotificationSupport, isIOSDevice, requestNotificationPermission } from "@/lib/browserNotification";
 import { FavoriteError, saveFavorite, saveStockAlert } from "@/lib/favoritesClient";
+import { type PushSetupResult, disableBackgroundPushIfUnused, enableBackgroundPush } from "@/lib/pushClient";
 import type { ID } from "@/types";
 import { useFavoriteMirror } from "./useFavoriteMirror";
 
@@ -19,7 +20,13 @@ function errorMessage(error: unknown): string {
   return "保存できませんでした。通信状態を確認して、もう一度お試しください。";
 }
 
-function notifyMessage(permission: NotificationSupport): string {
+function notifyMessage(permission: NotificationSupport, push: PushSetupResult | null): string {
+  if (push === "enabled") {
+    return "新しく「在庫あり」「残りわずか」の報告があったら、GachaNavi を閉じていても通知します。";
+  }
+  if (push === "ios_needs_install") {
+    return "iPhone では、ホーム画面に追加した GachaNavi から通知を ON にすると、閉じていても通知が届きます。今は GachaNavi を開いたときに画面でお知らせします。";
+  }
   if (permission === "granted") {
     return "新しく「在庫あり」「残りわずか」の報告があったら、GachaNavi を開いたときに通知します。";
   }
@@ -47,6 +54,8 @@ export function FavoriteControls({ productId }: { productId: ID }) {
     setMessage(null);
     try {
       await saveFavorite(productId, !saved, persistent);
+      // 通知 ON のお気に入りが無くなったら、この端末のバックグラウンド通知の登録も外す
+      if (saved) await disableBackgroundPushIfUnused(persistent);
     } catch (error) {
       setMessage({ tone: "error", text: errorMessage(error) });
     }
@@ -60,7 +69,14 @@ export function FavoriteControls({ productId }: { productId: ID }) {
     const permission = enabled ? await requestNotificationPermission() : null;
     try {
       await saveStockAlert(productId, enabled, persistent);
-      setMessage(permission ? { tone: "info", text: notifyMessage(permission) } : null);
+      if (enabled) {
+        // 通知が許可された時だけ、この端末を閉じていても届く通知（FCM）の送り先に登録する
+        const push = permission === "granted" ? await enableBackgroundPush(persistent) : null;
+        setMessage(permission ? { tone: "info", text: notifyMessage(permission, push) } : null);
+      } else {
+        await disableBackgroundPushIfUnused(persistent);
+        setMessage(null);
+      }
     } catch (error) {
       setMessage({ tone: "error", text: errorMessage(error) });
     }

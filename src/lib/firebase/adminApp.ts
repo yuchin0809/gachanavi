@@ -13,6 +13,7 @@
  * アプリ内からは server-only 付きの ./admin.ts を経由して使う。
  */
 import { cert, getApps, initializeApp, type App } from "firebase-admin/app";
+import { getMessaging, type Messaging } from "firebase-admin/messaging";
 import { getAuth, type Auth } from "firebase-admin/auth";
 import { getFirestore, type Firestore } from "firebase-admin/firestore";
 
@@ -127,4 +128,9 @@ export function getAdminFirestore(): Firestore {
  */
 export function getAdminAuth(): Auth {
   return getAuth(getAdminApp());
+}
+
+/** バックグラウンド通知の送信（FCM。サーバー側のみ） */
+export function getAdminMessaging(): Messaging {
+  return getMessaging(getAdminApp());
 }

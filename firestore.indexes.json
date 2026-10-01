@@ -8,6 +8,14 @@
         { "fieldPath": "locationId", "order": "ASCENDING" },
         { "fieldPath": "reportedAt", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "favorites",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        { "fieldPath": "productId", "order": "ASCENDING" },
+        { "fieldPath": "notifyInStock", "order": "ASCENDING" }
+      ]
     }
   ],
   "fieldOverrides": [

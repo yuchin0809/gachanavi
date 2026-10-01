@@ -28,7 +28,8 @@ service cloud.firestore {
     }
 
     // ユーザー：本人のドキュメントのみ読み取りを許可する（作成・更新はサーバー経由）
-    // users/{uid}/reportThrottles（連投制限の記録）・users/{uid}/favorites（お気に入り・在庫通知の設定）は
+    // users/{uid}/reportThrottles（連投制限の記録）・users/{uid}/favorites（お気に入り・在庫通知の設定）・
+    // users/{uid}/pushTokens（バックグラウンド通知の送り先端末。FCM トークン）は
     // サーバー（ID トークンを検証した Server Action）専用のため、下の「その他すべて拒否」で拒否される
     match /users/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;

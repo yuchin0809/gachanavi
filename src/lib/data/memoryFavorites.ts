@@ -1,6 +1,7 @@
 import { FAVORITES_LIMIT } from "@/lib/favorites";
 import type { Favorite, ID } from "@/types";
 import type { DataSource } from "./source";
+import { PUSH_TOKENS_PER_USER_LIMIT, STOCK_ALERT_WATCHERS_LIMIT } from "./source";
 
 /**
  * お気に入り（サーバーのメモリ上のみ。mock / local 用。再起動で消える）。
@@ -14,9 +15,19 @@ function favoritesOf(userId: ID): Map<ID, Favorite> {
   return map;
 }
 
+/** FCM トークン（ユーザー → トークン → 更新日時）。mock / local では実際には送信しない */
+const pushTokens = new Map<ID, Map<string, number>>();
+
 export const memoryFavorites: Pick<
   DataSource,
-  "listFavorites" | "setFavorite" | "setStockAlert" | "markStockAlertsNotified"
+  | "listFavorites"
+  | "setFavorite"
+  | "setStockAlert"
+  | "markStockAlertsNotified"
+  | "listStockAlertWatchers"
+  | "savePushToken"
+  | "deletePushToken"
+  | "listPushTokens"
 > = {
   async listFavorites(userId, options = {}) {
     return [...favoritesOf(userId).values()]
@@ -66,5 +77,27 @@ export const memoryFavorites: Pick<
       const f = map.get(id);
       if (f) f.lastNotifiedAt = now;
     }
+  },
+  async listStockAlertWatchers(productId) {
+    const watchers = [];
+    for (const [userId, map] of byUser) {
+      const f = map.get(productId);
+      if (f?.notifyInStock) watchers.push({ userId, favorite: { ...f } });
+    }
+    return watchers.slice(0, STOCK_ALERT_WATCHERS_LIMIT);
+  },
+  async savePushToken(userId, token) {
+    let map = pushTokens.get(userId);
+    if (!map) pushTokens.set(userId, (map = new Map()));
+    map.set(token, Date.now());
+  },
+  async deletePushToken(userId, token) {
+    pushTokens.get(userId)?.delete(token);
+  },
+  async listPushTokens(userId) {
+    return [...(pushTokens.get(userId) ?? new Map<string, number>()).entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, PUSH_TOKENS_PER_USER_LIMIT)
+      .map(([token]) => token);
   },
 };

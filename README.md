@@ -365,6 +365,28 @@ npx tsx scripts/import-collected.ts --target=production --project=gachanavi-21ee
 - placements / stockReports / users には書き込みません
 - meta を書いた後、アプリは最大 5 分（meta のキャッシュ）で新しい索引に切り替わります
 
+### バックグラウンド通知（FCM Web Push）
+
+お気に入りの「在庫報告があったら通知」が ON のとき、GachaNavi を閉じていても在庫あり・残りわずかの報告を通知します。
+**Spark（無料）プランのまま、Cloud Functions を使わずに動きます**（送信は Vercel の Server Action → Firebase Admin SDK → FCM）。
+詳細は `docs/favorites-and-stock-alerts.md`。
+
+有効にする手順（本番で行う前に内容を確認すること）:
+
+1. Firebase コンソール > プロジェクトの設定 > Cloud Messaging > ウェブ プッシュ証明書で「鍵ペアを生成」し、
+   公開鍵を Vercel の環境変数 `NEXT_PUBLIC_FIREBASE_VAPID_KEY` に設定（公開してよい値。秘密鍵はコンソールから出さない）
+2. Google Cloud で「Firebase Cloud Messaging API（V1）」が有効になっていることを確認（無料。新しいプロジェクトでは通常有効）
+3. 通知対象の検索に使う複合インデックスをデプロイ：`npx firebase-tools deploy --only firestore:indexes --project gachanavi-21ee8`
+   （collection group `favorites`：productId + notifyInStock。既存のデータ・Rules は変わらない。インデックスの作成も無料）
+4. 再デプロイ（`NEXT_PUBLIC_*` はビルド時に埋め込まれるため）
+
+- `NEXT_PUBLIC_FIREBASE_VAPID_KEY` が未設定、またはインデックスが未作成の間は、バックグラウンド通知は送られず、
+  従来どおり GachaNavi を開いている間のお知らせだけになる（在庫報告・お気に入りには影響しない）
+- 通知の許可は、ユーザーが「在庫報告があったら通知」を ON にした時だけ求める。ページを開いただけでは Service Worker も登録しない
+- **iPhone / iPad**：iOS 16.4 以降で、Safari の「ホーム画面に追加」で追加した GachaNavi を開き、その中で通知を ON にした場合だけ届く
+  （Safari のタブのままでは Web Push を使えない。その場合はアプリを開いている間のお知らせのみ）
+- **Android / PC**：Chrome・Edge・Firefox などで、ブラウザを閉じていても届く（OS・ブラウザの通知設定が ON の場合）
+
 ### デプロイ先について
 
 Next.js のサーバー機能（Server Action・キャッシュ）を使うため、サーバーを実行できる環境が必要です。

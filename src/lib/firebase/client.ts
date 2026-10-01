@@ -2,7 +2,8 @@
  * Firebase Client SDK（ブラウザ用）の初期化。
  *
  * データの読み書きはすべてサーバー（Admin SDK）で行っている。
- * ブラウザ側では、在庫報告の報告者を識別する匿名認証（./clientAuth.ts）でのみ使う。
+ * ブラウザ側では、在庫報告の報告者を識別する匿名認証（./clientAuth.ts）と、
+ * バックグラウンド通知の端末登録（FCM。src/lib/pushClient.ts）でのみ使う。
  *
  * NEXT_PUBLIC_FIREBASE_* はブラウザに公開される値（Firebase の Web 用設定）で、秘密情報ではないが、
  * プロジェクトごとに異なるため環境変数で渡す。アクセス制御は Security Rules で行う。
@@ -16,7 +17,9 @@ function readClientConfig(): FirebaseOptions | null {
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    // 未設定の場合は App ID（"1:<送信者ID>:web:..."）から求める（バックグラウンド通知の FCM で使う。秘密情報ではない）
+    messagingSenderId:
+      process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || process.env.NEXT_PUBLIC_FIREBASE_APP_ID?.split(":")[1],
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   };
   return config.apiKey && config.projectId && config.appId ? config : null;

@@ -7,6 +7,7 @@ import { BellIcon } from "@/components/ui/Icons";
 import { showBrowserNotification } from "@/lib/browserNotification";
 import { formatRelativeTime } from "@/lib/format";
 import { fetchStockAlerts, hasStockAlertsEnabled } from "@/lib/favoritesClient";
+import { refreshBackgroundPush } from "@/lib/pushClient";
 import { STOCK_STATUS_META } from "@/lib/stock";
 import type { StockAlert } from "@/types";
 
@@ -34,6 +35,7 @@ function markChecked(): void {
  * 在庫通知：「在庫報告があったら通知」が ON のお気に入りがある時だけ、アプリを開いている間に
  * 15 分に 1 回サーバーへ新しい在庫報告を確認し、画面内（と、許可されていればブラウザ通知）でお知らせする。
  * 未ログインなら何もしない（匿名ログインしない）。
+ * 閉じている間の通知（FCM）が届いた場合は、サーバーが lastNotifiedAt を更新するため、ここで同じ報告を重ねて知らせない。
  */
 export function StockAlertWatcher() {
   const persistent = useReportsPersistent();
@@ -64,6 +66,8 @@ export function StockAlertWatcher() {
       running = false;
     };
     check();
+    // 閉じていても届く通知の登録を 1 日 1 回確認する（登録済みの端末だけ。許可の要求・匿名ログインはしない）
+    refreshBackgroundPush(persistent).catch(() => undefined);
     const timer = setInterval(check, 60 * 1000);
     document.addEventListener("visibilitychange", check);
     return () => {

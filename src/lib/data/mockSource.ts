@@ -79,6 +79,7 @@ export function createMockDataSource(): DataSource {
 
       return {
         placementCreated: !placements.some((pl) => pl.productId === input.productId && pl.locationId === input.locationId),
+        latestUpdated: true, // モックは保存しないため、常に最新の報告として扱う
         id: `local-${Date.now()}`,
         productId: input.productId,
         locationId: input.locationId,

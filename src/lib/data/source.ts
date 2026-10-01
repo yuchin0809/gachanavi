@@ -32,8 +32,23 @@ export interface NewStockReport {
   reportedAt?: string;
 }
 
-/** 在庫報告の登録結果。placementCreated = この報告で設置情報（placement）を新しく作成した */
-export type AddedStockReport = StockReport & { placementCreated: boolean };
+/**
+ * 在庫報告の登録結果。
+ * - placementCreated：この報告で設置情報（placement）を新しく作成した
+ * - latestUpdated：この報告で placements.latestStock（最新の在庫状態）を更新した（古い報告では false）
+ */
+export type AddedStockReport = StockReport & { placementCreated: boolean; latestUpdated: boolean };
+
+/** バックグラウンド通知の対象者（通知 ON でその商品をお気に入りにしているユーザー） */
+export interface StockAlertWatcher {
+  userId: ID;
+  favorite: Favorite;
+}
+
+/** 1 回の在庫報告で通知を確認するユーザー数の上限（読み取り件数の上限） */
+export const STOCK_ALERT_WATCHERS_LIMIT = 500;
+/** 1 ユーザーあたりの通知先端末（FCM トークン）の上限 */
+export const PUSH_TOKENS_PER_USER_LIMIT = 10;
 
 /**
  * データ取得・保存の抽象インターフェース。
@@ -109,6 +124,19 @@ export interface DataSource {
   setStockAlert(userId: ID, productId: ID, enabled: boolean): Promise<Favorite | null>;
   /** 通知したお気に入りの lastNotifiedAt をサーバーの現在時刻にする（解除済みのものは無視） */
   markStockAlertsNotified(userId: ID, productIds: ID[]): Promise<void>;
+
+  /*
+   * バックグラウンド通知（FCM Web Push）。ユーザー一覧を走査せず、通知 ON のお気に入りだけを商品で検索する。
+   */
+
+  /** 通知 ON でこの商品をお気に入りにしているユーザー（STOCK_ALERT_WATCHERS_LIMIT 件まで） */
+  listStockAlertWatchers(productId: ID): Promise<StockAlertWatcher[]>;
+  /** この端末の FCM トークンを登録する（同じトークンは 1 件。冪等） */
+  savePushToken(userId: ID, token: string): Promise<void>;
+  /** FCM トークンを削除する（無いトークンの削除は何もしない） */
+  deletePushToken(userId: ID, token: string): Promise<void>;
+  /** ユーザーの FCM トークン（新しい順・PUSH_TOKENS_PER_USER_LIMIT 件まで） */
+  listPushTokens(userId: ID): Promise<string[]>;
 }
 
 /** 報告対象の商品または設置場所が存在しない（設置情報を作れない） */

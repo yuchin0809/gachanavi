@@ -133,6 +133,7 @@ export function createLocalDataSource(): DataSource {
       const reportedAt = input.reportedAt ?? new Date(now).toISOString();
       const id = placementIdOf(input.productId, input.locationId);
       const placementCreated = !placements.has(id);
+      const previous = latestFor(input.productId, input.locationId);
       if (placementCreated) {
         placements.set(id, { id, productId: input.productId, locationId: input.locationId, firstSeenAt: reportedAt });
       }
@@ -145,7 +146,7 @@ export function createLocalDataSource(): DataSource {
         reportedAt,
       };
       reports.push(report);
-      return { ...report, placementCreated };
+      return { ...report, placementCreated, latestUpdated: !previous || reportedAt > previous.reportedAt };
     },
     ...memoryFavorites,
   };

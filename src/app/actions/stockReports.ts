@@ -1,8 +1,9 @@
 "use server";
 
 import { updateTag } from "next/cache";
+import { after } from "next/server";
 import { ReporterAuthError, getReporterId } from "@/lib/auth/reporter";
-import { getDataSource } from "@/lib/data";
+import { getDataSource, sendStockPushNotifications } from "@/lib/data";
 import { cacheTags } from "@/lib/data/cacheTags";
 import { PlacementNotFoundError, ReportRateLimitedError } from "@/lib/data/source";
 import { REPORTABLE_STATUSES } from "@/lib/stock";
@@ -63,6 +64,9 @@ export async function reportStockAction(input: {
       updateTag(cacheTags.placementsByLocation(locationId));
     }
 
+    // バックグラウンド通知はレスポンスを返した後に送る（トランザクションの外。失敗しても報告は成功のまま）
+    runAfterResponse(() => sendStockPushNotifications(report));
+
     return { ok: true, report, persisted: dataSource.persistent };
   } catch (error) {
     if (error instanceof PlacementNotFoundError) {
@@ -76,5 +80,18 @@ export async function reportStockAction(input: {
     }
     console.error("[reportStockAction]", error);
     return { ok: false, error: "server_error" };
+  }
+}
+
+/** レスポンスの後に実行する。Next.js のリクエストの外（テストなど）では、その場で実行して結果を待たない */
+function runAfterResponse(task: () => Promise<unknown>): void {
+  const safe = () =>
+    task().catch((error) => {
+      console.error("[reportStockAction] push notification failed", error);
+    });
+  try {
+    after(safe);
+  } catch {
+    void safe();
   }
 }

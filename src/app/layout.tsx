@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
   description:
     "GachaNavi は、ガチャガチャの検索と設置場所・在庫状況の確認ができるWebアプリです。",
+  // iPhone / iPad でホーム画面に追加して使えるようにする（追加した GachaNavi でバックグラウンド通知を受け取れる）
+  appleWebApp: { capable: true, title: "GachaNavi", statusBarStyle: "default" },
+  icons: { apple: "/icons/apple-touch-icon.png" },
 };
 
 export const viewport: Viewport = {

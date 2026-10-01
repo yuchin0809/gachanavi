@@ -24,6 +24,22 @@ export function stockAlertBaseline(favorite: Favorite): number | null {
   return Math.max(...times);
 }
 
+/** 通知の対象になる在庫状態か（在庫あり・残りわずか。売り切れ・未確認は対象外） */
+export function isStockAlertStatus(status: string): status is StockAlertLocation["status"] {
+  return (STOCK_ALERT_STATUSES as readonly string[]).includes(status);
+}
+
+/**
+ * このお気に入りに、reportedAt の報告で通知してよいか（アプリ内のお知らせ・バックグラウンド通知で共通）。
+ * 通知 ON・通知を ON にした後／前回の通知の後の報告・報告から 24 時間以内。状態の判定は isStockAlertStatus
+ */
+export function shouldNotifyFavorite(favorite: Favorite, reportedAt: string, now: number = Date.now()): boolean {
+  const baseline = stockAlertBaseline(favorite);
+  if (baseline === null) return false;
+  const at = Date.parse(reportedAt);
+  return at > baseline && now - at <= STOCK_ALERT_MAX_AGE_MS;
+}
+
 export function findStockAlerts(
   favorites: Favorite[],
   placements: PlacementWithStock[],
@@ -32,16 +48,14 @@ export function findStockAlerts(
 ): StockAlert[] {
   const alerts: StockAlert[] = [];
   for (const favorite of favorites) {
-    const baseline = stockAlertBaseline(favorite);
-    if (baseline === null) continue;
+    if (!favorite.notifyInStock) continue;
     const productName = names.product(favorite.productId);
     if (!productName) continue;
     const locations: StockAlertLocation[] = [];
     for (const { placement, stock } of placements) {
       if (placement.productId !== favorite.productId || !stock.lastCheckedAt) continue;
-      if (!(STOCK_ALERT_STATUSES as readonly string[]).includes(stock.status)) continue;
-      const at = Date.parse(stock.lastCheckedAt);
-      if (at <= baseline || now - at > STOCK_ALERT_MAX_AGE_MS) continue;
+      if (!isStockAlertStatus(stock.status)) continue;
+      if (!shouldNotifyFavorite(favorite, stock.lastCheckedAt, now)) continue;
       const location = names.location(placement.locationId);
       if (!location) continue;
       locations.push({

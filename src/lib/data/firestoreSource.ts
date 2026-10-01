@@ -11,6 +11,7 @@
  * - リアルタイムリスナー（onSnapshot）は使わない
  */
 import "server-only";
+import { createHash } from "node:crypto";
 import { Timestamp, type Firestore, type Query } from "firebase-admin/firestore";
 import { unstable_cache } from "next/cache";
 import { getAdminFirestore } from "@/lib/firebase/admin";
@@ -27,6 +28,7 @@ import { cacheSeconds, cacheTags } from "./cacheTags";
 import {
   COLLECTIONS,
   type FavoriteDoc,
+  type PushTokenDoc,
   type PlacementDoc,
   type LatestStockDoc,
   type ReportThrottleDoc,
@@ -42,7 +44,14 @@ import {
   userFromDoc,
 } from "./firestore/schema";
 import type { DataSource, PlacementFilter } from "./source";
-import { PlacementNotFoundError, REPORT_COOLDOWN_MS, ReportRateLimitedError, placementIdOf } from "./source";
+import {
+  PUSH_TOKENS_PER_USER_LIMIT,
+  PlacementNotFoundError,
+  REPORT_COOLDOWN_MS,
+  ReportRateLimitedError,
+  STOCK_ALERT_WATCHERS_LIMIT,
+  placementIdOf,
+} from "./source";
 
 /** 話題のガチャ集計で読む報告件数の上限（無料枠の読み取りを使い切らないための安全弁） */
 const MAX_RECENT_REPORTS = 1000;
@@ -264,8 +273,10 @@ export function createFirestoreDataSource(): DataSource {
       };
 
       let placementCreated = false;
+      let latestUpdated = false;
       await firestore.runTransaction(async (tx) => {
         placementCreated = false;
+        latestUpdated = false;
         const [placementSnap, userSnap, throttleSnap] = await tx.getAll(placementRef, userRef, throttleRef);
         if (!placementSnap.exists) {
           // 設置情報が無い場合：商品と設置場所の両方が実在し、サンプルでない場合だけ作成できる
@@ -307,6 +318,7 @@ export function createFirestoreDataSource(): DataSource {
           };
           tx.create(placementRef, placementDoc);
           placementCreated = true;
+          latestUpdated = true;
           return;
         }
 
@@ -315,6 +327,7 @@ export function createFirestoreDataSource(): DataSource {
         const currentAt = current?.reportedAt instanceof Timestamp ? current.reportedAt.toMillis() : -Infinity;
         if (reportedAt.toMillis() > currentAt) {
           tx.update(placementRef, { latestStock });
+          latestUpdated = true;
         }
       });
 
@@ -326,6 +339,7 @@ export function createFirestoreDataSource(): DataSource {
         status: input.status,
         reportedAt: reportedAt.toDate().toISOString(),
         placementCreated,
+        latestUpdated,
       };
     },
 
@@ -382,6 +396,53 @@ export function createFirestoreDataSource(): DataSource {
       });
     },
 
+    /**
+     * 通知 ON でこの商品をお気に入りにしているユーザー（collectionGroup。全ユーザーは走査しない）。
+     * 読み取り：該当するお気に入りの件数分（0 件でも 1）。
+     * 複合インデックス（collection group: favorites / productId + notifyInStock）が必要（firestore.indexes.json）
+     */
+    async listStockAlertWatchers(productId) {
+      const snap = await db()
+        .collectionGroup(COLLECTIONS.favorites)
+        .where("productId", "==", productId)
+        .where("notifyInStock", "==", true)
+        .limit(STOCK_ALERT_WATCHERS_LIMIT)
+        .get();
+      return snap.docs.flatMap((doc) => {
+        const userId = doc.ref.parent.parent?.id;
+        return userId ? [{ userId, favorite: favoriteFromDoc(doc) }] : [];
+      });
+    },
+
+    /** 読み取り 1 + 書き込み（新しい端末・24 時間ぶりの登録の時だけ）1 */
+    async savePushToken(userId, token) {
+      const ref = pushTokensCol(userId).doc(pushTokenDocId(token));
+      await db().runTransaction(async (tx) => {
+        const snap = await tx.get(ref);
+        const now = Timestamp.now();
+        if (!snap.exists) {
+          const doc: PushTokenDoc = { token, platform: "web", createdAt: now, updatedAt: now };
+          tx.create(ref, doc);
+          return;
+        }
+        const updatedAt = snap.get("updatedAt");
+        if (!(updatedAt instanceof Timestamp) || now.toMillis() - updatedAt.toMillis() > PUSH_TOKEN_REFRESH_MS) {
+          tx.update(ref, { updatedAt: now });
+        }
+      });
+    },
+
+    /** 書き込み 1（読み取りなし） */
+    async deletePushToken(userId, token) {
+      await pushTokensCol(userId).doc(pushTokenDocId(token)).delete();
+    },
+
+    /** 読み取り：端末の数（最大 PUSH_TOKENS_PER_USER_LIMIT。0 件でも 1） */
+    async listPushTokens(userId) {
+      const snap = await pushTokensCol(userId).orderBy("updatedAt", "desc").limit(PUSH_TOKENS_PER_USER_LIMIT).get();
+      return snap.docs.map((d) => d.get("token")).filter((t): t is string => typeof t === "string" && t.length > 0);
+    },
+
     /** 書き込み：通知した商品の件数分（読み取りなし。解除済みのものは NOT_FOUND を無視） */
     async markStockAlertsNotified(userId, productIds) {
       const now = Timestamp.now();
@@ -398,6 +459,20 @@ export function createFirestoreDataSource(): DataSource {
     },
   };
 }
+
+/* ---------------- バックグラウンド通知（FCM トークン） ---------------- */
+
+function pushTokensCol(userId: string) {
+  return db().collection(COLLECTIONS.users).doc(userId).collection(COLLECTIONS.pushTokens);
+}
+
+/** トークンそのものをドキュメント ID にしない（長さ・文字の制約と、ID が一覧に出ることを避ける） */
+function pushTokenDocId(token: string): string {
+  return createHash("sha256").update(token).digest("hex").slice(0, 40);
+}
+
+/** 同じ端末から何度登録しても、updatedAt の更新はこの間隔に 1 回まで（書き込みを増やさない） */
+const PUSH_TOKEN_REFRESH_MS = 24 * 60 * 60 * 1000;
 
 function favoritesCol(userId: string) {
   return db().collection(COLLECTIONS.users).doc(userId).collection(COLLECTIONS.favorites);

@@ -10,8 +10,8 @@ import { cache } from "react";
 import { mockCurrentPosition } from "@/data/mock";
 import { RELEASE_STATUS_ORDER, latestMonth, releaseStatusOf } from "@/lib/release";
 import { matchesLocationQuery, matchesQuery, normalizeForSearch, searchTerms } from "@/lib/search";
-import { findStockAlerts } from "@/lib/favorites";
-import { STOCK_STATUS_ORDER, isAvailable } from "@/lib/stock";
+import { STOCK_ALERT_MAX_AGE_MS, findStockAlerts, isStockAlertStatus, shouldNotifyFavorite } from "@/lib/favorites";
+import { STOCK_STATUS_META, STOCK_STATUS_ORDER, isAvailable } from "@/lib/stock";
 import type {
   CatalogProduct,
   Favorite,
@@ -32,7 +32,7 @@ import type {
 } from "@/types";
 import { getDataSourceKind } from "./config";
 import { createMockDataSource } from "./mockSource";
-import type { DataSource } from "./source";
+import type { AddedStockReport, DataSource } from "./source";
 
 let dataSourcePromise: Promise<DataSource> | null = null;
 
@@ -407,4 +407,110 @@ export class ProductNotFoundError extends Error {
     super(`Product not found: ${productId}`);
     this.name = "ProductNotFoundError";
   }
+}
+
+/* ------------------------------------------------------------------
+ * バックグラウンド通知（FCM Web Push）
+ * ------------------------------------------------------------------ */
+
+export interface StockPushSummary {
+  /** 通知の確認をしなかった理由（売り切れ・古い報告など） */
+  skipped?: "status" | "not_latest" | "too_old";
+  /** 通知 ON でこの商品をお気に入りにしているユーザー数 */
+  watchers: number;
+  /** 通知条件を満たしたユーザー数（前回の通知より新しい報告など） */
+  targets: number;
+  sent: number;
+  failed: number;
+  removedTokens: number;
+  /** 1 台以上に届いたユーザー（lastNotifiedAt を更新した） */
+  notifiedUsers: ID[];
+}
+
+/**
+ * 在庫報告の後に、通知 ON のお気に入りユーザーへバックグラウンド通知を送る（在庫報告のトランザクションの外で呼ぶ）。
+ *
+ * 条件はアプリ内のお知らせと共通（isStockAlertStatus・shouldNotifyFavorite）：在庫あり・残りわずかの報告で、
+ * その報告が最新の在庫状態になった場合だけ。通知 ON にした後・前回の通知の後・24 時間以内の報告だけ。
+ *
+ * 読み取り：通知 ON のお気に入りの件数（0 件でも 1）+ 通知するユーザーごとの端末一覧（各 1〜）+ 商品・店舗（キャッシュ）。
+ * 書き込み：届いたユーザーの lastNotifiedAt + 無効になった端末の削除。
+ * 送信の失敗は在庫報告に影響させない（呼び出し側で例外を握りつぶす）
+ */
+export async function sendStockPushNotifications(
+  report: AddedStockReport,
+  now: number = Date.now(),
+): Promise<StockPushSummary> {
+  const summary: StockPushSummary = { watchers: 0, targets: 0, sent: 0, failed: 0, removedTokens: 0, notifiedUsers: [] };
+  if (!isStockAlertStatus(report.status)) return { ...summary, skipped: "status" };
+  if (!report.latestUpdated) return { ...summary, skipped: "not_latest" };
+  if (now - Date.parse(report.reportedAt) > STOCK_ALERT_MAX_AGE_MS) return { ...summary, skipped: "too_old" };
+
+  const ds = await getDataSource();
+  const watchers = await ds.listStockAlertWatchers(report.productId);
+  summary.watchers = watchers.length;
+  const targets = watchers.filter((w) => shouldNotifyFavorite(w.favorite, report.reportedAt, now));
+  summary.targets = targets.length;
+  if (!targets.length) return summary;
+
+  // 商品名・店舗名（商品詳細と同じキャッシュ）。取得できなくても一般的な文言で送る
+  const [product, location] = await Promise.all([
+    ds.getProduct(report.productId).catch(() => null),
+    ds.getLocation(report.locationId).catch(() => null),
+  ]);
+  const label = STOCK_STATUS_META[report.status].label;
+  const data = {
+    title: "GachaNavi 在庫情報",
+    body: product
+      ? `${product.name}に「${label}」の報告があります${location ? `（${location.name}）` : ""}`
+      : `お気に入りのガチャに「${label}」の報告があります`,
+    url: `/gacha/${report.productId}`,
+    tag: `stock-${report.productId}`,
+  };
+
+  const tokensByUser = await Promise.all(targets.map(async (t) => ({ userId: t.userId, tokens: await ds.listPushTokens(t.userId) })));
+  const owner = new Map<string, ID>();
+  const messages = tokensByUser.flatMap(({ userId, tokens }) =>
+    tokens.map((token) => {
+      owner.set(token, userId);
+      return { token, data };
+    }),
+  );
+  if (!messages.length) return summary;
+
+  const { getPushSender } = await import("@/lib/push/sender");
+  const results = await getPushSender().send(messages);
+  const delivered = new Set<ID>();
+  const invalid: { userId: ID; token: string }[] = [];
+  for (const r of results) {
+    const userId = owner.get(r.token);
+    if (!userId) continue;
+    if (r.ok) {
+      summary.sent++;
+      delivered.add(userId);
+    } else {
+      summary.failed++;
+      if (r.invalidToken) invalid.push({ userId, token: r.token });
+    }
+  }
+  await Promise.all([
+    ...invalid.map(({ userId, token }) => ds.deletePushToken(userId, token)),
+    // 届いたユーザーだけ通知済みにする（届かなかったユーザーには、アプリを開いた時のお知らせで伝える）
+    ...[...delivered].map((userId) => ds.markStockAlertsNotified(userId, [report.productId])),
+  ]);
+  summary.removedTokens = invalid.length;
+  summary.notifiedUsers = [...delivered];
+  // 送信数の確認用（Vercel のログ）。uid・トークンは出さない
+  console.info(
+    `[push] product=${report.productId} watchers=${summary.watchers} targets=${summary.targets} sent=${summary.sent} failed=${summary.failed} removedTokens=${summary.removedTokens}`,
+  );
+  return summary;
+}
+
+export async function savePushToken(userId: ID, token: string): Promise<void> {
+  await (await getDataSource()).savePushToken(userId, token);
+}
+
+export async function deletePushToken(userId: ID, token: string): Promise<void> {
+  await (await getDataSource()).deletePushToken(userId, token);
 }

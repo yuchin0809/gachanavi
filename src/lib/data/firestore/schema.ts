@@ -14,6 +14,8 @@
  *   users/{uid}/favorites/{productId}
  *                                 お気に入り（productId・登録日時・在庫通知の設定だけ。商品情報は複製しない）。
  *                                 ドキュメント ID = productId のため同じ商品は 1 件しか作られない
+ *   users/{uid}/pushTokens/{sha256(token) の先頭 40 文字}
+ *                                 バックグラウンド通知（FCM Web Push）の送り先端末。token・platform・日時だけ（位置情報・端末情報は持たない）
  *
  * GachaProduct 1 ── * Placement * ── 1 Location の関係を placements で表す。
  * 日時は Firestore では Timestamp、ドメイン型では ISO 文字列で扱う。
@@ -41,6 +43,7 @@ export const COLLECTIONS = {
   /** users/{uid} のサブコレクション */
   reportThrottles: "reportThrottles",
   favorites: "favorites",
+  pushTokens: "pushTokens",
 } as const;
 
 /* ------------------------------------------------------------------
@@ -99,6 +102,14 @@ export interface FavoriteDoc {
   notifyInStock: boolean;
   notifyEnabledAt: Timestamp | null;
   lastNotifiedAt: Timestamp | null;
+}
+
+/** users/{uid}/pushTokens/{tokenId}（サーバー専用。ブラウザからは読めない） */
+export interface PushTokenDoc {
+  token: string;
+  platform: "web";
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
 /** users/{uid}/reportThrottles/{placementId} */
