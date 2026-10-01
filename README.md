@@ -193,6 +193,13 @@ Firestore の無料枠（1日あたり 読み取り 50,000 件 / 書き込み 20
 メーカー公式サイトの画像は、各社の利用規約（無断転載禁止など）の確認が済むまで表示しません（画像なしのプレースホルダーを表示）。
 権利確認が済んだホストは `NEXT_PUBLIC_APPROVED_IMAGE_HOSTS`（カンマ区切り）に指定すると表示されます（`src/lib/images.ts`）。
 
+### アプリアイコン・ロゴ
+
+GachaNavi オリジナルのアイコン（水色のガチャカプセル＋青いナビ矢印・軌道＋黄色のマップピン）を使います。
+元データは `assets/brand/`（正式デザインの画像・小サイズ用の簡略版 SVG・通知バッジ用の単色 SVG）で、
+`node scripts/build-icons.mjs` で favicon（`src/app/favicon.ico`）・PWA・Apple Touch Icon・通知アイコン・バッジ・ヘッダーのロゴ
+（`public/icons/`）を作ります。外部の画像・メーカーやキャラクターの画像は使いません。
+
 ### サンプル（モック）データの扱い
 
 本番の Firestore に入っている架空のモックデータ（`src/data/mock.ts` の商品 10 件・店舗 8 件）は削除しません。

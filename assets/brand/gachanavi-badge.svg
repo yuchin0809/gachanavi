@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- 通知バッジ（Android のステータスバー用）：白の単色シルエット。正式アイコンのカプセル・軌道・ナビ矢印を簡略化したもの -->
+  <circle cx="31" cy="34" r="21" fill="none" stroke="#fff" stroke-width="4"/>
+  <ellipse cx="32" cy="35" rx="26" ry="8.5" transform="rotate(-22 32 35)" fill="none" stroke="#fff" stroke-width="3.5"/>
+  <path d="M42.5 19 L37 41 L32.5 32.5 L22.5 33.5 Z" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+</svg>

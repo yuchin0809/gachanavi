@@ -34,7 +34,8 @@ export function isIOSDevice(): boolean {
 export function showBrowserNotification(title: string, body: string, url: string): boolean {
   if (notificationSupport() !== "granted") return false;
   try {
-    const n = new Notification(title, { body, tag: `gachanavi:${url}`, icon: "/favicon.ico" });
+    // アイコンは GachaNavi のアプリアイコン（バックグラウンド通知の Service Worker と同じ）
+    const n = new Notification(title, { body, tag: `gachanavi:${url}`, icon: "/icons/icon-192.png", badge: "/icons/badge-96.png" });
     n.onclick = () => {
       window.focus();
       window.location.assign(url);

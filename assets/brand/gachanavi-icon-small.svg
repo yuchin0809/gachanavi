@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- GachaNavi アイコンの小サイズ用（favicon 16/32px）。正式アイコン（icon-1024.png）を簡略化したもの -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#566cee"/>
+      <stop offset="1" stop-color="#3b4fd3"/>
+    </linearGradient>
+    <linearGradient id="top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bdeefc"/>
+      <stop offset="1" stop-color="#6cc4f2"/>
+    </linearGradient>
+    <clipPath id="ball"><circle cx="31" cy="35" r="20"/></clipPath>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#bg)"/>
+  <g clip-path="url(#ball)">
+    <rect x="0" y="0" width="64" height="64" fill="url(#top)"/>
+    <path d="M8 40 L56 30 L56 64 L8 64 Z" fill="#f7f4fb"/>
+  </g>
+  <circle cx="31" cy="35" r="20" fill="none" stroke="#e9f7fe" stroke-width="1.5"/>
+  <ellipse cx="32" cy="35.5" rx="18" ry="6.5" transform="rotate(-22 32 35.5)" fill="none" stroke="#4f8ef3" stroke-width="3"/>
+  <ellipse cx="32" cy="35.5" rx="18" ry="6.5" transform="rotate(-22 32 35.5)" fill="none" stroke="#9fe3fb" stroke-width="1.2"/>
+  <path d="M41 22 L36.5 40 L32.5 32.5 L24 33.5 Z" fill="#3a57e4" stroke="#3a57e4" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M49.5 7.5 a5.5 5.5 0 0 1 5.5 5.5 c0 3.8 -5.5 9 -5.5 9 s-5.5 -5.2 -5.5 -9 a5.5 5.5 0 0 1 5.5 -5.5 Z" fill="#f8d97c"/>
+  <circle cx="49.5" cy="13" r="2" fill="#566cee"/>
+</svg>
