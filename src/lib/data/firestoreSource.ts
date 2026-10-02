@@ -156,6 +156,13 @@ async function listLocations(): Promise<Location[]> {
   return memo.locations.items;
 }
 
+/** Firestore のドキュメント ID として使えるか（空・"/" を含む・"." ".."・"__…__"・1500 バイト超は不可） */
+export function isValidDocId(id: string): boolean {
+  return (
+    id.length > 0 && !id.includes("/") && id !== "." && id !== ".." && !/^__.*__$/.test(id) && Buffer.byteLength(id, "utf8") <= 1500
+  );
+}
+
 const cachedGetProduct = (id: ID) =>
   unstable_cache(
     async () => {
@@ -224,9 +231,10 @@ export function createFirestoreDataSource(): DataSource {
     persistent: true,
 
     listCatalogProducts: () => listCatalogProducts(),
-    getProduct: (id) => cachedGetProduct(id),
+    // Firestore で使えない ID（URL に直接入力されたもの）は読まずに「見つからない」（500 ではなく 404 にする）
+    getProduct: async (id) => (isValidDocId(id) ? cachedGetProduct(id) : null),
     listLocations: () => listLocations(),
-    getLocation: (id) => cachedGetLocation(id),
+    getLocation: async (id) => (isValidDocId(id) ? cachedGetLocation(id) : null),
     listPlacementsWithStock: (filter = {}) => cachedListPlacements(filter),
     countRecentReportsByProduct: (windowHours) => cachedCountRecentReports(windowHours),
 

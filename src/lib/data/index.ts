@@ -11,7 +11,9 @@ import { mockCurrentPosition } from "@/data/mock";
 import { RELEASE_STATUS_ORDER, latestMonth, releaseStatusOf } from "@/lib/release";
 import { matchesLocationQuery, matchesQuery, normalizeForSearch, searchTerms } from "@/lib/search";
 import { STOCK_ALERT_MAX_AGE_MS, findStockAlerts, isStockAlertStatus, shouldNotifyFavorite } from "@/lib/favorites";
+import { prefectureCodeOf, productTitle } from "@/lib/seo/text";
 import { STOCK_STATUS_META, STOCK_STATUS_ORDER, isAvailable } from "@/lib/stock";
+import { seriesKeyOf } from "@/lib/visual/classify";
 import type {
   CatalogProduct,
   Favorite,
@@ -513,4 +515,112 @@ export async function savePushToken(userId: ID, token: string): Promise<void> {
 
 export async function deletePushToken(userId: ID, token: string): Promise<void> {
   await (await getDataSource()).deletePushToken(userId, token);
+}
+
+/* ------------------------------------------------------------------
+ * サイトマップ（商品・店舗の索引と、キャッシュ済みの placements だけを使う。products / locations は読まない）
+ * ------------------------------------------------------------------ */
+
+export interface SitemapEntry {
+  path: string;
+  /** そのページの内容が最後に変わった日時（在庫報告の日時）。分からない場合は付けない */
+  lastModified?: string;
+}
+
+/** 商品・店舗ごとの最新の在庫報告日時（ページに表示している「最終確認」と同じ値） */
+async function latestReportTimes(): Promise<{ byProduct: Map<ID, string>; byLocation: Map<ID, string> }> {
+  const byProduct = new Map<ID, string>();
+  const byLocation = new Map<ID, string>();
+  for (const { placement, stock } of await loadAllPlacements()) {
+    const at = stock.lastCheckedAt;
+    if (!at) continue;
+    if ((byProduct.get(placement.productId) ?? "") < at) byProduct.set(placement.productId, at);
+    if ((byLocation.get(placement.locationId) ?? "") < at) byLocation.set(placement.locationId, at);
+  }
+  return { byProduct, byLocation };
+}
+
+export async function getSitemapProducts(): Promise<SitemapEntry[]> {
+  const [catalog, times] = await Promise.all([loadCatalog(), latestReportTimes()]);
+  return catalog.map((p) => ({ path: `/gacha/${p.id}`, lastModified: times.byProduct.get(p.id) }));
+}
+
+/** サイトマップ インデックス用の商品数（索引だけ。placements は読まない） */
+export async function getSitemapProductCount(): Promise<number> {
+  return (await loadCatalog()).length;
+}
+
+export async function getSitemapLocations(): Promise<SitemapEntry[]> {
+  const [locations, times] = await Promise.all([loadLocations(), latestReportTimes()]);
+  return locations.map((l) => ({ path: `/locations/${l.id}`, lastModified: times.byLocation.get(l.id) }));
+}
+
+/** 都道府県ごとの店舗一覧（店舗の索引から。住所の先頭の都道府県名で分ける） */
+export async function getLocationsByPrefecture(): Promise<Map<string, Location[]>> {
+  const groups = new Map<string, Location[]>();
+  for (const l of await loadLocations()) {
+    const code = prefectureCodeOf(l.address);
+    if (!code) continue;
+    const list = groups.get(code) ?? [];
+    list.push(l);
+    groups.set(code, list);
+  }
+  for (const list of groups.values()) list.sort((a, b) => a.address.localeCompare(b.address, "ja") || a.name.localeCompare(b.name, "ja"));
+  return new Map([...groups.entries()].sort(([a], [b]) => a.localeCompare(b)));
+}
+
+/**
+ * 関連するガチャ（同じシリーズ → 同じメーカーで発売時期が近いもの）。カタログ索引（キャッシュ済み）だけで探す
+ */
+export async function getRelatedProducts(product: CatalogProduct, limit = 6): Promise<GachaProductSummary[]> {
+  const [catalog, placements] = await Promise.all([loadCatalog(), loadAllPlacements()]);
+  const key = seriesKeyOf(product);
+  const month = latestMonth(product);
+  const monthIndex = (m: string | null) => (m ? Number(m.slice(0, 4)) * 12 + Number(m.slice(5, 7)) : null);
+  const target = monthIndex(month);
+  const sameSeries: CatalogProduct[] = [];
+  const sameMaker: { p: CatalogProduct; gap: number }[] = [];
+  for (const p of catalog) {
+    if (p.id === product.id) continue;
+    if (key && seriesKeyOf(p) === key) {
+      sameSeries.push(p);
+      continue;
+    }
+    if (p.maker && p.maker === product.maker && target !== null) {
+      const m = monthIndex(latestMonth(p));
+      if (m !== null && Math.abs(m - target) <= 2) sameMaker.push({ p, gap: Math.abs(m - target) });
+    }
+  }
+  const byNewest = (a: CatalogProduct, b: CatalogProduct) => (latestMonth(b) ?? "").localeCompare(latestMonth(a) ?? "") || a.id.localeCompare(b.id);
+  const picked = [
+    ...sameSeries.sort(byNewest),
+    ...sameMaker.sort((a, b) => a.gap - b.gap || byNewest(a.p, b.p)).map((x) => x.p),
+  ].slice(0, limit);
+  return summarize(picked, placements, {}, new Date());
+}
+
+/** 商品名（タイトルに使う長さ）が同じ商品がほかにもあるか（カタログ索引だけで判定。結果は索引ごとに 1 回だけ作る） */
+const titleKeyCounts = new WeakMap<CatalogProduct[], Map<string, number>>();
+export async function hasAmbiguousProductTitle(product: Pick<CatalogProduct, "name">): Promise<boolean> {
+  const catalog = await loadCatalog();
+  let counts = titleKeyCounts.get(catalog);
+  if (!counts) {
+    counts = new Map();
+    for (const p of catalog) counts.set(productTitle(p), (counts.get(productTitle(p)) ?? 0) + 1);
+    titleKeyCounts.set(catalog, counts);
+  }
+  return (counts.get(productTitle({ name: product.name, releaseMonth: null })) ?? 0) > 1;
+}
+
+/** カタログ索引の 1 商品（OGP 画像など。products は読まない） */
+export async function getCatalogProduct(id: ID): Promise<CatalogProduct | null> {
+  return (await loadCatalogMap()).get(id) ?? null;
+}
+
+/** 都道府県の店舗一覧（店舗ごとの設置情報の件数つき。索引とキャッシュ済みの placements だけを使う） */
+export async function getPrefectureStores(code: string): Promise<{ location: Location; placementCount: number }[]> {
+  const [groups, placements] = await Promise.all([getLocationsByPrefecture(), loadAllPlacements()]);
+  const counts = new Map<ID, number>();
+  for (const { placement } of placements) counts.set(placement.locationId, (counts.get(placement.locationId) ?? 0) + 1);
+  return (groups.get(code) ?? []).map((location) => ({ location, placementCount: counts.get(location.id) ?? 0 }));
 }

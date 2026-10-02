@@ -3,18 +3,36 @@ import { notFound } from "next/navigation";
 import { GachaImage } from "@/components/gacha/GachaImage";
 import { FavoriteControls } from "@/components/favorites/FavoriteControls";
 import { ProductFacts } from "@/components/gacha/ProductFacts";
-import { BackLink } from "@/components/layout/BackLink";
+import { GachaCard } from "@/components/gacha/GachaCard";
+import { HorizontalScroller } from "@/components/gacha/HorizontalScroller";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { ProductLocationsView } from "@/components/location/ProductLocationsView";
 import { FoundAtStoreReport } from "@/components/stock/FoundAtStoreReport";
-import { getProductDetail } from "@/lib/data";
+import { getProductDetail, getRelatedProducts, hasAmbiguousProductTitle } from "@/lib/data";
+import { productJsonLd } from "@/lib/seo/jsonld";
 import { formatDateTime } from "@/lib/format";
+import { OG_BASE } from "@/lib/seo/metadata";
+import { productDescription, productTitle } from "@/lib/seo/text";
 import { isAvailable } from "@/lib/stock";
 
 export async function generateMetadata({ params }: PageProps<"/gacha/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const detail = await getProductDetail(id);
-  return { title: detail ? detail.product.name : "ガチャが見つかりません" };
+  const detail = await getProductDetail(id); // ページ本体と同じ取得（リクエスト内で共有。読み取りは増えない）
+  if (!detail) return { title: "ガチャが見つかりません" };
+  const { product, locations } = detail;
+  const title = productTitle(product, await hasAmbiguousProductTitle(product));
+  const description = productDescription(product, locations.length);
+  const url = `/gacha/${product.id}`;
+  // OGP 画像は opengraph-image.tsx（GachaNavi オリジナルの商品ビジュアル）
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { ...OG_BASE, title: `${title}｜GachaNavi`, description, url },
+    twitter: { card: "summary_large_image", title: `${title}｜GachaNavi`, description },
+  };
 }
 
 export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]">) {
@@ -24,10 +42,16 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
 
   const { product, locations } = detail;
   const availableCount = locations.filter((l) => isAvailable(l.stock.status)).length;
+  // 同じシリーズ・同じメーカーの近い時期のガチャ（カタログ索引から。Firestore の読み取りは増えない）
+  const related = await getRelatedProducts(product);
 
   return (
     <PageContainer>
-      <BackLink href="/search" label="検索に戻る" />
+      <Breadcrumbs
+        items={[{ name: "ホーム", href: "/" }, { name: "ガチャを探す", href: "/search" }, { name: product.name }]}
+        currentPath={`/gacha/${product.id}`}
+      />
+      <JsonLd data={productJsonLd(product, productDescription(product, locations.length))} />
 
       <div className="sm:grid sm:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] sm:gap-6">
         <GachaImage
@@ -111,7 +135,8 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
           <span className="mr-1.5" aria-hidden="true">
             📍
           </span>
-          このガチャが見つかった場所
+          このガチャの設置店舗
+          <span className="ml-1 text-sm font-normal text-muted">{locations.length}店舗</span>
         </h2>
         <div className="mb-4">
           <FoundAtStoreReport
@@ -125,6 +150,19 @@ export default async function GachaDetailPage({ params }: PageProps<"/gacha/[id]
         </div>
         <ProductLocationsView productId={product.id} entries={locations} />
       </section>
+
+      {related.length > 0 && (
+        <section className="mt-10" aria-labelledby="related-heading">
+          <h2 id="related-heading" className="mb-3 text-lg font-extrabold">
+            関連するガチャ
+          </h2>
+          <HorizontalScroller>
+            {related.map((s) => (
+              <GachaCard key={s.product.id} summary={s} />
+            ))}
+          </HorizontalScroller>
+        </section>
+      )}
     </PageContainer>
   );
 }

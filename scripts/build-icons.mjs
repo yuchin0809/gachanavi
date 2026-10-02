@@ -7,6 +7,7 @@
  * - gachanavi-icon-source.jpg … 正式アイコンのデザイン（角丸の外側は白い余白）
  * - gachanavi-icon-small.svg  … favicon の 16・32px 用に簡略化したもの（同じデザインの要素・色）
  * - gachanavi-badge.svg       … 通知バッジ用の白の単色シルエット
+ * サイト共通の OGP 画像（public/og/gachanavi.png）もここで作る
  *
  * 画像処理には Next.js に同梱の sharp を使う（package.json の依存には追加しない）。
  */
@@ -203,6 +204,22 @@ function ico(pngs) {
     "badge-96.png": await sharp(path.join(BRAND, "gachanavi-badge.svg"), { density: 600 }).resize(96, 96).png().toBuffer(),
   };
   for (const [name, data] of Object.entries(outputs)) fs.writeFileSync(path.join(OUT, name), data);
+
+  // サイト共通の OGP 画像（1200×630）：アイコン＋サービス名。文字は IPA ゴシック（OS のフォント）で描く
+  const og = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b72ef"/><stop offset="1" stop-color="#3a4ccc"/></linearGradient></defs>` +
+      `<rect width="1200" height="630" fill="url(#g)"/>` +
+      `<g font-family="IPAPGothic, IPAGothic, sans-serif" fill="#fff">` +
+      `<text x="560" y="270" font-size="96" font-weight="bold">GachaNavi</text>` +
+      `<text x="564" y="350" font-size="40">ガチャガチャの</text>` +
+      `<text x="564" y="410" font-size="40">設置店舗・在庫情報を探せる</text></g></svg>`,
+  );
+  const ogIcon = await sharp(icon).resize(400, 400, { kernel: "lanczos3" }).png().toBuffer();
+  fs.mkdirSync(path.join(ROOT, "public/og"), { recursive: true });
+  fs.writeFileSync(
+    path.join(ROOT, "public/og/gachanavi.png"),
+    await sharp(og).composite([{ input: ogIcon, left: 110, top: 115 }]).png({ compressionLevel: 9 }).toBuffer(),
+  );
   fs.writeFileSync(
     path.join(ROOT, "src/app/favicon.ico"),
     ico([
@@ -211,5 +228,5 @@ function ico(pngs) {
       { size: 48, data: await png(48) },
     ]),
   );
-  console.log("icons:", Object.keys(outputs).join(", "), "+ src/app/favicon.ico");
+  console.log("icons:", Object.keys(outputs).join(", "), "+ src/app/favicon.ico + public/og/gachanavi.png");
 })();

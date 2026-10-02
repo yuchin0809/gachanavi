@@ -51,7 +51,9 @@ export function ProductLocationsView({
   if (entries.length === 0) {
     return (
       <p className="rounded-2xl bg-surface p-6 text-center text-sm text-muted ring-1 ring-line">
-        まだ設置場所が報告されていません。
+        現在、このガチャの設置店舗の情報は登録されていません。
+        <br />
+        お店で見つけたら「この店舗で見つけた」から教えてください。
       </p>
     );
   }

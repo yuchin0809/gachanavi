@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { GachaCard } from "@/components/gacha/GachaCard";
 import { HorizontalScroller } from "@/components/gacha/HorizontalScroller";
 import { SectionHeader } from "@/components/gacha/SectionHeader";
@@ -8,6 +9,12 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { getNewProducts, getTrendingProducts, getUpcomingProducts } from "@/lib/data";
 import { formatReleaseMonth } from "@/lib/format";
 import { latestMonth } from "@/lib/release";
+import { DEFAULT_OG_IMAGE, OG_BASE } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: { ...OG_BASE, url: "/", images: [DEFAULT_OG_IMAGE] },
+};
 
 // 在庫・報告時刻は常に最新を表示したいため、リクエストごとに描画する
 export const dynamic = "force-dynamic";
@@ -25,6 +32,7 @@ export default async function HomePage() {
         <PageContainer className="relative pb-7 pt-10 sm:pb-10 sm:pt-16">
           <p className="text-xs font-bold tracking-wider text-brand-ink">欲しいガチャを見つける。残っている場所まで分かる。</p>
           <h1 className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">欲しいガチャを探そう</h1>
+          <p className="mt-2 text-sm text-muted">ガチャガチャ（カプセルトイ）の設置店舗と在庫の報告を、商品名やキャラクターから探せます。</p>
           <div className="mt-5">
             <SearchBar size="hero" />
           </div>

@@ -5,8 +5,32 @@ import { PageContainer } from "@/components/layout/PageContainer";
 import { KeywordChips } from "@/components/search/KeywordChips";
 import { SearchBar } from "@/components/search/SearchBar";
 import { searchProducts } from "@/lib/data";
+import { DEFAULT_OG_IMAGE, NOINDEX_FOLLOW, OG_BASE } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = { title: "ガチャを検索" };
+/**
+ * 一覧（条件なし）だけを検索結果の対象にする。キーワード・絞り込み・ページ送りの付いた URL は
+ * 組み合わせが無数にあるため noindex（リンクはたどってよい）。商品ページはサイトマップと内部リンクで見つけてもらう
+ */
+export async function generateMetadata({ searchParams }: PageProps<"/search">): Promise<Metadata> {
+  const params = await searchParams;
+  const query = firstParam(params.q);
+  const hasParams = Object.values(params).some((v) => firstParam(v) !== "");
+  if (hasParams) {
+    return {
+      title: query ? `「${query.slice(0, 40)}」のガチャ検索結果` : "ガチャを検索",
+      robots: NOINDEX_FOLLOW,
+    };
+  }
+  const title = "ガチャを探す（ガチャガチャ・カプセルトイ検索）";
+  const description =
+    "発売中・発売予定のガチャガチャ（カプセルトイ）の一覧。商品名・キャラクター・シリーズ名で検索して、設置店舗と在庫情報を確認できます。";
+  return {
+    title,
+    description,
+    alternates: { canonical: "/search" },
+    openGraph: { ...OG_BASE, title: `${title}｜GachaNavi`, description, url: "/search", images: [DEFAULT_OG_IMAGE] },
+  };
+}
 
 function firstParam(value: string | string[] | undefined): string {
   return (Array.isArray(value) ? value[0] : value)?.trim() ?? "";

@@ -406,6 +406,14 @@ Firebase App Hosting は Blaze プランが必要なため、Spark プランの�
 （Vercel 本番環境で発生）。14 系に上げる場合は、実行環境の Node.js が `require(esm)` に対応しているか
 （`node --no-experimental-require-module` で起動して再現しないか）を確認してください。
 
+## SEO
+
+商品・店舗ページの title / description / canonical / OGP / JSON-LD / パンくず、`/robots.txt`、`/sitemap.xml`
+（サイトマップ インデックス）を出力します。検索エンジンに公開するのは `DATA_SOURCE=firestore` かつ Vercel 本番
+（`VERCEL_ENV=production`）のときだけで、Preview・開発・モックは `noindex` と `Disallow: /` になります。
+本番の公開 URL は `NEXT_PUBLIC_SITE_URL` で指定します。仕様・確認結果・Search Console での作業は
+[docs/seo-report.md](docs/seo-report.md) を参照してください。
+
 ## 今後の予定（未実装）
 
 - **ログイン**：現在は匿名認証のみです。ブラウザのデータを消すと別のユーザーになります。
