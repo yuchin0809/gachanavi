@@ -20,16 +20,23 @@ function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
 
+const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>';
+const SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9";
+
+/** <url> / <sitemap> の要素（1 要素ずつ改行・字下げした読みやすい形） */
+function entry(tag: "url" | "sitemap", loc: string, lastModified?: string): string {
+  const lastmod = lastModified ? `\n    <lastmod>${escapeXml(lastModified)}</lastmod>` : "";
+  return `  <${tag}>\n    <loc>${escapeXml(loc)}</loc>${lastmod}\n  </${tag}>`;
+}
+
 export function urlset(entries: { path: string; lastModified?: string }[]): string {
-  const body = entries
-    .map((e) => `<url><loc>${escapeXml(absoluteUrl(e.path))}</loc>${e.lastModified ? `<lastmod>${e.lastModified}</lastmod>` : ""}</url>`)
-    .join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+  const body = entries.map((e) => entry("url", absoluteUrl(e.path), e.lastModified));
+  return [XML_DECLARATION, `<urlset xmlns="${SITEMAP_NS}">`, ...body, "</urlset>", ""].join("\n");
 }
 
 export function sitemapIndex(names: string[]): string {
-  const body = names.map((n) => `<sitemap><loc>${escapeXml(absoluteUrl(`/sitemaps/${n}`))}</loc></sitemap>`).join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</sitemapindex>\n`;
+  const body = names.map((n) => entry("sitemap", absoluteUrl(`/sitemaps/${n}`)));
+  return [XML_DECLARATION, `<sitemapindex xmlns="${SITEMAP_NS}">`, ...body, "</sitemapindex>", ""].join("\n");
 }
 
 export function productSitemapNames(productCount: number): string[] {

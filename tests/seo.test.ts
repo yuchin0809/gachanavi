@@ -144,12 +144,31 @@ test("urlset / sitemapIndex: 絶対 URL・XML エスケープ・lastmod は分�
   setEnv({ NEXT_PUBLIC_SITE_URL: "https://gachanavi.example.jp" });
   const xml = urlset([{ path: "/gacha/a&b" }, { path: "/locations/x", lastModified: "2026-09-01T00:00:00.000Z" }]);
   assert.match(xml, /^<\?xml version="1.0" encoding="UTF-8"\?>/);
-  assert.match(xml, /<url><loc>https:\/\/gachanavi\.example\.jp\/gacha\/a&amp;b<\/loc><\/url>/);
-  assert.match(xml, /<loc>https:\/\/gachanavi\.example\.jp\/locations\/x<\/loc><lastmod>2026-09-01T00:00:00.000Z<\/lastmod>/);
+  assert.match(xml, /<url>\s*<loc>https:\/\/gachanavi\.example\.jp\/gacha\/a&amp;b<\/loc>\s*<\/url>/);
+  assert.match(xml, /<loc>https:\/\/gachanavi\.example\.jp\/locations\/x<\/loc>\s*<lastmod>2026-09-01T00:00:00.000Z<\/lastmod>/);
   assert.equal(xml.match(/<lastmod>/g)?.length, 1);
   const idx = sitemapIndex(["pages.xml", "products-1.xml"]);
   assert.match(idx, /<sitemapindex /);
   assert.match(idx, /<loc>https:\/\/gachanavi\.example\.jp\/sitemaps\/products-1\.xml<\/loc>/);
+});
+
+test("sitemapIndex: Google が読める sitemap index（XML 宣言・名前空間・<sitemap><loc>）", () => {
+  setEnv({ NEXT_PUBLIC_SITE_URL: "https://gachanavi-alpha.vercel.app" });
+  assert.equal(
+    sitemapIndex(["pages.xml", "products-1.xml"]),
+    [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      "  <sitemap>",
+      "    <loc>https://gachanavi-alpha.vercel.app/sitemaps/pages.xml</loc>",
+      "  </sitemap>",
+      "  <sitemap>",
+      "    <loc>https://gachanavi-alpha.vercel.app/sitemaps/products-1.xml</loc>",
+      "  </sitemap>",
+      "</sitemapindex>",
+      "",
+    ].join("\n"),
+  );
 });
 
 test("productSitemapNames: 10,000 件ずつに分割（1 ファイル 50,000 URL の上限内）", () => {
