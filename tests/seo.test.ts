@@ -161,25 +161,42 @@ test("productSitemapNames: 10,000 件ずつに分割（1 ファイル 50,000 URL
 
 /* ---------------- JSON-LD ---------------- */
 
-test("productJsonLd: 実データだけ（評価・レビュー・SKU・ブランド・在庫状況は入れない）", () => {
+/** 販売者向け（Google の「販売者のリスティング」）の項目・架空になりうる項目。商品の JSON-LD には付けない */
+const NON_SELLER_FORBIDDEN = [
+  "offers", "category", "brand", "gtin", "gtin8", "gtin12", "gtin13", "gtin14", "sku", "mpn",
+  "availability", "shippingDetails", "hasMerchantReturnPolicy", "review", "aggregateRating", "price", "priceCurrency",
+];
+
+test("productJsonLd: 商品名・説明・URL・画像・メーカーだけ（実データ）", () => {
   setEnv({ NEXT_PUBLIC_SITE_URL: "https://gachanavi.example.jp" });
   const ld = productJsonLd(product, "説明");
-  assert.equal(ld["@type"], "Product");
-  assert.equal(ld.url, "https://gachanavi.example.jp/gacha/bandai-123");
-  assert.equal(ld.image, "https://gachanavi.example.jp/gacha/bandai-123/opengraph-image");
-  assert.deepEqual(ld.manufacturer, { "@type": "Organization", name: "カプセルワークス" });
-  const offers = ld.offers as Record<string, unknown>;
-  assert.equal(offers.price, 300);
-  assert.equal(offers.priceCurrency, "JPY");
-  const json = JSON.stringify(ld);
-  for (const k of ["aggregateRating", "review", "sku", "gtin", "brand", "availability"]) assert.ok(!json.includes(`"${k}"`), k);
-  assert.doesNotMatch(json, /InStock/);
+  assert.deepEqual(ld, {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "ねこだんご ミニフィギュア",
+    url: "https://gachanavi.example.jp/gacha/bandai-123",
+    description: "説明",
+    image: "https://gachanavi.example.jp/gacha/bandai-123/opengraph-image",
+    manufacturer: { "@type": "Organization", name: "カプセルワークス" },
+  });
 });
 
-test("productJsonLd: 価格・メーカーが不明なら offers・manufacturer を付けない", () => {
-  const ld = productJsonLd({ ...product, price: null, maker: "" } as GachaProduct, "説明");
+test("productJsonLd: 販売者ではないため offers・category などの販売者向けの項目を付けない（価格が分かっていても）", () => {
+  setEnv({ NEXT_PUBLIC_SITE_URL: "https://gachanavi.example.jp" });
+  assert.equal(product.price, 300, "前提：価格のデータがある商品");
+  const ld = productJsonLd(product, "説明");
   assert.equal(ld.offers, undefined);
+  assert.equal(ld.category, undefined);
+  const json = JSON.stringify(ld);
+  for (const k of NON_SELLER_FORBIDDEN) assert.ok(!json.includes(`"${k}"`), k);
+  assert.doesNotMatch(json, /InStock|OutOfStock|schema\.org\/Offer/);
+});
+
+test("productJsonLd: メーカーが不明なら manufacturer を付けない", () => {
+  const ld = productJsonLd({ ...product, price: null, maker: "" } as GachaProduct, "説明");
   assert.equal(ld.manufacturer, undefined);
+  assert.equal(ld.offers, undefined);
+  assert.equal(ld.category, undefined);
 });
 
 test("storeJsonLd: 住所・座標は分かるときだけ", () => {
