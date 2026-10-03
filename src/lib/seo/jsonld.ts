@@ -4,39 +4,25 @@ import { prefectureCodeOf, prefectureName } from "./text";
 
 /**
  * 構造化データ（JSON-LD）。ページに表示している情報だけを使う。
- * - レビュー・評価・在庫（availability）・SKU などは持っていないため入れない
- * - 在庫は利用者の報告にもとづく目安で、GachaNavi が確認したものではないため Offer の availability には使わない
+ *
+ * GachaNavi は販売者ではない（設置店舗・在庫の報告を探すサービス）ため、商品は販売者向けの
+ * マークアップ（Google の「販売者のリスティング」）にしない:
+ * - offers（価格・在庫・配送・返品）は付けない。価格は画面にだけ表示する（メーカー公表の 1 回の価格）
+ * - category・brand・gtin・review・aggregateRating は、確かなデータが無いため付けない
  */
 type JsonLd = Record<string, unknown>;
 
 export function productJsonLd(product: GachaProduct, description: string): JsonLd {
-  const url = absoluteUrl(`/gacha/${product.id}`);
   const data: JsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    url,
+    url: absoluteUrl(`/gacha/${product.id}`),
     description,
-    category: "カプセルトイ（ガチャガチャ）",
     // OGP と同じ GachaNavi オリジナルの商品ビジュアル（メーカーの画像は使わない）
     image: absoluteUrl(`/gacha/${product.id}/opengraph-image`),
   };
   if (product.maker) data.manufacturer = { "@type": "Organization", name: product.maker };
-  if (product.price !== null) {
-    // 1 回の価格（メーカー公表の価格。ページの「価格」と同じ）。在庫の状態（availability）は付けない
-    data.offers = {
-      "@type": "Offer",
-      url,
-      price: product.price,
-      priceCurrency: "JPY",
-      priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        price: product.price,
-        priceCurrency: "JPY",
-        ...(product.priceTaxIncluded !== null ? { valueAddedTaxIncluded: product.priceTaxIncluded } : {}),
-      },
-    };
-  }
   return data;
 }
 

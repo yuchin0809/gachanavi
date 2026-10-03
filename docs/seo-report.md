@@ -205,15 +205,30 @@ Disallow: /
 | `name` | 商品名 |
 | `url` | canonical と同じ |
 | `description` | meta description と同じ |
-| `category` | 「カプセルトイ（ガチャガチャ）」 |
 | `image` | 商品の OGP 画像（オリジナルの商品ビジュアル） |
 | `manufacturer` | `Organization`。メーカーが分かる場合のみ |
-| `offers` | 価格が分かる場合のみ。`Offer`（price・priceCurrency=JPY・url）と `UnitPriceSpecification`（1 回の価格、税込みかどうかが分かれば `valueAddedTaxIncluded`） |
 
-`aggregateRating`、`review`、`sku`、`gtin`、`brand`、`availability`（`InStock` など）は入れません。
+GachaNavi は販売者ではない（設置店舗と在庫の報告を探すサービス）ため、販売者向けの項目は入れません。
 
-- 在庫は利用者の報告にもとづく目安で、GachaNavi が確認したものではないためです。
-- そのため Search Console のリッチリザルト レポートで「availability がありません」などの警告が出ることがありますが、事実と異なる値で埋めることはしません。
+- **入れない項目**：`offers`（価格・`availability`・`shippingDetails`・`hasMerchantReturnPolicy`）、`category`、`brand`、`gtin`、`sku`、`review`、`aggregateRating`。
+- **価格**：画面には「価格 1回◯円」（メーカー公表の価格）をそのまま表示します。構造化データには入れません。
+- **在庫**：利用者の報告にもとづく目安で、GachaNavi が確認したものではないため `availability` には使いません。
+
+#### 変更履歴（2026-10-03）
+
+当初は価格が分かる商品に `offers`（`Offer`）と `category`（「カプセルトイ（ガチャガチャ）」）を入れていました。
+
+- その結果、Search Console の「販売者のリスティング」レポートで、グローバル ID、`hasMerchantReturnPolicy`、`category` の値、`shippingDetails`、`availability` について、重大ではない問題が検出されました。
+- Google のドキュメントでは、販売者のリスティングは「Only pages where a shopper can purchase a product are eligible for merchant listing experiences, not pages with links to other sites that sell the product.」とされ、`Offer` は販売者自身が売る場合のものです。GachaNavi の商品ページには当てはまらないため、`offers` と `category` を削除しました。
+- 架空の販売・在庫・配送・返品・レビュー・評価の情報で警告を埋めることはしません。
+- 削除後は、商品ページが「販売者のリスティング」の対象から外れ、数日〜数週間で同レポートから消える見込みです。
+- 商品スニペット（`review`・`aggregateRating`・`offers` のいずれかが必須）の対象にもなりませんが、実際のレビュー・評価が無いため想定どおりです。
+- パンくずリストと店舗の構造化データは変わりません。
+
+#### `gtin` / `brand` を入れない理由
+
+- **JAN**：収集データの JAN は Firestore に保存しておらず、追加には再取り込み（Firestore への書き込み）が必要です。さらに、バンダイの `jan_code` は 16 桁で、GTIN の形式ではありません。
+- **brand**：収集データの `brand` には「その他」などの区分も含まれ、ブランド名として確かではありません。
 
 ### 店舗ページ：`Store`
 
@@ -311,7 +326,7 @@ Disallow: /
    - canonical が本番 URL であること
    - 構造化データ（パンくずリスト・商品）が検出されること
 4. **ページのインデックス登録レポート**：数日〜数週間後に「検出 - インデックス未登録」「クロール済み - インデックス未登録」の推移を確認します。
-5. **拡張 → パンくずリスト / 商品スニペット**：エラーが無いことを確認します。`availability` などの警告は、意図して入れていない項目です（[8. JSON-LD](#8-json-ld)）。
+5. **拡張 → パンくずリスト**：エラーが無いことを確認します。商品ページは販売者向けのマークアップを入れていないため、「販売者のリスティング」「商品スニペット」の対象外です（[8. JSON-LD](#8-json-ld)）。以前の警告は再クロール後に消えます。
 6. 任意：リッチリザルト テスト（https://search.google.com/test/rich-results）で商品ページを確認します。
 
 ## 16. Vercel で必要な設定
